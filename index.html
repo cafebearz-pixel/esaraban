@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v2.4 (Clean Icons)</title>
+    <title>eSaraban v2.4 (Clean Icons & iPad Fix)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f1f5f9; font-family: sans-serif;}
@@ -23,7 +23,8 @@
 <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-900 text-white p-5 shadow-2xl transform -translate-x-full">
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl tracking-tight text-white">eSaraban</h1>
-        <button onclick="toggleSidebar()" class="hover:text-yellow-400 md:hidden">
+        <!-- เปลี่ยนจาก md:hidden เป็น lg:hidden ตรงนี้ครับ -->
+        <button onclick="toggleSidebar()" class="hover:text-yellow-400 lg:hidden">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
