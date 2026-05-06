@@ -1,243 +1,221 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>eSaraban</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-body{background:#f1f5f9}
-#sidebar{transition:0.3s}
-#content{transition:0.3s}
-
-/* slider */
-.slider{overflow:hidden;border-radius:16px}
-.slider-track{
-display:flex;
-transition:transform .5s ease;
-}
-.slide{
-min-width:100%;
-}
-
-/* modal */
-.modal{backdrop-filter: blur(6px);}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSaraban</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body{background:#f1f5f9}
+        #sidebar{transition:0.3s}
+        #content{transition:0.3s}
+        .slider{overflow:hidden;border-radius:16px}
+        .slider-track{display:flex;transition:transform .5s ease;}
+        .slide{min-width:100%;}
+        .modal{backdrop-filter: blur(6px);}
+        /* ซ่อนปุ่มแก้ไขถ้าไม่ใช่ admin */
+        .admin-only { display: none; }
+    </style>
 </head>
 <body>
 
 <!-- SIDEBAR -->
 <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-900 text-white p-5 z-40">
-
-<div class="flex justify-between items-center mb-6">
-<h1 class="font-bold">eSaraban</h1>
-<button onclick="toggleSidebar()" class="text-xl">☰</button>
-</div>
-
-<ul class="space-y-3">
-<li class="bg-yellow-400 text-black p-2 rounded">หน้าหลัก</li>
-<li>หนังสือรับ</li>
-<li>หนังสือส่ง</li>
-<li>ใบคำร้อง</li>
-<li>สถานะต่างๆ</li>
-<li>เสร็จสิ้นแล้ว</li>
-<li>ปฏิทิน</li>
-<li>วิธีใช้งาน</li>
-</ul>
-
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="font-bold">eSaraban</h1>
+        <button onclick="toggleSidebar()" class="text-xl">☰</button>
+    </div>
+    <ul class="space-y-3">
+        <li class="bg-yellow-400 text-black p-2 rounded">หน้าหลัก</li>
+        <li>หนังสือรับ</li>
+        <li>หนังสือส่ง</li>
+        <li>ใบคำร้อง</li>
+        <li>สถานะต่างๆ</li>
+        <li>เสร็จสิ้นแล้ว</li>
+        <li>ปฏิทิน</li>
+        <li>วิธีใช้งาน</li>
+    </ul>
 </div>
 
 <!-- CONTENT -->
 <div id="content" class="ml-64">
+    <!-- TOP -->
+    <div class="bg-blue-900 text-white p-4 flex items-center relative">
+        <button id="menuBtn" onclick="toggleSidebar()" class="absolute left-4 text-xl hidden">☰</button>
+        <div class="text-center flex-1">
+            <h1 class="font-bold">ระบบสารบัญอิเล็กทรอนิกส์</h1>
+            <p class="text-xs text-gray-300">องค์การบริหารส่วนตำบลชำผักแพว</p>
+        </div>
+        <!-- เปลี่ยนปุ่มเป็น Toggle Button -->
+        <button id="authBtn" onclick="handleAuthClick()" class="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold">
+            GUEST
+        </button>
+    </div>
 
-<!-- TOP -->
-<div class="bg-blue-900 text-white p-4 flex items-center relative">
+    <div class="p-4 space-y-4">
+        <!-- ประกาศ -->
+        <div class="bg-white p-4 rounded-xl shadow flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <svg width="20" height="20" fill="#2563eb" viewBox="0 0 24 24">
+                    <path d="M3 10v4h4l5 4V6L7 10H3z"/>
+                </svg>
+                <p id="announceText">ไม่มีประกาศ</p>
+            </div>
+            <!-- ปุ่มแก้ไขประกาศ เฉพาะ admin -->
+            <button onclick="editAnnounce()" class="admin-only">
+                <svg width="18" height="18" fill="#6b7280" viewBox="0 0 24 24">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
+                </svg>
+            </button>
+        </div>
 
-<button id="menuBtn" onclick="toggleSidebar()" class="absolute left-4 text-xl hidden">
-☰
-</button>
+        <h2 class="font-bold text-gray-700">📂 หนังสือสำคัญประจำเดือน</h2>
 
-<div class="text-center flex-1">
-<h1 class="font-bold">ระบบสารบัญอิเล็กทรอนิกส์</h1>
-<p class="text-xs text-gray-300">องค์การบริหารส่วนตำบลชำผักแพว</p>
+        <!-- SLIDER -->
+        <div class="bg-white p-4 rounded-xl shadow">
+            <div class="slider">
+                <div id="sliderTrack" class="slider-track"></div>
+            </div>
+            <!-- admin add -->
+            <div id="adminPanel" class="admin-only mt-3 flex gap-2">
+                <input id="imgLink" placeholder="ลิงก์ Google Drive" class="border p-2 rounded w-full">
+                <button onclick="addImage()" class="bg-blue-500 text-white px-4 rounded">เพิ่ม</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<button onclick="openLogin()" class="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold">
-ADMIN
-</button>
-
-</div>
-
-<div class="p-4 space-y-4">
-
-<!-- ประกาศ -->
-<div class="bg-white p-4 rounded-xl shadow flex justify-between items-center">
-
-<div class="flex items-center gap-2">
-
-<svg width="20" height="20" fill="#2563eb" viewBox="0 0 24 24">
-<path d="M3 10v4h4l5 4V6L7 10H3z"/>
-</svg>
-
-<p id="announceText">ไม่มีประกาศ</p>
-
-</div>
-
-<button onclick="editAnnounce()">
-<svg width="18" height="18" fill="#6b7280" viewBox="0 0 24 24">
-<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
-</svg>
-</button>
-
-</div>
-
-<!-- หัวข้อ -->
-<h2 class="font-bold text-gray-700">📂 หนังสือสำคัญประจำเดือน</h2>
-
-<!-- SLIDER -->
-<div class="bg-white p-4 rounded-xl shadow">
-
-<div class="slider">
-<div id="sliderTrack" class="slider-track"></div>
-</div>
-
-<!-- admin add -->
-<div id="adminPanel" class="hidden mt-3 flex gap-2">
-<input id="imgLink" placeholder="ลิงก์ Google Drive" class="border p-2 rounded w-full">
-<button onclick="addImage()" class="bg-blue-500 text-white px-4 rounded">เพิ่ม</button>
-</div>
-
-</div>
-
-</div>
-</div>
-
-<!-- LOGIN -->
-<div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center">
-
-<div class="bg-white p-6 rounded-2xl shadow-xl w-80 text-center">
-
-<h2 class="font-bold mb-4">เข้าสู่ระบบ</h2>
-
-<div class="flex bg-gray-100 rounded-full p-1 mb-4">
-<button onclick="setMode('guest')" id="guestBtn" class="flex-1 py-1 rounded-full bg-white">ผู้ชม</button>
-<button onclick="setMode('admin')" id="adminBtn" class="flex-1 py-1 rounded-full">Admin</button>
-</div>
-
-<input id="password" type="password" placeholder="รหัสผ่าน"
-class="w-full p-3 rounded-xl border text-center mb-4">
-
-<button onclick="login()" class="w-full bg-blue-900 text-white p-3 rounded-xl">
-เข้าสู่ระบบ
-</button>
-
-</div>
+<!-- LOGIN MODAL (สำหรับ Admin) -->
+<div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-2xl shadow-xl w-80 text-center">
+        <h2 class="font-bold mb-4">ยืนยันรหัสผ่าน Admin</h2>
+        <input id="password" type="password" placeholder="รหัสผ่าน"
+               class="w-full p-3 rounded-xl border text-center mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class="flex gap-2">
+            <button onclick="closeLogin()" class="flex-1 bg-gray-200 p-3 rounded-xl">ยกเลิก</button>
+            <button onclick="login()" class="flex-1 bg-blue-900 text-white p-3 rounded-xl">ยืนยัน</button>
+        </div>
+    </div>
 </div>
 
 <script>
+let isOpen = true;
+let isAdmin = false; // สถานะเริ่มต้นคือ Guest
 
-let isOpen=true
-let mode="guest"
-
-// sidebar
-function toggleSidebar(){
-const s=document.getElementById("sidebar")
-const c=document.getElementById("content")
-const m=document.getElementById("menuBtn")
-
-if(isOpen){
-s.style.transform="translateX(-100%)"
-c.style.marginLeft="0"
-m.style.display="block"
-}else{
-s.style.transform="translateX(0)"
-c.style.marginLeft="16rem"
-m.style.display="none"
-}
-isOpen=!isOpen
+// Sidebar Toggle
+function toggleSidebar() {
+    const s = document.getElementById("sidebar");
+    const c = document.getElementById("content");
+    const m = document.getElementById("menuBtn");
+    if(isOpen){
+        s.style.transform = "translateX(-100%)";
+        c.style.marginLeft = "0";
+        m.style.display = "block";
+    } else {
+        s.style.transform = "translateX(0)";
+        c.style.marginLeft = "16rem";
+        m.style.display = "none";
+    }
+    isOpen = !isOpen;
 }
 
-// login
-function openLogin(){
-document.getElementById("loginModal").classList.remove("hidden")
+// Logic หลักในการสลับโหมด
+function handleAuthClick() {
+    if (!isAdmin) {
+        // ถ้าเป็น Guest อยู่ ให้เปิดหน้าต่างใส่รหัส
+        openLogin();
+    } else {
+        // ถ้าเป็น Admin อยู่แล้ว ให้สลับกลับเป็น Guest ทันที
+        logout();
+    }
 }
 
-function setMode(m){
-mode=m
-document.getElementById("guestBtn").classList.toggle("bg-white",m==="guest")
-document.getElementById("adminBtn").classList.toggle("bg-white",m==="admin")
+function openLogin() {
+    document.getElementById("loginModal").classList.remove("hidden");
+    document.getElementById("password").value = "";
+    document.getElementById("password").focus();
 }
 
-function login(){
-if(mode==="admin"){
-if(document.getElementById("password").value==="1234"){
-alert("เข้าสู่โหมด Admin")
-document.getElementById("adminPanel").classList.remove("hidden")
-}
-}
-document.getElementById("loginModal").classList.add("hidden")
+function closeLogin() {
+    document.getElementById("loginModal").classList.add("hidden");
 }
 
-// announce
+function login() {
+    const pass = document.getElementById("password").value;
+    if (pass === "1234") {
+        isAdmin = true;
+        updateUI();
+        closeLogin();
+    } else {
+        alert("รหัสผ่านไม่ถูกต้อง");
+    }
+}
+
+function logout() {
+    if(confirm("ต้องการออกจากโหมด Admin ใช่หรือไม่?")) {
+        isAdmin = false;
+        updateUI();
+    }
+}
+
+// อัปเดตหน้าตาเว็บตามสถานะ isAdmin
+function updateUI() {
+    const authBtn = document.getElementById("authBtn");
+    const adminElements = document.querySelectorAll(".admin-only");
+    
+    if (isAdmin) {
+        authBtn.innerText = "ADMIN";
+        authBtn.classList.replace("bg-yellow-400", "bg-red-500");
+        authBtn.classList.add("text-white");
+        // แสดงส่วนที่เฉพาะ admin เท่านั้นที่เห็นได้
+        adminElements.forEach(el => el.style.display = "block");
+    } else {
+        authBtn.innerText = "GUEST";
+        authBtn.classList.replace("bg-red-500", "bg-yellow-400");
+        authBtn.classList.remove("text-white");
+        // ซ่อนส่วน admin
+        adminElements.forEach(el => el.style.display = "none");
+    }
+}
+
+// --- ส่วนประกาศและ Slider (คงเดิม) ---
 function editAnnounce(){
-let txt=prompt("แก้ไขประกาศ")
-if(txt) document.getElementById("announceText").innerText=txt
+    let txt = prompt("แก้ไขประกาศ", document.getElementById("announceText").innerText);
+    if(txt) document.getElementById("announceText").innerText = txt;
 }
 
-// slider
-let images=[]
-let index=0
+let images = [];
+let index = 0;
 
 function convertDrive(url){
-let id=url.match(/[-\w]{25,}/)
-return id ? `https://lh3.googleusercontent.com/d/${id}` : url
+    let id = url.match(/[-\w]{25,}/);
+    return id ? `https://lh3.googleusercontent.com/d/${id}` : url;
 }
 
 function render(){
-let track=document.getElementById("sliderTrack")
-track.innerHTML=""
-
-images.forEach(i=>{
-track.innerHTML+=`<img src="${i}" class="slide h-[500px] object-cover">`
-})
+    let track = document.getElementById("sliderTrack");
+    track.innerHTML = "";
+    images.forEach(i => {
+        track.innerHTML += `<img src="${i}" class="slide h-[500px] object-cover">`;
+    });
 }
 
 function addImage(){
-let link=document.getElementById("imgLink").value
-images.push(convertDrive(link))
-render()
+    let link = document.getElementById("imgLink").value;
+    if(link) {
+        images.push(convertDrive(link));
+        render();
+        document.getElementById("imgLink").value = "";
+    }
 }
 
-setInterval(()=>{
-if(images.length>0){
-index=(index+1)%images.length
-document.getElementById("sliderTrack").style.transform=`translateX(-${index*100}%)`
-}
-},4000)
-
-// swipe
-let startX=0
-document.getElementById("sliderTrack").addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX
-})
-
-document.getElementById("sliderTrack").addEventListener("touchend",e=>{
-let endX=e.changedTouches[0].clientX
-if(startX-endX>50){
-index++
-}else if(endX-startX>50){
-index--
-}
-if(index<0) index=0
-if(index>=images.length) index=images.length-1
-document.getElementById("sliderTrack").style.transform=`translateX(-${index*100}%)`
-})
+setInterval(() => {
+    if(images.length > 1){
+        index = (index + 1) % images.length;
+        document.getElementById("sliderTrack").style.transform = `translateX(-${index * 100}%)`;
+    }
+}, 4000);
 
 </script>
-
 </body>
 </html>
