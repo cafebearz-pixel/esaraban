@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v3.0 (Pro Dashboard & Mobile Cards)</title>
+    <title>eSaraban v3.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f4f7f9; font-family: sans-serif;}
@@ -23,24 +23,12 @@
             background-position: right 1rem center;
             background-size: 1em;
         }
-
-        /* Toast Animation */
-        @keyframes slideUp {
-            from { transform: translate(-50%, 100%); opacity: 0; }
-            to { transform: translate(-50%, 0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { transform: translate(-50%, 0); opacity: 1; }
-            to { transform: translate(-50%, 100%); opacity: 0; }
-        }
-        .toast-enter { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .toast-exit { animation: fadeOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
 <body>
 
 <!-- SIDEBAR -->
-<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-[#1e3a8a] text-white p-5 shadow-2xl transform -translate-x-full">
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-[#1e3a8a] text-white p-5 shadow-2xl transform -translate-x-full lg:translate-x-0">
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl tracking-tight text-white">eSaraban</h1>
         <button onclick="toggleSidebar()" class="hover:text-yellow-400 lg:hidden">
@@ -49,11 +37,11 @@
     </div>
     <nav>
         <ul id="menuList" class="space-y-2">
-            <li onclick="showPage('home')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+            <li onclick="showPage('home')" class="menu-item menu-active p-3 rounded-lg flex items-center gap-3">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span>หน้าหลัก</span>
             </li>
-            <li onclick="showPage('receive')" class="menu-item menu-active p-3 rounded-lg flex items-center gap-3">
+            <li onclick="showPage('receive')" class="menu-item p-3 rounded-lg flex items-center gap-3">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
                 <span>หนังสือรับ</span>
             </li>
@@ -61,17 +49,37 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                 <span>หนังสือส่ง</span>
             </li>
+            <li onclick="showPage('request')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>ใบคำร้อง</span>
+            </li>
+            <li onclick="showPage('status')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span>สถานะต่างๆ</span>
+            </li>
+            <li onclick="showPage('finish')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>เสร็จสิ้นแล้ว</span>
+            </li>
+            <li onclick="showPage('calendar')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>ปฏิทิน</span>
+            </li>
+            <li onclick="showPage('manual')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>วิธีใช้งาน</span>
+            </li>
         </ul>
     </nav>
 </div>
 
 <!-- CONTENT AREA -->
-<div id="content" class="ml-0 min-h-screen flex flex-col">
+<div id="content" class="ml-0 lg:ml-64 min-h-screen flex flex-col">
     
     <!-- TOP NAVBAR -->
     <header class="bg-[#1e3a8a] text-white p-4 flex justify-between items-center sticky top-0 shadow-md z-40">
         <div class="flex items-center gap-4">
-            <button id="menuBtn" onclick="toggleSidebar()" class="hover:text-yellow-400 block text-white">
+            <button id="menuBtn" onclick="toggleSidebar()" class="hover:text-yellow-400 block lg:hidden text-white">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
             <div class="text-left flex flex-col justify-center">
@@ -84,16 +92,39 @@
         </button>
     </header>
 
-    <main class="p-4 md:p-6 flex-1 max-w-7xl w-full mx-auto">
+    <main class="p-4 md:p-6 flex-1 w-full mx-auto">
         
-        <!-- --- PAGE: HOME (ซ่อนไว้ก่อน) --- -->
-        <div id="page-home" class="page-content space-y-6">
-            <h2 class="text-2xl font-bold text-gray-800">หน้าหลัก (สมมติว่ามีเนื้อหา)</h2>
-            <button onclick="showPage('receive')" class="text-blue-600 underline">ไปหน้าหนังสือรับ -></button>
+        <!-- --- PAGE: HOME --- -->
+        <div id="page-home" class="page-content page-active space-y-6">
+             <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-blue-600 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <svg class="w-7 h-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" />
+                        <path d="M15.932 7.757a.75.75 0 011.061 0 4.5 4.5 0 010 6.364.75.75 0 01-1.06-1.06 3 3 0 000-4.243.75.75 0 010-1.061z" />
+                    </svg>
+                    <p id="announceText" class="text-gray-700 font-medium">ยินดีต้อนรับสู่ระบบงานสารบัญ</p>
+                </div>
+                <button onclick="editAnnounce()" class="admin-only hidden text-gray-400 hover:text-blue-600 flex items-center gap-1 text-sm font-medium">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                    แก้ไข
+                </button>
+            </div>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+                    หนังสือสำคัญประจำเดือน
+                </h2>
+                <div id="importantDocsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-gray-100 p-8 rounded-2xl text-center text-gray-400 border-2 border-dashed col-span-full">
+                        ยังไม่มีหนังสือสำคัญที่ถูกเลือก
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- --- PAGE: หนังสือรับ (RECEIVE) --- -->
-        <div id="page-receive" class="page-content page-active space-y-6">
+        <div id="page-receive" class="page-content space-y-6">
             
             <!-- Header Section -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -212,6 +243,14 @@
             </div>
 
         </div>
+
+        <!-- --- PAGE: อื่นๆ --- -->
+        <div id="page-placeholder" class="page-content text-center py-20">
+            <svg class="w-16 h-16 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <h2 class="text-2xl font-bold text-gray-600">กำลังพัฒนาระบบส่วนนี้</h2>
+            <button onclick="showPage('home')" class="text-blue-600 mt-4 hover:underline">กลับหน้าหลัก</button>
+        </div>
+
     </main>
 </div>
 
@@ -330,22 +369,31 @@
 
     function showPage(pageId) {
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
-        document.getElementById('page-' + pageId).classList.add('page-active');
+        
+        const target = document.getElementById('page-' + pageId);
+        if(target) target.classList.add('page-active');
+        else document.getElementById('page-placeholder').classList.add('page-active');
+
         document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('menu-active'));
-        const activeMenu = Array.from(document.querySelectorAll('.menu-item')).find(m => m.innerText.includes(pageId === 'receive' ? 'หนังสือรับ' : 'หน้าหลัก'));
+        const activeMenu = Array.from(document.querySelectorAll('.menu-item')).find(m => m.innerText.includes(getPageTitle(pageId)));
         if(activeMenu) activeMenu.classList.add('menu-active');
+
         if(window.innerWidth < 1024 && isOpen) toggleSidebar();
     }
+
+    function getPageTitle(id) {
+        const titles = {home: 'หน้าหลัก', receive: 'หนังสือรับ', send: 'หนังสือส่ง', request: 'ใบคำร้อง'};
+        return titles[id] || 'หน้าหลัก';
+    }
+
 
     function toggleSidebar() {
         const s = document.getElementById("sidebar");
         const c = document.getElementById("content");
         if(isOpen) {
             s.style.transform = "translateX(-100%)";
-            c.style.marginLeft = "0";
         } else {
             s.style.transform = "translateX(0)";
-            if(window.innerWidth >= 1024) c.style.marginLeft = "16rem"; 
         }
         isOpen = !isOpen;
     }
@@ -371,7 +419,7 @@
             isAdmin = true;
             updateUI();
             closeModal();
-            showPage('receive');
+            // showPage('receive');
         } else {
             alert("รหัสผ่านไม่ถูกต้อง");
         }
@@ -456,7 +504,7 @@
             <td class="p-4 py-5">${speedBadge}</td>
             <td class="p-4 py-5 text-gray-500">${person}</td>
             <td class="p-4 py-5 text-center">${statusBadge}</td>
-            <td class="p-4 py-5 text-center admin-only">${actionBtns}</td>
+            <td class="p-4 py-5 text-center admin-only hidden">${actionBtns}</td>
         `;
         tableBody.insertBefore(tr, tableBody.firstChild);
 
@@ -476,7 +524,7 @@
             </div>
             <div class="flex justify-between items-center pt-3 border-t border-gray-50">
                 <div>${speedBadge}</div>
-                <div class="admin-only">${actionBtns.replace('justify-center', 'justify-end')}</div>
+                <div class="admin-only hidden">${actionBtns.replace('justify-center', 'justify-end')}</div>
             </div>
             <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
@@ -494,7 +542,7 @@
         document.getElementById("inputPerson").value = "";
         
         closeAddDocModal();
-        updateUI(); // ให้โชว์ปุ่มจัดการในการ์ดใหม่ตามสถานะ admin
+        updateUI(); 
 
         // โชว์แจ้งเตือน Toast
         showToast(docNum);
@@ -523,7 +571,7 @@
     }
 
     // Start
-    showPage('receive');
+    showPage('home');
 </script>
 
 </body>
