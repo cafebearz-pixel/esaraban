@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SARABAN CPP</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
+.sidebar{transition:.3s;}
+</style>
+</head>
+
+<body class="flex">
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar fixed md:static w-64 h-screen bg-blue-900 text-white p-5 -translate-x-full md:translate-x-0 z-50">
+
+<h1 class="text-xl font-bold mb-6">eSaraban</h1>
+
+<ul class="space-y-2 text-sm">
+
+<li onclick="switchPage('dashboard')" class="p-3 bg-yellow-400 text-black rounded-xl cursor-pointer">หน้าหลัก</li>
+
+<li onclick="switchPage('receive')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">หนังสือรับ</li>
+
+<li onclick="switchPage('send')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">หนังสือส่ง</li>
+
+<li onclick="switchPage('request')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">ใบคำร้อง</li>
+
+<li onclick="switchPage('status')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">สถานะต่างๆ</li>
+
+<li onclick="switchPage('done')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">เสร็จสิ้นแล้ว</li>
+
+<li onclick="switchPage('calendar')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">ปฏิทิน</li>
+
+<li onclick="switchPage('help')" class="p-3 hover:bg-blue-700 rounded-xl cursor-pointer">วิธีใช้งาน</li>
+
+</ul>
+</div>
+
+<!-- Main -->
+<div class="flex-1">
+
+<!-- Topbar -->
+<div class="bg-blue-900 text-white p-4 flex justify-between items-center">
+
+<button onclick="toggleSidebar()" class="md:hidden text-xl">☰</button>
+
+<h1 class="font-bold">SARABAN CPP</h1>
+
+<button onclick="login()" id="adminBtn" class="bg-white text-blue-900 px-4 py-1 rounded-full text-sm">
+GUEST MODE
+</button>
+
+</div>
+
+<!-- Content -->
+<div class="p-4">
+
+<!-- SEARCH -->
+<input id="searchInput" onkeyup="render()" placeholder="ค้นหา..." class="w-full p-3 rounded-xl mb-4 border">
+
+<!-- DASHBOARD -->
+<div id="dashboardPage">
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+
+<div class="bg-blue-500 text-white p-4 rounded-xl">ทั้งหมด <br><b id="total"></b></div>
+<div class="bg-green-500 text-white p-4 rounded-xl">ลงรับ <br><b id="receive"></b></div>
+<div class="bg-orange-500 text-white p-4 rounded-xl">เสนอ <br><b id="process"></b></div>
+<div class="bg-purple-600 text-white p-4 rounded-xl">เสร็จ <br><b id="done"></b></div>
+
+</div>
+
+<div id="tableArea"></div>
+
+</div>
+
+<!-- OTHER PAGES -->
+<div id="receivePage" class="hidden"></div>
+<div id="sendPage" class="hidden"></div>
+<div id="requestPage" class="hidden"></div>
+<div id="statusPage" class="hidden"></div>
+<div id="donePage" class="hidden"></div>
+<div id="calendarPage" class="hidden"></div>
+<div id="helpPage" class="hidden p-4 bg-white rounded-xl">
+📌 วิธีใช้งาน:  
+- ค้นหาหนังสือ  
+- ดูสถานะ  
+- Admin เพิ่ม/แก้ไขข้อมูล  
+</div>
+
+</div>
+</div>
+
+<script>
+
+const API_URL = "YOUR_SCRIPT_URL";
+let documents = [];
+let isAdmin = false;
+
+// Sidebar toggle
+function toggleSidebar(){
+document.getElementById("sidebar").classList.toggle("-translate-x-full");
+}
+
+// Login
+function login(){
+let pass = prompt("รหัสผ่าน:");
+if(pass === "123456"){
+isAdmin = true;
+document.getElementById("adminBtn").innerText = "ADMIN MODE";
+}else{
+alert("รหัสผิด");
+}
+}
+
+// Fetch Data
+async function load(){
+let res = await fetch(API_URL + "?action=read");
+documents = await res.json();
+render();
+}
+load();
+
+// Switch Page
+function switchPage(page){
+
+["dashboard","receive","send","request","status","done","calendar","help"]
+.forEach(p=>{
+document.getElementById(p+"Page").classList.add("hidden");
+});
+
+document.getElementById(page+"Page").classList.remove("hidden");
+
+if(page==="receive") renderTable("receivePage","receive");
+if(page==="send") renderTable("sendPage","send");
+if(page==="request") renderTable("requestPage","request");
+if(page==="done") renderTable("donePage","done");
+if(page==="status") renderTable("statusPage");
+}
+
+// Dashboard render
+function render(){
+
+let q = document.getElementById("searchInput").value.toLowerCase();
+
+let data = documents.filter(d=>
+`${d.receiveNo2} ${d.subject} ${d.fromOrg}`.toLowerCase().includes(q)
+);
+
+// stats
+document.getElementById("total").innerText = data.length;
+document.getElementById("receive").innerText = data.filter(x=>x.status==="ลงรับแล้ว").length;
+document.getElementById("process").innerText = data.filter(x=>x.status==="กำลังเสนอ").length;
+document.getElementById("done").innerText = data.filter(x=>x.status==="เสร็จสิ้น").length;
+
+// table
+renderTable("tableArea",null,data);
+}
+
+// Render Table
+function renderTable(container,type=null,customData=null){
+
+let list = customData || documents;
+
+if(type){
+list = list.filter(x=>x.type===type || (type==="done" && x.status==="เสร็จสิ้น"));
+}
+
+list.sort((a,b)=> (a.receiveNo2||0)-(b.receiveNo2||0));
+
+document.getElementById(container).innerHTML = `
+<div class="overflow-x-auto bg-white rounded-xl">
+<table class="min-w-[900px] w-full text-sm">
+
+<thead class="bg-gray-100">
+<tr>
+<th class="p-2">เลขรับ</th>
+<th class="p-2">วันที่ออก</th>
+<th class="p-2">เรื่อง</th>
+<th class="p-2">จาก</th>
+<th class="p-2">วันที่รับ</th>
+<th class="p-2">สถานะ</th>
+<th class="p-2">กอง</th>
+</tr>
+</thead>
+
+<tbody>
+
+${list.map(d=>`
+<tr class="border-t">
+<td class="p-2">${d.receiveNo2||"-"}</td>
+<td class="p-2">${d.bookDate||"-"}</td>
+<td class="p-2 font-semibold">${d.subject||"-"}</td>
+<td class="p-2">${d.fromOrg||"-"}</td>
+<td class="p-2">${d.receivedDate||"-"}</td>
+<td class="p-2">${statusBadge(d.status)}</td>
+<td class="p-2">${d.owner||"-"}</td>
+</tr>
+`).join("")}
+
+</tbody>
+</table>
+</div>
+`;
+}
+
+// Status UI
+function statusBadge(s){
+if(s==="ลงรับแล้ว") return "📥 ลงรับแล้ว";
+if(s==="กำลังเสนอ") return "📤 กำลังเสนอ";
+if(s==="เสร็จสิ้น") return "✅ เสร็จสิ้น";
+return "-";
+}
+
+</script>
+
+</body>
+</html>
