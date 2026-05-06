@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v2.0</title>
+    <title>eSaraban v2.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body{background:#f1f5f9; font-family: 'Sarabun', sans-serif;}
-        #sidebar{transition:0.3s; z-index: 50;}
-        #content{transition:0.3s;}
+        body{background:#f1f5f9; font-family: sans-serif;}
+        #sidebar{transition: transform 0.3s ease-in-out; z-index: 50;}
+        #content{transition: margin 0.3s ease-in-out;}
         .modal{backdrop-filter: blur(8px); z-index: 100;}
         .admin-only { display: none; }
         .page-content { display: none; }
@@ -20,11 +20,12 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-900 text-white p-5 shadow-2xl">
+<!-- SIDEBAR (เริ่มต้นแบบซ่อน -translate-x-full) -->
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-900 text-white p-5 shadow-2xl transform -translate-x-full">
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl tracking-tight">eSaraban</h1>
-        <button onclick="toggleSidebar()" class="text-xl hover:text-yellow-400">☰</button>
+        <!-- ปุ่มกากบาทปิดเมนู (จะโชว์ในจอเล็ก) -->
+        <button onclick="toggleSidebar()" class="text-2xl hover:text-yellow-400 md:hidden">✕</button>
     </div>
     
     <nav>
@@ -41,12 +42,13 @@
     </nav>
 </div>
 
-<!-- CONTENT AREA -->
-<div id="content" class="ml-64 min-h-screen">
+<!-- CONTENT AREA (เริ่มต้นไม่มี margin-left) -->
+<div id="content" class="ml-0 min-h-screen">
     
     <!-- TOP NAVBAR -->
     <header class="bg-blue-900 text-white p-4 flex items-center sticky top-0 shadow-lg z-40">
-        <button id="menuBtn" onclick="toggleSidebar()" class="text-2xl mr-4 hidden hover:text-yellow-400">☰</button>
+        <!-- ปุ่มแฮมเบอร์เกอร์ แสดงเสมอ -->
+        <button id="menuBtn" onclick="toggleSidebar()" class="text-2xl mr-4 hover:text-yellow-400 block">☰</button>
         <div class="flex-1 text-center">
             <h1 class="font-bold text-lg md:text-xl">ระบบสารบัญอิเล็กทรอนิกส์</h1>
             <p class="text-xs text-blue-200">องค์การบริหารส่วนตำบลชำผักแพว</p>
@@ -71,7 +73,6 @@
             <section>
                 <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">📂 หนังสือสำคัญประจำเดือน</h2>
                 <div id="importantDocsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- รายการที่ Admin ติ๊กไว้จะมาแสดงตรงนี้ -->
                     <div class="bg-gray-100 p-8 rounded-2xl text-center text-gray-400 border-2 border-dashed col-span-full">
                         ยังไม่มีหนังสือสำคัญที่ถูกเลือก
                     </div>
@@ -83,27 +84,26 @@
         <div id="page-receive" class="page-content space-y-4">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold text-blue-900">📥 ทะเบียนหนังสือรับ</h2>
-                <button onclick="addDocPrompt()" class="admin-only bg-blue-600 text-white px-4 py-2 rounded-lg">+ เพิ่มหนังสือ</button>
+                <button onclick="addDocPrompt()" class="admin-only bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">+ เพิ่มหนังสือ</button>
             </div>
             
-            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-blue-50 text-blue-900 font-bold">
+            <div class="bg-white rounded-2xl shadow-sm overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[600px]">
+                    <thead class="bg-blue-50 text-blue-900 font-bold border-b-2 border-blue-100">
                         <tr>
-                            <th class="p-4 border-b">เลขรับ</th>
-                            <th class="p-4 border-b">เรื่อง</th>
-                            <th class="p-4 border-b">วันที่รับ</th>
-                            <th class="p-4 border-b admin-only text-center">สำคัญ?</th>
+                            <th class="p-4">เลขรับ</th>
+                            <th class="p-4">เรื่อง</th>
+                            <th class="p-4">วันที่รับ</th>
+                            <th class="p-4 admin-only text-center">สำคัญ?</th>
                         </tr>
                     </thead>
                     <tbody id="receiveDocsTable">
-                        <!-- ตัวอย่างข้อมูล -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="p-4 border-b">69/2567</td>
-                            <td class="p-4 border-b">ขอความร่วมมือจัดกิจกรรมวันสงกรานต์</td>
-                            <td class="p-4 border-b">1 เม.ย. 2567</td>
-                            <td class="p-4 border-b admin-only text-center">
-                                <input type="checkbox" onchange="toggleImportant('สงกรานต์', this.checked)" class="w-5 h-5 accent-blue-600">
+                        <tr class="hover:bg-gray-50 transition-colors border-b border-gray-100">
+                            <td class="p-4">69/2567</td>
+                            <td class="p-4">ขอความร่วมมือจัดกิจกรรมวันสงกรานต์</td>
+                            <td class="p-4">1 เม.ย. 2567</td>
+                            <td class="p-4 admin-only text-center">
+                                <input type="checkbox" onchange="toggleImportant('ขอความร่วมมือจัดกิจกรรมวันสงกรานต์', this.checked)" class="w-5 h-5 accent-blue-600 cursor-pointer">
                             </td>
                         </tr>
                     </tbody>
@@ -111,9 +111,9 @@
             </div>
         </div>
 
-        <!-- --- PAGE: อื่นๆ (Placeholder) --- -->
+        <!-- --- PAGE: อื่นๆ --- -->
         <div id="page-placeholder" class="page-content text-center py-20">
-            <div class="text-64 mb-4">🚧</div>
+            <div class="text-6xl mb-4">🚧</div>
             <h2 class="text-2xl font-bold text-gray-600">กำลังพัฒนาระบบส่วนนี้</h2>
             <button onclick="showPage('home')" class="text-blue-600 mt-4 underline">กลับหน้าหลัก</button>
         </div>
@@ -123,40 +123,40 @@
 
 <!-- LOGIN MODAL -->
 <div id="loginModal" class="hidden modal fixed inset-0 bg-black/50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 text-center animate-bounce-in">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 text-center">
         <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">🔑</div>
         <h2 class="text-2xl font-bold text-gray-800 mb-6">ผู้ดูแลระบบ</h2>
-        <input id="passInput" type="password" placeholder="ใส่รหัสผ่าน (1234)" 
-               class="w-full p-4 rounded-2xl border-2 border-gray-100 focus:border-blue-500 outline-none text-center text-xl mb-6">
+        <!-- แก้ไข placeholder ตรงนี้ -->
+        <input id="passInput" type="password" placeholder="กรอกรหัสผ่าน" 
+               class="w-full p-4 rounded-2xl border-2 border-gray-200 focus:border-blue-500 outline-none text-center text-xl mb-6 transition-colors">
         <div class="flex gap-3">
-            <button onclick="closeModal()" class="flex-1 py-4 bg-gray-100 rounded-2xl font-bold text-gray-500 hover:bg-gray-200">ยกเลิก</button>
-            <button onclick="checkPass()" class="flex-1 py-4 bg-blue-900 rounded-2xl font-bold text-white hover:bg-blue-800 shadow-lg">ยืนยัน</button>
+            <button onclick="closeModal()" class="flex-1 py-4 bg-gray-100 rounded-2xl font-bold text-gray-500 hover:bg-gray-200 transition-colors">ยกเลิก</button>
+            <button onclick="checkPass()" class="flex-1 py-4 bg-blue-900 rounded-2xl font-bold text-white hover:bg-blue-800 shadow-lg transition-colors">ยืนยัน</button>
         </div>
     </div>
 </div>
 
 <script>
     let isAdmin = false;
-    let isOpen = true;
+    let isOpen = false; // ค่าเริ่มต้นคือแถบเมนูปิดอยู่
     let importantDocs = [];
 
-    // --- ระบบเปลี่ยนหน้า (Navigation) ---
+    // --- ระบบเปลี่ยนหน้า ---
     function showPage(pageId) {
-        // ซ่อนทุกหน้า
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
         
-        // แสดงหน้าที่เลือก หรือหน้า Placeholder
         const target = document.getElementById('page-' + pageId);
         if(target) target.classList.add('page-active');
         else document.getElementById('page-placeholder').classList.add('page-active');
 
-        // ไฮไลท์เมนู
         document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('menu-active'));
         const activeMenu = Array.from(document.querySelectorAll('.menu-item')).find(m => m.innerText.includes(getPageTitle(pageId)));
         if(activeMenu) activeMenu.classList.add('menu-active');
 
-        // ปิดเมนูออโต้ถ้าเป็นจอมือถือ
-        if(window.innerWidth < 1024 && !isOpen) toggleSidebar();
+        // ถ้าเล่นบนมือถือ/แท็บเล็ต ให้ปิดแถบเมนูอัตโนมัติเมื่อกดเลือกหน้าแล้ว
+        if(window.innerWidth < 1024 && isOpen) {
+            toggleSidebar();
+        }
     }
 
     function getPageTitle(id) {
@@ -164,28 +164,33 @@
         return titles[id] || 'หน้าหลัก';
     }
 
-    // --- ระบบ Sidebar ---
+    // --- ระบบเปิดปิด Sidebar ---
     function toggleSidebar() {
         const s = document.getElementById("sidebar");
         const c = document.getElementById("content");
-        const b = document.getElementById("menuBtn");
+        
         if(isOpen) {
+            // สั่งปิด
             s.style.transform = "translateX(-100%)";
             c.style.marginLeft = "0";
-            b.style.display = "block";
         } else {
+            // สั่งเปิด
             s.style.transform = "translateX(0)";
-            c.style.marginLeft = "16rem";
-            b.style.display = "none";
+            // ถ้าเป็นคอมพิวเตอร์จอใหญ่ ให้ดันเนื้อหาไปทางขวาด้วย
+            if(window.innerWidth >= 1024) {
+                c.style.marginLeft = "16rem"; // 256px
+            }
         }
         isOpen = !isOpen;
     }
 
-    // --- ระบบ Authentication (รหัสผ่าน 1234) ---
+    // --- ระบบเข้าสู่ระบบ ---
     function handleAuthToggle() {
         if(!isAdmin) {
             document.getElementById("loginModal").classList.remove("hidden");
-            document.getElementById("passInput").focus();
+            const passInput = document.getElementById("passInput");
+            passInput.value = "";
+            setTimeout(() => passInput.focus(), 100); // ดีเลย์เล็กน้อยเพื่อให้โฟกัสติด
         } else {
             if(confirm("ต้องการออกจากโหมด Admin หรือไม่?")) {
                 isAdmin = false;
@@ -194,8 +199,18 @@
         }
     }
 
+    // รองรับการกดปุ่ม Enter ในช่องใส่รหัส
+    document.getElementById("passInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkPass();
+        }
+    });
+
     function checkPass() {
-        const input = document.getElementById("passInput").value;
+        // ใช้ .trim() ตัด spacebar เผื่อคีย์บอร์ดมือถือเติมให้เอง
+        const input = document.getElementById("passInput").value.trim();
+        
         if(input === "1234") {
             isAdmin = true;
             updateUI();
@@ -203,6 +218,7 @@
         } else {
             alert("❌ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่");
             document.getElementById("passInput").value = "";
+            document.getElementById("passInput").focus();
         }
     }
 
@@ -219,16 +235,22 @@
             btn.innerText = "ADMIN MODE";
             btn.classList.replace("bg-yellow-400", "bg-red-500");
             btn.classList.replace("text-blue-900", "text-white");
-            adminEls.forEach(el => el.style.display = "block");
+            
+            // แสดงส่วนที่เป็นของ Admin
+            document.querySelectorAll('th.admin-only, td.admin-only').forEach(el => el.style.display = 'table-cell');
+            document.querySelectorAll('button.admin-only, div.admin-only').forEach(el => el.style.display = 'block');
+            
         } else {
             btn.innerText = "GUEST";
             btn.classList.replace("bg-red-500", "bg-yellow-400");
             btn.classList.replace("text-white", "text-blue-900");
-            adminEls.forEach(el => el.style.display = "none");
+            
+            // ซ่อนส่วนที่เป็นของ Admin
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = "none");
         }
     }
 
-    // --- ระบบหนังสือสำคัญ (Linkage) ---
+    // --- ระบบหนังสือสำคัญ ---
     function toggleImportant(title, isChecked) {
         if(isChecked) {
             importantDocs.push(title);
@@ -248,8 +270,8 @@
         container.innerHTML = importantDocs.map((title, i) => `
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50 hover:shadow-md transition-shadow">
                 <div class="text-blue-600 font-bold text-sm mb-2">ลำดับที่ ${i+1}</div>
-                <h3 class="font-bold text-gray-800 text-lg">${title}</h3>
-                <p class="text-gray-500 text-sm mt-2">คลิกเพื่อดูรายละเอียด...</p>
+                <h3 class="font-bold text-gray-800 text-lg line-clamp-2">${title}</h3>
+                <p class="text-blue-500 text-sm mt-3 cursor-pointer hover:underline">ดูรายละเอียด ➔</p>
             </div>
         `).join('');
     }
@@ -257,6 +279,10 @@
     function editAnnounce() {
         let t = prompt("แก้ไขข้อความประกาศ:", document.getElementById("announceText").innerText);
         if(t) document.getElementById("announceText").innerText = t;
+    }
+
+    function addDocPrompt() {
+        alert("เดี๋ยวเราจะมาทำระบบตารางเพิ่มหนังสือกันต่อในขั้นถัดไปครับ!");
     }
 
 </script>
