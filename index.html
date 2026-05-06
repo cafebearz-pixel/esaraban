@@ -7,24 +7,27 @@
 <title>SARABAN CPP</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
 #sidebar{transition:.3s;}
-.slide{position:absolute;width:100%;height:100%;object-fit:cover;opacity:0;transition:1s;}
-.slide.active{opacity:1;}
+.slider{overflow:hidden;position:relative;}
+.slide-track{display:flex;transition:.4s;}
+.slide{min-width:100%;object-fit:cover;}
 </style>
-
 </head>
 
 <body class="flex">
 
 <!-- SIDEBAR -->
-<div id="sidebar" class="fixed md:static w-64 h-screen bg-blue-900 text-white p-5 -translate-x-full md:translate-x-0 z-50">
+<div id="sidebar" class="fixed md:static w-64 h-screen bg-blue-900 text-white p-5 z-50">
 
-<h1 class="text-xl font-bold mb-6">eSaraban</h1>
+<!-- ☰ อยู่ตรงนี้ -->
+<div class="flex justify-between items-center mb-6">
+<h1 class="font-bold">eSaraban</h1>
+<button onclick="toggleSidebar()" class="text-xl">☰</button>
+</div>
 
 <ul class="space-y-2 text-sm">
 <li class="p-3 bg-yellow-400 text-black rounded-xl">หน้าหลัก</li>
@@ -42,207 +45,129 @@ body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
 <!-- MAIN -->
 <div class="flex-1">
 
-<!-- TOPBAR -->
-<div class="bg-blue-900 text-white p-4 flex justify-between items-center">
-
-<div class="flex items-center gap-4">
-
-<!-- ☰ ปุ่มอยู่ตลอด -->
-<button onclick="toggleSidebar()" class="text-2xl">
-<i class="fa-solid fa-bars"></i>
-</button>
-
-<div class="flex flex-col items-center">
-<span class="text-lg font-bold">ระบบสารบัญอิเล็กทรอนิกส์</span>
-<span class="text-xs text-gray-300">องค์การบริหารส่วนตำบลชำผักแพว</span>
+<!-- TOP -->
+<div class="bg-blue-900 text-white p-4 text-center">
+<h1 class="text-lg font-bold">ระบบสารบัญอิเล็กทรอนิกส์</h1>
+<p class="text-xs text-gray-300">องค์การบริหารส่วนตำบลชำผักแพว</p>
 </div>
 
-</div>
-
-<button onclick="login()" id="adminBtn" class="bg-white text-blue-900 px-4 py-1 rounded-full text-sm">
-GUEST MODE
-</button>
-
-</div>
-
-<!-- CONTENT -->
 <div class="p-4">
 
-<!-- BIG NUMBER -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-
-<div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-5 rounded-2xl shadow-lg">
-<p class="text-sm">ทั้งหมด</p>
-<h2 id="total" class="text-3xl font-bold">0</h2>
-</div>
-
-<div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-5 rounded-2xl shadow-lg">
-<p class="text-sm">ลงรับ</p>
-<h2 id="receive" class="text-3xl font-bold">0</h2>
-</div>
-
-<div class="bg-gradient-to-r from-orange-400 to-orange-600 text-white p-5 rounded-2xl shadow-lg">
-<p class="text-sm">เสนอ</p>
-<h2 id="process" class="text-3xl font-bold">0</h2>
-</div>
-
-<div class="bg-gradient-to-r from-purple-500 to-purple-700 text-white p-5 rounded-2xl shadow-lg">
-<p class="text-sm">เสร็จ</p>
-<h2 id="done" class="text-3xl font-bold">0</h2>
-</div>
-
-</div>
-
 <!-- SEARCH -->
-<input id="searchInput" onkeyup="render()" placeholder="ค้นหา..." class="w-full p-3 rounded-xl mb-4 border">
+<input placeholder="ค้นหา..." class="w-full p-3 rounded-xl mb-4 border">
 
-<!-- 📌 SLIDER A4 -->
-<div class="bg-white rounded-xl shadow p-4">
+<!-- 📌 TITLE -->
+<h2 class="font-bold text-gray-700 mb-2">
+📄 หนังสือสำคัญประจำเดือน
+</h2>
 
-<div class="relative w-full aspect-[210/297] overflow-hidden rounded-lg">
+<!-- SLIDER -->
+<div class="bg-white p-3 rounded-xl shadow">
 
-<img id="slide1" class="slide active" src="https://picsum.photos/800/1100?1">
-<img id="slide2" class="slide" src="https://picsum.photos/800/1100?2">
-<img id="slide3" class="slide" src="https://picsum.photos/800/1100?3">
+<div id="slider" class="slider aspect-[210/297]">
+
+<div id="track" class="slide-track">
+
+<img src="https://picsum.photos/800/1100?1" class="slide">
+<img src="https://picsum.photos/800/1100?2" class="slide">
 
 </div>
 
-<!-- ADMIN CHANGE IMAGE -->
-<div id="adminUpload" class="hidden mt-3 flex gap-2">
+</div>
+
+<!-- ADMIN ADD -->
+<div class="mt-3 flex gap-2">
 <input id="imgUrl" placeholder="วางลิงก์ Google Drive" class="flex-1 border p-2 rounded">
 <button onclick="addSlide()" class="bg-blue-600 text-white px-4 rounded">เพิ่ม</button>
 </div>
 
 </div>
 
-<!-- TABLE -->
-<div id="tableArea" class="mt-4"></div>
-
 </div>
+</div>
+
+<!-- FULLSCREEN VIEW -->
+<div id="viewer" class="hidden fixed inset-0 bg-black flex items-center justify-center z-50">
+<img id="viewerImg" class="max-h-full max-w-full">
 </div>
 
 <script>
-
-// CONFIG
-const API_URL = "PUT_YOUR_SCRIPT_URL";
-
-// STATE
-let documents = [];
-let isAdmin = false;
 
 // SIDEBAR
 function toggleSidebar(){
 document.getElementById("sidebar").classList.toggle("-translate-x-full");
 }
 
-// LOGIN
-function login(){
-let pass = prompt("รหัสผ่าน:");
-if(pass==="123456"){
-isAdmin=true;
-document.getElementById("adminBtn").innerText="ADMIN MODE";
-document.getElementById("adminUpload").classList.remove("hidden");
-}else{
-alert("รหัสผิด");
-}
-}
-
-// LOAD DATA
-async function load(){
-let res = await fetch(API_URL+"?action=read");
-documents = await res.json();
-render();
-}
-load();
-
-// RENDER
-function render(){
-
-let q = document.getElementById("searchInput").value.toLowerCase();
-
-let data = documents.filter(d=>
-`${d.receiveNo2} ${d.subject} ${d.fromOrg}`.toLowerCase().includes(q)
-);
-
-// stats
-total.innerText = data.length;
-receive.innerText = data.filter(x=>x.status==="ลงรับแล้ว").length;
-process.innerText = data.filter(x=>x.status==="กำลังเสนอ").length;
-done.innerText = data.filter(x=>x.status==="เสร็จสิ้น").length;
-
-// sort
-data.sort((a,b)=>(a.receiveNo2||0)-(b.receiveNo2||0));
-
-// table
-tableArea.innerHTML = `
-<div class="overflow-x-auto bg-white rounded-xl">
-<table class="min-w-[900px] w-full text-sm">
-
-<thead class="bg-gray-100">
-<tr>
-<th class="p-2">เลขรับ</th>
-<th class="p-2">วันที่ออก</th>
-<th class="p-2">เรื่อง</th>
-<th class="p-2">จาก</th>
-<th class="p-2">วันที่รับ</th>
-<th class="p-2">สถานะ</th>
-<th class="p-2">กอง</th>
-</tr>
-</thead>
-
-<tbody>
-${data.map(d=>`
-<tr class="border-t">
-<td class="p-2">${d.receiveNo2||"-"}</td>
-<td class="p-2">${d.bookDate||"-"}</td>
-<td class="p-2 font-semibold">${d.subject||"-"}</td>
-<td class="p-2">${d.fromOrg||"-"}</td>
-<td class="p-2">${d.receivedDate||"-"}</td>
-<td class="p-2">${statusBadge(d.status)}</td>
-<td class="p-2">${d.owner||"-"}</td>
-</tr>
-`).join("")}
-</tbody>
-
-</table>
-</div>
-`;
-}
-
-// STATUS
-function statusBadge(s){
-if(s==="ลงรับแล้ว") return "🟦 ลงรับแล้ว";
-if(s==="กำลังเสนอ") return "🟧 กำลังเสนอ";
-if(s==="เสร็จสิ้น") return "🟩 เสร็จสิ้น";
-return "-";
-}
-
-// SLIDER AUTO
-let slides=document.querySelectorAll(".slide");
+// SLIDER TOUCH
+let track=document.getElementById("track");
 let index=0;
+let startX=0;
 
-function showSlide(){
-slides.forEach(s=>s.classList.remove("active"));
-slides[index].classList.add("active");
+track.addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX;
+});
+
+track.addEventListener("touchend",e=>{
+let endX=e.changedTouches[0].clientX;
+
+if(startX-endX>50) next();
+if(endX-startX>50) prev();
+});
+
+function next(){
+if(index<track.children.length-1) index++;
+updateSlide();
 }
 
+function prev(){
+if(index>0) index--;
+updateSlide();
+}
+
+function updateSlide(){
+track.style.transform=`translateX(-${index*100}%)`;
+}
+
+// AUTO SLIDE
 setInterval(()=>{
-index=(index+1)%slides.length;
-showSlide();
+index=(index+1)%track.children.length;
+updateSlide();
 },8000);
 
-// ADD IMAGE (ADMIN)
+// CLICK TO ZOOM
+document.querySelectorAll(".slide").forEach(img=>{
+img.onclick=()=>{
+viewer.classList.remove("hidden");
+viewerImg.src=img.src;
+}
+});
+
+viewer.onclick=()=>viewer.classList.add("hidden");
+
+// 📌 แปลงลิงก์ Google Drive
+function convertDrive(url){
+if(url.includes("drive.google.com")){
+let id=url.split("/d/")[1].split("/")[0];
+return `https://drive.google.com/uc?export=view&id=${id}`;
+}
+return url;
+}
+
+// ADD IMAGE
 function addSlide(){
 let url=document.getElementById("imgUrl").value;
 if(!url) return;
 
 let img=document.createElement("img");
-img.src=url;
+img.src=convertDrive(url);
 img.className="slide";
 
-document.querySelector(".relative").appendChild(img);
-slides=document.querySelectorAll(".slide");
+img.onclick=()=>{
+viewer.classList.remove("hidden");
+viewerImg.src=img.src;
+}
 
+track.appendChild(img);
 document.getElementById("imgUrl").value="";
 }
 
