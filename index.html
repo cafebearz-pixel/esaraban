@@ -12,7 +12,6 @@
 <style>
 body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
 #sidebar{transition:.3s;}
-.slider{overflow:hidden;position:relative;}
 .slide-track{display:flex;transition:.4s;}
 .slide{min-width:100%;object-fit:cover;}
 </style>
@@ -21,9 +20,8 @@ body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
 <body class="flex">
 
 <!-- SIDEBAR -->
-<div id="sidebar" class="fixed md:static w-64 h-screen bg-blue-900 text-white p-5 z-50">
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-900 text-white p-5 z-40">
 
-<!-- ☰ อยู่ตรงนี้ -->
 <div class="flex justify-between items-center mb-6">
 <h1 class="font-bold">eSaraban</h1>
 <button onclick="toggleSidebar()" class="text-xl">☰</button>
@@ -42,40 +40,52 @@ body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
 
 </div>
 
-<!-- MAIN -->
-<div class="flex-1">
+<!-- CONTENT -->
+<div id="content" class="flex-1 ml-64 transition-all">
 
 <!-- TOP -->
-<div class="bg-blue-900 text-white p-4 text-center">
-<h1 class="text-lg font-bold">ระบบสารบัญอิเล็กทรอนิกส์</h1>
+<div class="bg-blue-900 text-white p-4 flex items-center">
+
+<button onclick="toggleSidebar()" class="text-xl mr-3">☰</button>
+
+<div class="text-center flex-1">
+<h1 class="font-bold">ระบบสารบัญอิเล็กทรอนิกส์</h1>
 <p class="text-xs text-gray-300">องค์การบริหารส่วนตำบลชำผักแพว</p>
 </div>
 
-<div class="p-4">
+<button onclick="openLogin()" class="bg-yellow-400 text-black px-4 py-2 rounded-full text-sm font-bold">
+ADMIN
+</button>
 
-<!-- SEARCH -->
-<input placeholder="ค้นหา..." class="w-full p-3 rounded-xl mb-4 border">
+</div>
 
-<!-- 📌 TITLE -->
-<h2 class="font-bold text-gray-700 mb-2">
-📄 หนังสือสำคัญประจำเดือน
-</h2>
+<div class="p-4 space-y-4">
+
+<!-- 📢 ประกาศ -->
+<div class="bg-white p-4 rounded-xl shadow relative">
+<p id="announceText" class="font-semibold text-gray-700">📢 แจ้งประกาศ: ไม่มีประกาศ</p>
+<button onclick="editAnnounce()" class="absolute top-3 right-3 text-gray-400">✏️</button>
+</div>
+
+<!-- 📄 TITLE -->
+<h2 class="font-bold text-gray-700">📄 หนังสือสำคัญประจำเดือน</h2>
 
 <!-- SLIDER -->
 <div class="bg-white p-3 rounded-xl shadow">
 
-<div id="slider" class="slider aspect-[210/297]">
+<div class="overflow-hidden aspect-[210/297]">
 
 <div id="track" class="slide-track">
 
 <img src="https://picsum.photos/800/1100?1" class="slide">
 <img src="https://picsum.photos/800/1100?2" class="slide">
+<img src="https://picsum.photos/800/1100?3" class="slide">
 
 </div>
 
 </div>
 
-<!-- ADMIN ADD -->
+<!-- ADD IMG -->
 <div class="mt-3 flex gap-2">
 <input id="imgUrl" placeholder="วางลิงก์ Google Drive" class="flex-1 border p-2 rounded">
 <button onclick="addSlide()" class="bg-blue-600 text-white px-4 rounded">เพิ่ม</button>
@@ -86,16 +96,60 @@ body{font-family:'Prompt',sans-serif;background:#f1f5f9;}
 </div>
 </div>
 
-<!-- FULLSCREEN VIEW -->
-<div id="viewer" class="hidden fixed inset-0 bg-black flex items-center justify-center z-50">
-<img id="viewerImg" class="max-h-full max-w-full">
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
+
+<div class="bg-white p-8 rounded-2xl shadow-2xl w-80">
+
+<h2 class="text-lg font-bold text-center mb-6">Admin Login</h2>
+
+<input id="password" type="password" placeholder="รหัสผ่าน"
+class="w-full border p-3 rounded-xl mb-4 text-center">
+
+<button onclick="login()" class="w-full bg-blue-900 text-white p-3 rounded-xl font-bold">
+เข้าสู่ระบบ
+</button>
+
+</div>
 </div>
 
 <script>
 
 // SIDEBAR
+let isOpen=true;
 function toggleSidebar(){
-document.getElementById("sidebar").classList.toggle("-translate-x-full");
+const sidebar=document.getElementById("sidebar");
+const content=document.getElementById("content");
+
+if(isOpen){
+sidebar.style.transform="translateX(-100%)";
+content.style.marginLeft="0";
+}else{
+sidebar.style.transform="translateX(0)";
+content.style.marginLeft="16rem";
+}
+isOpen=!isOpen;
+}
+
+// LOGIN
+function openLogin(){
+document.getElementById("loginModal").classList.remove("hidden");
+}
+
+function login(){
+let pass=document.getElementById("password").value;
+if(pass==="123456"){
+alert("เข้าสู่ระบบสำเร็จ");
+document.getElementById("loginModal").classList.add("hidden");
+}else{
+alert("รหัสผิด");
+}
+}
+
+// ANNOUNCE
+function editAnnounce(){
+let text=prompt("แก้ไขประกาศ");
+if(text) document.getElementById("announceText").innerText="📢 "+text;
 }
 
 // SLIDER TOUCH
@@ -109,45 +163,32 @@ startX=e.touches[0].clientX;
 
 track.addEventListener("touchend",e=>{
 let endX=e.changedTouches[0].clientX;
-
 if(startX-endX>50) next();
 if(endX-startX>50) prev();
 });
 
 function next(){
 if(index<track.children.length-1) index++;
-updateSlide();
+update();
 }
-
 function prev(){
 if(index>0) index--;
-updateSlide();
+update();
 }
-
-function updateSlide(){
+function update(){
 track.style.transform=`translateX(-${index*100}%)`;
 }
 
-// AUTO SLIDE
+// AUTO
 setInterval(()=>{
 index=(index+1)%track.children.length;
-updateSlide();
-},8000);
+update();
+},5000);
 
-// CLICK TO ZOOM
-document.querySelectorAll(".slide").forEach(img=>{
-img.onclick=()=>{
-viewer.classList.remove("hidden");
-viewerImg.src=img.src;
-}
-});
-
-viewer.onclick=()=>viewer.classList.add("hidden");
-
-// 📌 แปลงลิงก์ Google Drive
+// FIX GOOGLE DRIVE
 function convertDrive(url){
 if(url.includes("drive.google.com")){
-let id=url.split("/d/")[1].split("/")[0];
+let id=url.split("/d/")[1]?.split("/")[0];
 return `https://drive.google.com/uc?export=view&id=${id}`;
 }
 return url;
@@ -161,11 +202,6 @@ if(!url) return;
 let img=document.createElement("img");
 img.src=convertDrive(url);
 img.className="slide";
-
-img.onclick=()=>{
-viewer.classList.remove("hidden");
-viewerImg.src=img.src;
-}
 
 track.appendChild(img);
 document.getElementById("imgUrl").value="";
