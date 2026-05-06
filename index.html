@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v2.1</title>
+    <title>eSaraban v2.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f1f5f9; font-family: sans-serif;}
@@ -20,11 +20,9 @@
 </head>
 <body>
 
-<!-- SIDEBAR (เริ่มต้นแบบซ่อน -translate-x-full) -->
 <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-900 text-white p-5 shadow-2xl transform -translate-x-full">
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl tracking-tight">eSaraban</h1>
-        <!-- ปุ่มกากบาทปิดเมนู (จะโชว์ในจอเล็ก) -->
         <button onclick="toggleSidebar()" class="text-2xl hover:text-yellow-400 md:hidden">✕</button>
     </div>
     
@@ -42,25 +40,24 @@
     </nav>
 </div>
 
-<!-- CONTENT AREA (เริ่มต้นไม่มี margin-left) -->
 <div id="content" class="ml-0 min-h-screen">
     
-    <!-- TOP NAVBAR -->
-    <header class="bg-blue-900 text-white p-4 flex items-center sticky top-0 shadow-lg z-40">
-        <!-- ปุ่มแฮมเบอร์เกอร์ แสดงเสมอ -->
-        <button id="menuBtn" onclick="toggleSidebar()" class="text-2xl mr-4 hover:text-yellow-400 block">☰</button>
-        <div class="flex-1 text-center">
-            <h1 class="font-bold text-lg md:text-xl">ระบบสารบัญอิเล็กทรอนิกส์</h1>
-            <p class="text-xs text-blue-200">องค์การบริหารส่วนตำบลชำผักแพว</p>
+    <header class="bg-blue-900 text-white p-4 flex justify-between items-center sticky top-0 shadow-lg z-40">
+        <div class="flex items-center gap-4">
+            <button id="menuBtn" onclick="toggleSidebar()" class="text-2xl hover:text-yellow-400 block">☰</button>
+            <div class="text-left flex flex-col justify-center">
+                <h1 class="font-bold text-lg md:text-xl leading-tight">ระบบสารบัญอิเล็กทรอนิกส์</h1>
+                <p class="text-sm text-blue-200 tracking-wide mt-0.5">องค์การบริหารส่วนตำบลชำผักแพว</p>
+            </div>
         </div>
-        <button id="authBtn" onclick="handleAuthToggle()" class="bg-yellow-400 text-blue-900 px-6 py-2 rounded-full font-bold shadow-md hover:bg-white transition-colors">
+        
+        <button id="authBtn" onclick="handleAuthToggle()" class="bg-yellow-400 text-blue-900 px-5 py-2 md:px-6 rounded-full font-bold shadow-md hover:bg-white transition-colors whitespace-nowrap text-sm md:text-base">
             GUEST
         </button>
     </header>
 
     <main class="p-6">
         
-        <!-- --- PAGE: HOME --- -->
         <div id="page-home" class="page-content page-active space-y-6">
             <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-blue-600 flex justify-between items-center">
                 <div class="flex items-center gap-3">
@@ -80,7 +77,6 @@
             </section>
         </div>
 
-        <!-- --- PAGE: หนังสือรับ (RECEIVE) --- -->
         <div id="page-receive" class="page-content space-y-4">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold text-blue-900">📥 ทะเบียนหนังสือรับ</h2>
@@ -111,7 +107,6 @@
             </div>
         </div>
 
-        <!-- --- PAGE: อื่นๆ --- -->
         <div id="page-placeholder" class="page-content text-center py-20">
             <div class="text-6xl mb-4">🚧</div>
             <h2 class="text-2xl font-bold text-gray-600">กำลังพัฒนาระบบส่วนนี้</h2>
@@ -121,12 +116,10 @@
     </main>
 </div>
 
-<!-- LOGIN MODAL -->
 <div id="loginModal" class="hidden modal fixed inset-0 bg-black/50 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 text-center">
         <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">🔑</div>
         <h2 class="text-2xl font-bold text-gray-800 mb-6">ผู้ดูแลระบบ</h2>
-        <!-- แก้ไข placeholder ตรงนี้ -->
         <input id="passInput" type="password" placeholder="กรอกรหัสผ่าน" 
                class="w-full p-4 rounded-2xl border-2 border-gray-200 focus:border-blue-500 outline-none text-center text-xl mb-6 transition-colors">
         <div class="flex gap-3">
@@ -138,7 +131,7 @@
 
 <script>
     let isAdmin = false;
-    let isOpen = false; // ค่าเริ่มต้นคือแถบเมนูปิดอยู่
+    let isOpen = false; 
     let importantDocs = [];
 
     // --- ระบบเปลี่ยนหน้า ---
@@ -153,7 +146,6 @@
         const activeMenu = Array.from(document.querySelectorAll('.menu-item')).find(m => m.innerText.includes(getPageTitle(pageId)));
         if(activeMenu) activeMenu.classList.add('menu-active');
 
-        // ถ้าเล่นบนมือถือ/แท็บเล็ต ให้ปิดแถบเมนูอัตโนมัติเมื่อกดเลือกหน้าแล้ว
         if(window.innerWidth < 1024 && isOpen) {
             toggleSidebar();
         }
@@ -170,15 +162,12 @@
         const c = document.getElementById("content");
         
         if(isOpen) {
-            // สั่งปิด
             s.style.transform = "translateX(-100%)";
             c.style.marginLeft = "0";
         } else {
-            // สั่งเปิด
             s.style.transform = "translateX(0)";
-            // ถ้าเป็นคอมพิวเตอร์จอใหญ่ ให้ดันเนื้อหาไปทางขวาด้วย
             if(window.innerWidth >= 1024) {
-                c.style.marginLeft = "16rem"; // 256px
+                c.style.marginLeft = "16rem"; 
             }
         }
         isOpen = !isOpen;
@@ -190,7 +179,7 @@
             document.getElementById("loginModal").classList.remove("hidden");
             const passInput = document.getElementById("passInput");
             passInput.value = "";
-            setTimeout(() => passInput.focus(), 100); // ดีเลย์เล็กน้อยเพื่อให้โฟกัสติด
+            setTimeout(() => passInput.focus(), 100); 
         } else {
             if(confirm("ต้องการออกจากโหมด Admin หรือไม่?")) {
                 isAdmin = false;
@@ -199,7 +188,6 @@
         }
     }
 
-    // รองรับการกดปุ่ม Enter ในช่องใส่รหัส
     document.getElementById("passInput").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
@@ -208,7 +196,6 @@
     });
 
     function checkPass() {
-        // ใช้ .trim() ตัด spacebar เผื่อคีย์บอร์ดมือถือเติมให้เอง
         const input = document.getElementById("passInput").value.trim();
         
         if(input === "1234") {
@@ -236,7 +223,6 @@
             btn.classList.replace("bg-yellow-400", "bg-red-500");
             btn.classList.replace("text-blue-900", "text-white");
             
-            // แสดงส่วนที่เป็นของ Admin
             document.querySelectorAll('th.admin-only, td.admin-only').forEach(el => el.style.display = 'table-cell');
             document.querySelectorAll('button.admin-only, div.admin-only').forEach(el => el.style.display = 'block');
             
@@ -245,7 +231,6 @@
             btn.classList.replace("bg-red-500", "bg-yellow-400");
             btn.classList.replace("text-white", "text-blue-900");
             
-            // ซ่อนส่วนที่เป็นของ Admin
             document.querySelectorAll('.admin-only').forEach(el => el.style.display = "none");
         }
     }
