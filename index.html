@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v7.1 (Formal SVGs & View Doc)</title>
+    <title>eSaraban v7.2 (Editable Table)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f4f7f9; font-family: sans-serif;}
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-[#1e3a8a] text-white p-5 shadow-2xl transform -translate-x-full">
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-[#1e3a8a] text-white p-5 shadow-2xl transform -translate-x-full lg:translate-x-0">
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl tracking-tight text-white">eSaraban</h1>
         <button onclick="toggleSidebar()" class="hover:text-yellow-400 transition-colors">
@@ -63,10 +63,10 @@
     </nav>
 </div>
 
-<div id="content" class="min-h-screen flex flex-col transition-all duration-300 ml-0">
+<div id="content" class="lg:ml-64 min-h-screen flex flex-col transition-all duration-300 ml-0">
     <header class="bg-[#1e3a8a] text-white p-4 flex justify-between items-center sticky top-0 shadow-md z-40">
         <div class="flex items-center gap-4">
-            <button onclick="toggleSidebar()" class="hover:text-yellow-400 transition-colors">
+            <button onclick="toggleSidebar()" class="text-2xl hover:text-yellow-400 transition-colors">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
             <div class="text-left flex flex-col justify-center">
@@ -202,7 +202,7 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                 </div>
                 <div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-800">ลงระบบหนังสือรับ</h2>
+                    <h2 id="modalTitle" class="text-xl md:text-2xl font-bold text-gray-800">ลงระบบหนังสือรับ</h2>
                     <p class="text-gray-500 text-xs md:text-sm mt-0.5">กรอกข้อมูลรายละเอียดของหนังสือรับ <span class="text-red-500 font-medium">* บังคับกรอก</span></p>
                 </div>
             </div>
@@ -221,13 +221,13 @@
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
                     <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg> วันที่ออกหนังสือ
                 </label>
-                <input type="date" id="inputDocDateOut" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500">
+                <input type="text" id="inputDocDateOut" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-700" placeholder="เช่น 12 พ.ค. 67">
             </div>
             <div>
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
                     <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg> วันที่ลงรับ <span class="text-red-500">*</span>
                 </label>
-                <input type="date" id="inputDocDateIn" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500">
+                <input type="text" id="inputDocDateIn" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-700" placeholder="เช่น 14 พ.ค. 67">
             </div>
             <div>
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
@@ -245,19 +245,19 @@
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
                     <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg> ประเภทหนังสือ
                 </label>
-                <select id="inputType" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกประเภทหนังสือ</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select>
+                <select id="inputType" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-700"><option value="">เลือกประเภทหนังสือ</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select>
             </div>
             <div>
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
                     <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ชั้นความเร็ว
                 </label>
-                <select id="inputSpeed" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกชั้นความเร็ว</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select>
+                <select id="inputSpeed" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-700"><option value="">เลือกชั้นความเร็ว</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select>
             </div>
             <div>
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
                     <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ผู้รับผิดชอบ
                 </label>
-                <select id="inputPerson" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500">
+                <select id="inputPerson" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-700">
                     <option value="">ระบุชื่อผู้รับผิดชอบ</option>
                     <option>สำนักปลัด</option><option>กองคลัง</option><option>กองช่าง</option><option>กองการศึกษา</option>
                     <option>นักทรัพย์</option><option>นิติกร</option><option>งานป้องกัน</option><option>งานสภา</option>
@@ -270,7 +270,7 @@
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
                     <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg> หมวดหมู่
                 </label>
-                <select id="inputCategory" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกหมวดหมู่</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select>
+                <select id="inputCategory" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-700"><option value="">เลือกหมวดหมู่</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select>
             </div>
             <div class="md:col-span-2 bg-[#f8fafc] p-4 rounded-xl border border-blue-100 shadow-inner">
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-800">
@@ -292,7 +292,7 @@
 
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 text-center">
-        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-green-600 text-2xl mb-4">
+        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-green-600 mb-4">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
         </div>
         <h2 class="text-xl font-bold mb-2">ลงนามรับหนังสือ</h2>
@@ -310,8 +310,8 @@
         </div>
 
         <div class="flex gap-2">
-            <button onclick="closeSignModal()" class="flex-1 py-3 bg-gray-100 rounded-xl font-bold text-gray-600">ยกเลิก</button>
-            <button onclick="confirmSign()" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold">ยืนยันการรับ</button>
+            <button onclick="closeSignModal()" class="flex-1 py-3 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200">ยกเลิก</button>
+            <button onclick="confirmSign()" class="flex-1 py-3 bg-green-500 text-white rounded-xl font-bold hover:bg-green-600">ยืนยันการรับ</button>
         </div>
     </div>
 </div>
@@ -337,14 +337,14 @@
     <div class="bg-green-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
     </div>
-    <div class="text-sm font-bold text-gray-800" id="toastMessage">บันทึกเรียบร้อยแล้ว</div>
+    <div class="text-sm font-bold text-gray-800" id="toastMessage">ดำเนินการสำเร็จเรียบร้อย</div>
 </div>
 
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
     
-    // ตั้งให้ sidebar เริ่มต้นถูกซ่อนไว้ (ข้อ 1)
     let isAdmin = false, isOpen = false, allData = [];
+    let currentEditId = null; // สำหรับเช็คว่าเพิ่มใหม่ หรือ แก้ไข
 
     window.onload = () => {
         loadDataFromSheet();
@@ -393,25 +393,24 @@
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-blue-50/30 transition";
                 
-                const fDateOut = formatDate(row["วันที่ออกหนังสือ"]);
-                const fDateIn = formatDate(row["วันที่ลงรับ"]);
+                const fDateOut = row["วันที่ออกหนังสือ"] || '-';
+                const fDateIn = row["วันที่ลงรับ"] || '-';
                 
                 const signBtn = `<button onclick="openSignModal()" class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-50 text-green-700 font-bold rounded-lg hover:bg-green-100 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> เซ็นรับ</button>`;
 
-                // ข้อ 1: ปุ่มดูเอกสารโชว์สำหรับผู้เข้าชม (มีลิงก์ = ปุ่มดูเอกสาร, ไม่มี = -)
                 const driveLink = row["ลิงก์ Google Drive"] || "";
                 let docBtn = '<span class="text-gray-400">-</span>';
                 if (driveLink.trim() !== "") {
                     docBtn = `<a href="${driveLink}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> ดูเอกสาร</a>`;
                 }
 
-                // ข้อ 3: ไอคอนดินสอและถังขยะ
+                // ปุ่มจัดการแก้ไข/ลบ
                 const actionBtns = `
                     <div class="flex gap-2 justify-center">
-                        <button class="w-8 h-8 rounded border border-gray-200 text-blue-500 hover:bg-blue-50 flex items-center justify-center transition" title="แก้ไข">
+                        <button onclick="editDoc('${row["เลขรับ"]}')" class="w-8 h-8 rounded border border-gray-200 text-blue-500 hover:bg-blue-50 flex items-center justify-center transition" title="แก้ไข">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                         </button>
-                        <button class="w-8 h-8 rounded border border-red-100 text-red-500 hover:bg-red-50 flex items-center justify-center transition" title="ลบ">
+                        <button onclick="deleteDoc('${row["เลขรับ"]}')" class="w-8 h-8 rounded border border-red-100 text-red-500 hover:bg-red-50 flex items-center justify-center transition" title="ลบ">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                         </button>
                     </div>
@@ -435,16 +434,49 @@
         });
     }
 
-    function formatDate(dateStr) {
-        if(!dateStr) return '-';
-        const d = new Date(dateStr);
-        if(isNaN(d)) return dateStr;
-        const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear() + 543}`;
+    // ฟังก์ชันเปิด Modal แก้ไข (ดึงข้อมูลเก่ามาใส่)
+    function editDoc(docNum) {
+        const doc = allData.find(r => r["เลขรับ"] == docNum);
+        if(!doc) return;
+        
+        currentEditId = docNum; // แจ้งระบบว่ากำลังเข้าสู่โหมดแก้ไข
+        document.getElementById("modalTitle").innerText = "แก้ไขหนังสือรับ";
+        
+        document.getElementById("inputDocNum").value = doc["เลขรับ"] || "";
+        document.getElementById("inputDocDateOut").value = doc["วันที่ออกหนังสือ"] || "";
+        document.getElementById("inputDocDateIn").value = doc["วันที่ลงรับ"] || "";
+        document.getElementById("inputDocFrom").value = doc["จาก"] || "";
+        document.getElementById("inputDocTitle").value = doc["ชื่อเรื่อง"] || "";
+        document.getElementById("inputType").value = doc["ประเภทหนังสือ"] || "";
+        document.getElementById("inputSpeed").value = doc["ชั้นความเร็ว"] || "";
+        document.getElementById("inputPerson").value = doc["ผู้รับผิดชอบ"] || "";
+        document.getElementById("inputCategory").value = doc["หมวดหมู่"] || "";
+        document.getElementById("inputDriveLink").value = doc["ลิงก์ Google Drive"] || "";
+        
+        document.getElementById("addDocModal").classList.remove("hidden");
+    }
+
+    // ฟังก์ชันลบข้อมูล
+    async function deleteDoc(docNum) {
+        if(!confirm("คุณต้องการลบข้อมูลหนังสือรับเลขที่ " + docNum + " ใช่หรือไม่?")) return;
+
+        try {
+            await fetch(WEB_APP_URL, { 
+                method: "POST", 
+                body: JSON.stringify({ action: "DELETE", docNum: docNum }) 
+            });
+            showToast("ลบข้อมูลสำเร็จ!");
+            loadDataFromSheet();
+        } catch(e) {
+            showToast("ลบข้อมูลสำเร็จ!");
+            setTimeout(() => { loadDataFromSheet(); }, 1500);
+        }
     }
 
     async function saveNewDoc() {
         const payload = {
+            action: currentEditId ? "EDIT" : "ADD",
+            oldDocNum: currentEditId, // ส่งรหัสเก่าไปใช้อ้างอิงตอนแก้ไข
             docNum: document.getElementById("inputDocNum").value,
             docDateOut: document.getElementById("inputDocDateOut").value,
             docDateIn: document.getElementById("inputDocDateIn").value,
@@ -469,25 +501,35 @@
                 method: "POST", 
                 body: JSON.stringify(payload) 
             });
-            showToast();
+            showToast("บันทึกข้อมูลเรียบร้อย!");
             closeAddDocModal();
             loadDataFromSheet(); 
-            document.querySelectorAll("#addDocModal input, #addDocModal select").forEach(el => el.value = "");
         } catch(e) { 
-            showToast();
+            showToast("บันทึกข้อมูลเรียบร้อย!");
             closeAddDocModal();
             setTimeout(() => { loadDataFromSheet(); }, 1500);
         }
-        btn.disabled = false; btn.innerHTML = "📥 บันทึกข้อมูล";
+        btn.disabled = false; 
+        btn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg> บันทึกข้อมูล`;
+    }
+
+    function openAddDocModal() { 
+        currentEditId = null; // รีเซ็ตโหมด
+        document.getElementById("modalTitle").innerText = "ลงระบบหนังสือรับ";
+        document.querySelectorAll("#addDocModal input, #addDocModal select").forEach(el => el.value = "");
+        document.getElementById("addDocModal").classList.remove("hidden"); 
+    }
+    
+    function closeAddDocModal() { 
+        document.getElementById("addDocModal").classList.add("hidden"); 
+        currentEditId = null;
     }
 
     function openSignModal() { 
         document.getElementById("signModal").classList.remove("hidden"); 
         document.getElementById("receiverName").value = "";
-        
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("receiverDate").value = today;
-
         setTimeout(()=> document.getElementById("receiverName").focus(), 100);
     }
     
@@ -496,14 +538,8 @@
     function confirmSign() {
         const name = document.getElementById("receiverName").value;
         const date = document.getElementById("receiverDate").value;
-        
         if(!name || !date) return alert("กรุณากรอกชื่อและวันที่ให้ครบถ้วน");
-
-        const d = new Date(date);
-        const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-        const fDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear() + 543}`;
-
-        alert(`บันทึกการรับหนังสือโดย: ${name}\nวันที่เซ็นรับ: ${fDate}\nสำเร็จเรียบร้อยแล้ว!`);
+        alert(`บันทึกการรับหนังสือโดย: ${name}\nสำเร็จเรียบร้อยแล้ว!`);
         closeSignModal();
     }
 
@@ -541,12 +577,10 @@
         }
     }
 
-    function openAddDocModal() { document.getElementById("addDocModal").classList.remove("hidden"); }
-    function closeAddDocModal() { document.getElementById("addDocModal").classList.add("hidden"); }
-    
     let toastTimeout;
-    function showToast() {
+    function showToast(msg = "ดำเนินการเรียบร้อยแล้ว") {
         const t = document.getElementById("toastSuccess");
+        document.getElementById("toastMessage").innerText = msg;
         t.classList.remove("hidden", "toast-exit"); t.classList.add("toast-enter");
         clearTimeout(toastTimeout); toastTimeout = setTimeout(() => { t.classList.remove("toast-enter"); t.classList.add("toast-exit"); setTimeout(() => t.classList.add("hidden"), 400); }, 3000); 
     }
