@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v7.0 (Hidden Sidebar & Full Features)</title>
+    <title>eSaraban v7.1 (Formal SVGs & View Doc)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f4f7f9; font-family: sans-serif;}
@@ -22,34 +22,53 @@
 </head>
 <body>
 
-<!-- SIDEBAR (ข้อ 1: ซ่อนเป็นค่าเริ่มต้น) -->
 <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-[#1e3a8a] text-white p-5 shadow-2xl transform -translate-x-full">
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl tracking-tight text-white">eSaraban</h1>
-        <!-- ปุ่มกากบาท สำหรับปิด Sidebar -->
-        <button onclick="toggleSidebar()" class="hover:text-yellow-400 text-2xl transition-colors">✕</button>
+        <button onclick="toggleSidebar()" class="hover:text-yellow-400 transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
     </div>
     <nav>
         <ul id="menuList" class="space-y-2">
-            <li onclick="showPage('home')" id="menu-home" class="menu-item p-3 rounded-lg flex items-center gap-3">🏠 <span>หน้าหลัก</span></li>
-            <li onclick="showPage('receive')" id="menu-receive" class="menu-item p-3 rounded-lg flex items-center gap-3">📥 <span>หนังสือรับ</span></li>
-            <li onclick="showPage('forms')" id="menu-forms" class="menu-item p-3 rounded-lg flex items-center gap-3">📄 <span>แบบฟอร์ม</span></li>
-            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">📝 <span>ใบคำร้อง</span></li>
-            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">📊 <span>สถานะต่างๆ</span></li>
-            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">✅ <span>เสร็จสิ้นแล้ว</span></li>
-            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">📅 <span>ปฏิทิน</span></li>
-            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">💡 <span>วิธีใช้งาน</span></li>
+            <li onclick="showPage('home')" id="menu-home" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span>หน้าหลัก</span>
+            </li>
+            <li onclick="showPage('receive')" id="menu-receive" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                <span>หนังสือรับ</span>
+            </li>
+            <li onclick="showPage('forms')" id="menu-forms" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>แบบฟอร์ม</span>
+            </li>
+            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span>สถานะต่างๆ</span>
+            </li>
+            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>เสร็จสิ้นแล้ว</span>
+            </li>
+            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>ปฏิทิน</span>
+            </li>
+            <li onclick="showPage('placeholder')" class="menu-item p-3 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>วิธีใช้งาน</span>
+            </li>
         </ul>
     </nav>
 </div>
 
-<!-- CONTENT AREA -->
 <div id="content" class="min-h-screen flex flex-col transition-all duration-300 ml-0">
-    <!-- TOP NAVBAR -->
     <header class="bg-[#1e3a8a] text-white p-4 flex justify-between items-center sticky top-0 shadow-md z-40">
         <div class="flex items-center gap-4">
-            <!-- ปุ่มสามขีด -->
-            <button onclick="toggleSidebar()" class="text-2xl hover:text-yellow-400 transition-colors">☰</button>
+            <button onclick="toggleSidebar()" class="hover:text-yellow-400 transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
             <div class="text-left flex flex-col justify-center">
                 <h1 class="font-bold text-lg md:text-xl leading-tight">ระบบสารบัญอิเล็กทรอนิกส์</h1>
                 <p class="text-sm text-blue-200 tracking-wide mt-0.5">องค์การบริหารส่วนตำบลชำผักแพว</p>
@@ -60,27 +79,34 @@
 
     <main class="p-4 md:p-6 flex-1 w-full mx-auto max-w-[1600px]">
         
-        <!-- PAGE: HOME -->
         <div id="page-home" class="page-content space-y-6">
             <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-blue-600 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <span class="text-2xl text-blue-600">📢</span>
+                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>
+                    </div>
                     <p id="announceText" class="text-gray-700 font-medium">ยินดีต้อนรับสู่ระบบงานสารบัญ</p>
                 </div>
-                <button onclick="editAnnounce()" class="admin-only hidden text-gray-400 hover:text-blue-600">✏️ แก้ไข</button>
+                <button onclick="editAnnounce()" class="admin-only hidden text-gray-400 hover:text-blue-600 flex items-center gap-1 text-sm font-medium">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg> แก้ไข
+                </button>
             </div>
             <section>
-                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">📂 หนังสือสำคัญประจำเดือน</h2>
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+                    หนังสือสำคัญประจำเดือน
+                </h2>
                 <div id="importantDocsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="bg-gray-100 p-8 rounded-2xl text-center text-gray-400 border-2 border-dashed col-span-full">ยังไม่มีหนังสือสำคัญ</div>
                 </div>
             </section>
         </div>
 
-        <!-- PAGE: แบบฟอร์ม -->
         <div id="page-forms" class="page-content space-y-6">
             <div class="flex items-center gap-3">
-                <div class="bg-blue-100 p-2.5 rounded-xl text-blue-700">📄</div>
+                <div class="bg-blue-100 p-2.5 rounded-xl text-blue-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
                 <div>
                     <h2 class="text-2xl font-bold text-gray-800">ดาวน์โหลดแบบฟอร์ม</h2>
                     <p class="text-sm text-gray-500">แบบฟอร์มเอกสารต่างๆ (Word / PDF)</p>
@@ -102,20 +128,27 @@
             </div>
         </div>
 
-        <!-- PAGE: หนังสือรับ (RECEIVE) -->
         <div id="page-receive" class="page-content space-y-6">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <div class="bg-blue-100 p-2.5 rounded-xl text-blue-700">📥</div>
+                    <div class="bg-blue-100 p-2.5 rounded-xl text-blue-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                    </div>
                     <div><h2 class="text-2xl font-bold text-gray-800">หนังสือรับ</h2><p class="text-sm text-gray-500">รายการหนังสือรับทั้งหมดในระบบ</p></div>
                 </div>
-                <button onclick="openAddDocModal()" class="admin-only hidden bg-[#0d6efd] text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition shadow-sm font-medium">+ เพิ่มหนังสือรับ</button>
+                <button onclick="openAddDocModal()" class="admin-only hidden bg-[#0d6efd] text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition shadow-sm font-medium flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg> เพิ่มหนังสือรับ
+                </button>
             </div>
 
-            <!-- ข้อ 4: ช่องค้นหาหนังสือรับและตัวกรอง -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <input type="text" id="searchInput" oninput="renderTable()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง, จาก" class="h-11 px-4 rounded-lg border border-gray-200 focus:border-blue-500 outline-none text-sm text-gray-700">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </div>
+                        <input type="text" id="searchInput" oninput="renderTable()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง, จาก" class="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-200 focus:border-blue-500 outline-none text-sm text-gray-700">
+                    </div>
                     <select id="filterType" onchange="renderTable()" class="h-11 px-3 rounded-lg border border-gray-200 focus:border-blue-500 outline-none text-sm text-gray-700">
                         <option value="">ประเภททั้งหมด</option><option value="เมลสารบัญ">เมลสารบัญ</option><option value="จดหมาย">จดหมาย</option><option value="ด้วยตัวเอง">ด้วยตัวเอง</option>
                     </select>
@@ -128,7 +161,6 @@
                 </div>
             </div>
 
-            <!-- Table -->
             <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left whitespace-nowrap">
@@ -142,49 +174,89 @@
                                 <th class="p-4 admin-view-cell">ประเภท</th>
                                 <th class="p-4 admin-view-cell">ความเร็ว</th>
                                 <th class="p-4">ผู้รับผิดชอบ</th>
+                                <th class="p-4 text-center">เอกสาร</th>
                                 <th class="p-4 text-center">รับหนังสือ</th>
                                 <th class="p-4 text-center admin-view-cell">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody id="desktopTableBody" class="text-sm divide-y text-gray-700">
-                            <tr><td colspan="10" class="p-8 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
+                            <tr><td colspan="11" class="p-8 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div id="page-placeholder" class="page-content text-center py-20">🚧 กำลังพัฒนาระบบส่วนนี้</div>
+        <div id="page-placeholder" class="page-content text-center py-20">
+            <svg class="w-16 h-16 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <h2 class="text-2xl font-bold text-gray-600">กำลังพัฒนาระบบส่วนนี้</h2>
+        </div>
     </main>
 </div>
 
-<!-- MODAL: ADD DOCUMENT -->
 <div id="addDocModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 sm:p-6 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[95vh] overflow-y-auto p-6 md:p-8">
         <div class="flex justify-between items-start mb-6 border-b pb-4">
             <div class="flex items-center gap-4">
-                <div class="bg-[#0d6efd] text-white p-3 rounded-full relative shadow-sm">
+                <div class="bg-[#0d6efd] text-white p-3 rounded-full shadow-sm">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    <div class="absolute -bottom-1 -right-1 bg-green-500 rounded-full w-4 h-4 flex items-center justify-center border-2 border-white">
-                        <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
-                    </div>
                 </div>
                 <div>
                     <h2 class="text-xl md:text-2xl font-bold text-gray-800">ลงระบบหนังสือรับ</h2>
                     <p class="text-gray-500 text-xs md:text-sm mt-0.5">กรอกข้อมูลรายละเอียดของหนังสือรับ <span class="text-red-500 font-medium">* บังคับกรอก</span></p>
                 </div>
             </div>
-            <button onclick="closeAddDocModal()" class="text-gray-400 hover:text-gray-700 text-2xl transition">✕</button>
+            <button onclick="closeAddDocModal()" class="text-gray-400 hover:text-gray-700 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div><label class="block text-sm font-bold mb-2 text-gray-700"># เลขรับ <span class="text-red-500">*</span></label><input type="text" id="inputDocNum" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none" placeholder="เช่น 123/2567"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">📅 วันที่ออกหนังสือ</label><input type="date" id="inputDocDateOut" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">📅 วันที่ลงรับ <span class="text-red-500">*</span></label><input type="date" id="inputDocDateIn" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">👤 จาก <span class="text-red-500">*</span></label><input type="text" id="inputDocFrom" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none" placeholder="ระบุหน่วยงาน/ผู้ส่ง"></div>
-            <div class="md:col-span-2"><label class="block text-sm font-bold mb-2 text-gray-700">📄 ชื่อเรื่อง <span class="text-red-500">*</span></label><input type="text" id="inputDocTitle" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none" placeholder="ระบุชื่อเรื่องของหนังสือ"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">📁 ประเภทหนังสือ</label><select id="inputType" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกประเภทหนังสือ</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">⏱️ ชั้นความเร็ว</label><select id="inputSpeed" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกชั้นความเร็ว</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">👤 ผู้รับผิดชอบ</label>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" /></svg> เลขรับ <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="inputDocNum" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none" placeholder="เช่น 123/2567">
+            </div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg> วันที่ออกหนังสือ
+                </label>
+                <input type="date" id="inputDocDateOut" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500">
+            </div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg> วันที่ลงรับ <span class="text-red-500">*</span>
+                </label>
+                <input type="date" id="inputDocDateIn" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500">
+            </div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg> จาก <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="inputDocFrom" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none" placeholder="ระบุหน่วยงาน/ผู้ส่ง">
+            </div>
+            <div class="md:col-span-2">
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg> ชื่อเรื่อง <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="inputDocTitle" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none" placeholder="ระบุชื่อเรื่องของหนังสือ">
+            </div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg> ประเภทหนังสือ
+                </label>
+                <select id="inputType" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกประเภทหนังสือ</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select>
+            </div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ชั้นความเร็ว
+                </label>
+                <select id="inputSpeed" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกชั้นความเร็ว</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select>
+            </div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ผู้รับผิดชอบ
+                </label>
                 <select id="inputPerson" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500">
                     <option value="">ระบุชื่อผู้รับผิดชอบ</option>
                     <option>สำนักปลัด</option><option>กองคลัง</option><option>กองช่าง</option><option>กองการศึกษา</option>
@@ -194,27 +266,35 @@
                     <option>นายก</option><option>ปลัด</option>
                 </select>
             </div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">🏷️ หมวดหมู่</label><select id="inputCategory" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกหมวดหมู่</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select></div>
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-700">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg> หมวดหมู่
+                </label>
+                <select id="inputCategory" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-500"><option value="">เลือกหมวดหมู่</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select>
+            </div>
             <div class="md:col-span-2 bg-[#f8fafc] p-4 rounded-xl border border-blue-100 shadow-inner">
-                <label class="block text-sm font-bold mb-2 text-gray-800">ลิงก์เอกสารบน <span class="text-blue-600">Google Drive</span></label>
-                <input type="url" id="inputDriveLink" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-600" placeholder="🔗 วางลิงก์ Google Drive ที่นี่">
+                <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-800">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg> ลิงก์เอกสารบน <span class="text-blue-600 ml-1">Google Drive</span>
+                </label>
+                <input type="url" id="inputDriveLink" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-600" placeholder="วางลิงก์ Google Drive ที่นี่">
             </div>
         </div>
         <div class="flex justify-end gap-3 mt-8 pt-6 border-t">
-            <button onclick="closeAddDocModal()" class="px-6 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200 transition">✕ ยกเลิก</button>
+            <button onclick="closeAddDocModal()" class="px-6 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200 transition flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg> ยกเลิก
+            </button>
             <button id="btnSave" onclick="saveNewDoc()" class="px-8 py-3.5 bg-[#1d4ed8] text-white rounded-xl font-bold hover:bg-blue-800 transition shadow-lg flex items-center gap-2">
-                📥 บันทึกข้อมูล
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg> บันทึกข้อมูล
             </button>
         </div>
     </div>
 </div>
 
-<!-- ============================================== -->
-<!-- MODAL: เซ็นรับหนังสือ (ข้อ 2: มีช่องวันที่เซ็นรับ) -->
-<!-- ============================================== -->
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 text-center">
-        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-green-600 text-2xl mb-4">✍️</div>
+        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-green-600 text-2xl mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+        </div>
         <h2 class="text-xl font-bold mb-2">ลงนามรับหนังสือ</h2>
         <p class="text-sm text-gray-500 mb-4">กรุณากรอกข้อมูลเพื่อยืนยันการรับเอกสาร</p>
         
@@ -236,13 +316,14 @@
     </div>
 </div>
 
-<!-- ============================================== -->
-<!-- MODAL: LOGIN -->
-<!-- ============================================== -->
 <div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white p-6 rounded-2xl shadow-2xl w-80 text-center relative border border-gray-100">
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg">✕</button>
-        <h2 class="font-bold text-gray-800 mb-6 text-lg mt-2">เข้าสู่ระบบ</h2>
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h2 class="font-bold text-gray-800 mb-6 text-lg mt-2 flex justify-center gap-2 items-center">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg> เข้าสู่ระบบ
+        </h2>
         <div class="flex bg-gray-100 rounded-full p-1 mb-6 shadow-inner">
             <div class="flex-1 py-1.5 rounded-full font-bold text-sm text-gray-400 cursor-default">ผู้ชม</div>
             <div class="flex-1 py-1.5 rounded-full bg-white shadow-sm font-bold text-sm text-[#1e3a8a] cursor-default">Admin</div>
@@ -252,16 +333,17 @@
     </div>
 </div>
 
-<!-- TOAST -->
 <div id="toastSuccess" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[150] bg-white rounded-2xl shadow-2xl p-4 flex items-center gap-4 border border-green-100">
-    <div class="bg-green-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">✓</div>
+    <div class="bg-green-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+    </div>
     <div class="text-sm font-bold text-gray-800" id="toastMessage">บันทึกเรียบร้อยแล้ว</div>
 </div>
 
 <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
     
-    // ข้อ 1: สไลด์บาร์เริ่มต้นซ่อน (isOpen = false)
+    // ตั้งให้ sidebar เริ่มต้นถูกซ่อนไว้ (ข้อ 1)
     let isAdmin = false, isOpen = false, allData = [];
 
     window.onload = () => {
@@ -283,11 +365,10 @@
             allData = await response.json();
             renderTable();
         } catch(e) { 
-            document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="10" class="p-8 text-center text-red-500">❌ ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
+            document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="11" class="p-8 text-center text-red-500">❌ ไม่สามารถเชื่อมต่อฐานข้อมูลได้ กรุณาตรวจสอบ URL</td></tr>`;
         }
     }
 
-    // ข้อ 4: ประยุกต์ใช้การค้นหา/ตัวกรอง
     function renderTable() {
         const tbody = document.getElementById("desktopTableBody");
         const search = (document.getElementById("searchInput")?.value || "").toLowerCase();
@@ -298,12 +379,11 @@
         tbody.innerHTML = "";
         
         if(!allData || allData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="10" class="p-8 text-center text-gray-400">ยังไม่มีข้อมูลหนังสือรับ</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="11" class="p-8 text-center text-gray-400">ยังไม่มีข้อมูลหนังสือรับ</td></tr>`;
             return;
         }
 
         allData.slice().reverse().forEach(row => {
-            // เช็คเงื่อนไขการค้นหา
             const matchSearch = (row["เลขรับ"]?.toLowerCase().includes(search) || row["ชื่อเรื่อง"]?.toLowerCase().includes(search) || row["จาก"]?.toLowerCase().includes(search));
             const matchType = !type || row["ประเภทหนังสือ"] === type;
             const matchSpeed = !speed || row["ชั้นความเร็ว"] === speed;
@@ -315,9 +395,17 @@
                 
                 const fDateOut = formatDate(row["วันที่ออกหนังสือ"]);
                 const fDateIn = formatDate(row["วันที่ลงรับ"]);
-                const signBtn = `<button onclick="openSignModal()" class="px-4 py-1.5 bg-green-100 text-green-700 font-bold rounded-lg hover:bg-green-200 transition text-xs shadow-sm">📝 เซ็นรับ</button>`;
+                
+                const signBtn = `<button onclick="openSignModal()" class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-50 text-green-700 font-bold rounded-lg hover:bg-green-100 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> เซ็นรับ</button>`;
 
-                // ข้อ 3: ปุ่มจัดการ เปลี่ยนเป็น SVG ดินสอ และ ถังขยะ
+                // ข้อ 1: ปุ่มดูเอกสารโชว์สำหรับผู้เข้าชม (มีลิงก์ = ปุ่มดูเอกสาร, ไม่มี = -)
+                const driveLink = row["ลิงก์ Google Drive"] || "";
+                let docBtn = '<span class="text-gray-400">-</span>';
+                if (driveLink.trim() !== "") {
+                    docBtn = `<a href="${driveLink}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> ดูเอกสาร</a>`;
+                }
+
+                // ข้อ 3: ไอคอนดินสอและถังขยะ
                 const actionBtns = `
                     <div class="flex gap-2 justify-center">
                         <button class="w-8 h-8 rounded border border-gray-200 text-blue-500 hover:bg-blue-50 flex items-center justify-center transition" title="แก้ไข">
@@ -338,6 +426,7 @@
                     <td class="p-4 text-gray-500 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ประเภทหนังสือ"] || '-'}</td>
                     <td class="p-4 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ชั้นความเร็ว"] || '-'}</td>
                     <td class="p-4 text-gray-600">${row["ผู้รับผิดชอบ"] || '-'}</td>
+                    <td class="p-4 text-center">${docBtn}</td>
                     <td class="p-4 text-center">${signBtn}</td>
                     <td class="p-4 text-center admin-view-cell" style="display:${isAdmin?'':'none'}">${actionBtns}</td>
                 `;
@@ -392,12 +481,10 @@
         btn.disabled = false; btn.innerHTML = "📥 บันทึกข้อมูล";
     }
 
-    // ข้อ 2: เซ็นรับ (เพิ่มช่องวันที่)
     function openSignModal() { 
         document.getElementById("signModal").classList.remove("hidden"); 
         document.getElementById("receiverName").value = "";
         
-        // เซ็ตวันที่ปัจจุบันเป็นค่า Default
         const today = new Date().toISOString().split('T')[0];
         document.getElementById("receiverDate").value = today;
 
