@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v8.3 (Thai B.E. Date Format Everywhere)</title>
+    <title>eSaraban v8.4 (Fixed Table Columns)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f4f7f9; font-family: sans-serif;}
@@ -160,9 +160,15 @@
                     <table class="w-full text-left whitespace-nowrap">
                         <thead class="bg-gray-50 text-gray-600 text-sm font-semibold border-b">
                             <tr>
-                                <th class="p-4">เลขรับ</th><th class="p-4">วันที่ลงรับ</th><th class="p-4">จาก</th><th class="p-4 w-1/4">ชื่อเรื่อง</th>
-                                <th class="p-4 admin-view-cell">ประเภท</th><th class="p-4 admin-view-cell">ความเร็ว</th><th class="p-4">ผู้รับผิดชอบ</th>
-                                <th class="p-4 text-center">เอกสาร</th><th class="p-4 text-center">รับหนังสือ</th>
+                                <th class="p-4">เลขรับ</th>
+                                <th class="p-4">วันที่ลงรับ</th>
+                                <th class="p-4">จาก</th>
+                                <th class="p-4 w-1/4">ชื่อเรื่อง</th>
+                                <th class="p-4 admin-view-cell">ประเภท</th>
+                                <th class="p-4 admin-view-cell">ความเร็ว</th>
+                                <th class="p-4">ผู้รับผิดชอบ</th>
+                                <th class="p-4 text-center">เอกสาร</th>
+                                <th class="p-4 text-center">รับหนังสือ</th>
                                 <th class="p-4 text-center admin-view-cell">จัดการ</th>
                             </tr>
                         </thead>
@@ -511,7 +517,6 @@
             const matchSpeed = !speed || row["ชั้นความเร็ว"] === speed;
             const matchCat = !cat || row["หมวดหมู่"] === cat;
 
-            let fDateOut = toThaiDateString(row["วันที่ออกหนังสือ"]);
             let fDateIn = toThaiDateString(row["วันที่ลงรับ"]);
 
             const docNumStr = row["เลขรับ"] || '';
@@ -551,7 +556,6 @@
 
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-gray-900">${docNumStr}</td>
-                    <td class="p-4">${fDateOut}</td>
                     <td class="p-4 text-blue-600 font-medium">${fDateIn}</td>
                     <td class="p-4">${row["จาก"] || '-'}</td>
                     <td class="p-4 font-medium text-gray-800 truncate max-w-[200px]" title="${row["ชื่อเรื่อง"]}">${row["ชื่อเรื่อง"] || '-'}</td>
@@ -576,7 +580,7 @@
 
             trStatus.innerHTML = `
                 <td class="p-4 font-bold text-gray-900">${docNumStr}</td>
-                <td class="p-4 text-blue-600">${toThaiDateString(row["วันที่ลงรับ"])}</td>
+                <td class="p-4 text-blue-600">${fDateIn}</td>
                 <td class="p-4 font-medium text-gray-800 truncate max-w-[200px]">${row["ชื่อเรื่อง"] || '-'}</td>
                 <td class="p-4 text-gray-600">${row["ผู้รับผิดชอบ"] || '-'}</td>
                 <td class="p-4 text-center">${statusBadge}</td>
