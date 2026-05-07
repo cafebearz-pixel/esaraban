@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v8.0 (Status, Signature & Details Modal)</title>
+    <title>eSaraban v8.1 (Clickable Row & Status Modal)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body{background:#f4f7f9; font-family: sans-serif;}
@@ -160,14 +160,13 @@
                     <table class="w-full text-left whitespace-nowrap">
                         <thead class="bg-gray-50 text-gray-600 text-sm font-semibold border-b">
                             <tr>
-                                <th class="p-4">เลขรับ</th><th class="p-4">วันที่ลงรับ</th><th class="p-4">จาก</th><th class="p-4 w-1/4">ชื่อเรื่อง</th>
+                                <th class="p-4">เลขรับ</th><th class="p-4">วันที่ออกหนังสือ</th><th class="p-4">วันที่ลงรับ</th><th class="p-4">จาก</th><th class="p-4 w-1/4">ชื่อเรื่อง</th>
                                 <th class="p-4 admin-view-cell">ประเภท</th><th class="p-4 admin-view-cell">ความเร็ว</th><th class="p-4">ผู้รับผิดชอบ</th>
-                                <th class="p-4 text-center">สถานะ</th><th class="p-4 text-center">รับหนังสือ</th>
-                                <th class="p-4 text-center">จัดการ</th>
+                                <th class="p-4 text-center">เอกสาร</th><th class="p-4 text-center">รับหนังสือ</th><th class="p-4 text-center admin-view-cell">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody id="desktopTableBody" class="text-sm divide-y text-gray-700">
-                            <tr><td colspan="10" class="p-8 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
+                            <tr><td colspan="11" class="p-8 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -177,7 +176,7 @@
         <div id="page-status" class="page-content space-y-6">
             <div class="flex items-center gap-3">
                 <div class="bg-blue-100 p-2.5 rounded-xl text-blue-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 </div>
                 <div><h2 class="text-2xl font-bold text-gray-800">อัปเดตสถานะหนังสือ</h2><p class="text-sm text-gray-500">จัดการขั้นตอนการดำเนินงานของหนังสือ</p></div>
             </div>
@@ -188,11 +187,11 @@
                         <thead class="bg-gray-50 text-gray-600 text-sm font-semibold border-b">
                             <tr>
                                 <th class="p-4">เลขรับ</th><th class="p-4">วันที่ลงรับ</th><th class="p-4 w-1/3">ชื่อเรื่อง</th><th class="p-4">ผู้รับผิดชอบ</th>
-                                <th class="p-4 text-center">สถานะปัจจุบัน</th><th class="p-4 text-center admin-view-cell">ปรับสถานะ</th><th class="p-4 text-center">รายละเอียด</th>
+                                <th class="p-4 text-center">สถานะปัจจุบัน</th><th class="p-4 text-center admin-view-cell">ปรับสถานะ</th>
                             </tr>
                         </thead>
                         <tbody id="statusTableBody" class="text-sm divide-y text-gray-700">
-                            <tr><td colspan="7" class="p-8 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
+                            <tr><td colspan="6" class="p-8 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -286,7 +285,7 @@
             </div>
             <div class="md:col-span-2 bg-[#f8fafc] p-4 rounded-xl border border-blue-100 shadow-inner">
                 <label class="flex items-center gap-2 text-sm font-bold mb-2 text-gray-800">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg> ลิงก์เอกสารบน <span class="text-blue-600 ml-1">Google Drive</span>
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg> ลิงก์เอกสารบน <span class="text-blue-600 ml-1">Google Drive</span>
                 </label>
                 <input type="url" id="inputDriveLink" class="w-full p-3.5 rounded-xl border focus:border-blue-500 outline-none text-gray-600" placeholder="🔗 วางลิงก์ Google Drive ที่นี่">
             </div>
@@ -326,6 +325,29 @@
     </div>
 </div>
 
+<div id="statusModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 text-center">
+        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-blue-600 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">อัปเดตสถานะหนังสือ</h2>
+        <p class="text-sm text-gray-500 mb-4" id="statusModalDocNum">เลขรับ: -</p>
+        <div class="text-left mb-6">
+            <label class="block text-sm font-bold text-gray-700 mb-1">เลือกสถานะใหม่ <span class="text-red-500">*</span></label>
+            <select id="newStatusSelect" class="w-full p-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none text-gray-800">
+                <option value="ลงรับ">ลงรับ</option>
+                <option value="เสนอ">เสนอ</option>
+                <option value="แจกกอง">แจกกอง</option>
+                <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+            </select>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="closeStatusModal()" class="flex-1 py-3 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200">ยกเลิก</button>
+            <button onclick="confirmUpdateStatus()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700">บันทึกสถานะ</button>
+        </div>
+    </div>
+</div>
+
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 text-center">
         <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-green-600 mb-4">
@@ -354,7 +376,9 @@
 
 <div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white p-6 rounded-2xl shadow-2xl w-80 text-center relative border border-gray-100">
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-lg">✕</button>
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
         <h2 class="font-bold text-gray-800 mb-6 text-lg mt-2 flex justify-center gap-2 items-center">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg> เข้าสู่ระบบ
         </h2>
@@ -378,7 +402,7 @@
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
     
     let isAdmin = false, isOpen = false, allData = [];
-    let currentEditId = null, currentSignDocNum = null;
+    let currentEditId = null, currentSignDocNum = null, currentStatusDocNum = null;
 
     window.onload = () => {
         loadDataFromSheet();
@@ -428,19 +452,17 @@
             renderTables();
         } catch(e) { 
             document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="10" class="p-8 text-center text-red-500">❌ ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
-            document.getElementById("statusTableBody").innerHTML = `<tr><td colspan="7" class="p-8 text-center text-red-500">❌ ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
+            document.getElementById("statusTableBody").innerHTML = `<tr><td colspan="6" class="p-8 text-center text-red-500">❌ ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
         }
     }
 
     function getStatusBadge(status) {
         if(status === 'เสนอ') return '<span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-lg text-xs font-bold shadow-sm">เสนอ</span>';
         if(status === 'แจกกอง') return '<span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-lg text-xs font-bold shadow-sm">แจกกอง</span>';
-        if(status === 'ปริ้น') return '<span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-lg text-xs font-bold shadow-sm">ปริ้น</span>';
         if(status === 'เสร็จสิ้น') return '<span class="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold shadow-sm">เสร็จสิ้น</span>';
         return '<span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-bold shadow-sm">ลงรับ</span>';
     }
 
-    // ฟังก์ชันวาดทั้งตารางรับหนังสือ และ ตารางสถานะ
     function renderTables() {
         const receiveTbody = document.getElementById("desktopTableBody");
         const statusTbody = document.getElementById("statusTableBody");
@@ -455,7 +477,7 @@
         
         if(!allData || allData.length === 0) {
             receiveTbody.innerHTML = `<tr><td colspan="10" class="p-8 text-center text-gray-400">ยังไม่มีข้อมูลหนังสือรับ</td></tr>`;
-            statusTbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-gray-400">ยังไม่มีข้อมูล</td></tr>`;
+            statusTbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-400">ยังไม่มีข้อมูล</td></tr>`;
             return;
         }
 
@@ -465,7 +487,6 @@
             const matchSpeed = !speed || row["ชั้นความเร็ว"] === speed;
             const matchCat = !cat || row["หมวดหมู่"] === cat;
 
-            // ข้อมูลสำหรับดึง
             let fDateOut = row["วันที่ออกหนังสือ"] || '-';
             let fDateIn = row["วันที่ลงรับ"] || '-';
             if (fDateOut.includes('-')) fDateOut = toThaiDateString(fDateOut);
@@ -475,30 +496,34 @@
             const currentStatus = row["สถานะ"] || "ลงรับ";
             const statusBadge = getStatusBadge(currentStatus);
 
-            // ปุ่มดูรายละเอียด (ใช้ได้ทั้งมือถือและคอม)
-            const viewDetailsBtn = `<button onclick="viewDetails('${docNumStr}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition text-xs shadow-sm inline-flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> รายละเอียด</button>`;
-
             if(matchSearch && matchType && matchSpeed && matchCat) {
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-blue-50/30 transition";
+                // ข้อ 1: กดเพื่อดูรายละเอียด
+                tr.setAttribute("onclick", `viewDetails('${docNumStr}')`);
+                tr.className = "hover:bg-blue-50/30 transition cursor-pointer";
                 
                 // ข้อ 1: เช็คว่ามีการเซ็นรับหรือยัง
                 let signCell = "";
                 if(row["ชื่อผู้รับ"] && row["ชื่อผู้รับ"].trim() !== "") {
-                    signCell = `<div class="text-xs text-green-700 bg-green-50 rounded-lg p-1.5 border border-green-200 inline-block shadow-sm">
+                    signCell = `<div class="text-xs text-green-700 bg-green-50 rounded-lg p-1.5 border border-green-200 inline-block shadow-sm leading-tight text-left">
                         <span class="font-bold">${row["ชื่อผู้รับ"]}</span><br><span class="text-gray-500">${row["วันที่รับ"]}</span>
                     </div>`;
                 } else {
-                    signCell = `<button onclick="openSignModal('${docNumStr}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 text-gray-700 font-bold rounded-lg hover:bg-green-100 hover:text-green-700 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg> เซ็นรับ</button>`;
+                    signCell = `<button onclick="event.stopPropagation(); openSignModal('${docNumStr}')" class="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 text-gray-700 font-bold rounded-lg hover:bg-green-100 hover:text-green-700 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg> เซ็นรับ</button>`;
+                }
+
+                const driveLink = row["ลิงก์ Google Drive"] || "";
+                let docBtn = '<span class="text-gray-400">-</span>';
+                if (driveLink.trim() !== "") {
+                    docBtn = `<a href="${driveLink}" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> ดูเอกสาร</a>`;
                 }
 
                 const actionBtns = `
                     <div class="flex gap-2 justify-center items-center">
-                        ${viewDetailsBtn}
-                        <button onclick="editDoc('${docNumStr}')" class="admin-view-cell w-8 h-8 rounded border border-gray-200 text-blue-500 hover:bg-blue-50 flex items-center justify-center transition" title="แก้ไข" style="display:${isAdmin?'':'none'}">
+                        <button onclick="event.stopPropagation(); editDoc('${docNumStr}')" class="admin-view-cell w-8 h-8 rounded border border-gray-200 text-blue-500 hover:bg-blue-50 flex items-center justify-center transition" title="แก้ไข" style="display:${isAdmin?'':'none'}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                         </button>
-                        <button onclick="deleteDoc('${docNumStr}')" class="admin-view-cell w-8 h-8 rounded border border-red-100 text-red-500 hover:bg-red-50 flex items-center justify-center transition" title="ลบ" style="display:${isAdmin?'':'none'}">
+                        <button onclick="event.stopPropagation(); deleteDoc('${docNumStr}')" class="admin-view-cell w-8 h-8 rounded border border-red-100 text-red-500 hover:bg-red-50 flex items-center justify-center transition" title="ลบ" style="display:${isAdmin?'':'none'}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                         </button>
                     </div>
@@ -506,15 +531,16 @@
 
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-gray-900">${docNumStr}</td>
+                    <td class="p-4">${fDateOut}</td>
                     <td class="p-4 text-blue-600 font-medium">${fDateIn}</td>
                     <td class="p-4">${row["จาก"] || '-'}</td>
                     <td class="p-4 font-medium text-gray-800 truncate max-w-[200px]" title="${row["ชื่อเรื่อง"]}">${row["ชื่อเรื่อง"] || '-'}</td>
                     <td class="p-4 text-gray-500 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ประเภทหนังสือ"] || '-'}</td>
                     <td class="p-4 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ชั้นความเร็ว"] || '-'}</td>
                     <td class="p-4 text-gray-600">${row["ผู้รับผิดชอบ"] || '-'}</td>
-                    <td class="p-4 text-center">${statusBadge}</td>
+                    <td class="p-4 text-center">${docBtn}</td>
                     <td class="p-4 text-center">${signCell}</td>
-                    <td class="p-4 text-center">${actionBtns}</td>
+                    <td class="p-4 text-center admin-view-cell" style="display:${isAdmin?'':'none'}">${actionBtns}</td>
                 `;
                 receiveTbody.appendChild(tr);
             }
@@ -523,30 +549,25 @@
             const trStatus = document.createElement("tr");
             trStatus.className = "hover:bg-gray-50 transition";
             
-            const statusSelect = `
-                <select onchange="updateStatus('${docNumStr}', this)" class="border border-gray-200 rounded-lg p-1.5 text-sm outline-none focus:border-blue-500 font-medium text-gray-700">
-                    <option value="ลงรับ" ${currentStatus === 'ลงรับ' ? 'selected' : ''}>ลงรับ</option>
-                    <option value="เสนอ" ${currentStatus === 'เสนอ' ? 'selected' : ''}>เสนอ</option>
-                    <option value="แจกกอง" ${currentStatus === 'แจกกอง' ? 'selected' : ''}>แจกกอง</option>
-                    <option value="ปริ้น" ${currentStatus === 'ปริ้น' ? 'selected' : ''}>ปริ้น</option>
-                    <option value="เสร็จสิ้น" ${currentStatus === 'เสร็จสิ้น' ? 'selected' : ''}>เสร็จสิ้น</option>
-                </select>
+            const statusEditBtn = `
+                <button onclick="openStatusModal('${docNumStr}', '${currentStatus}')" class="w-8 h-8 rounded border border-gray-200 text-blue-500 hover:bg-blue-50 inline-flex items-center justify-center transition" title="แก้ไขสถานะ">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                </button>
             `;
 
             trStatus.innerHTML = `
                 <td class="p-4 font-bold text-gray-900">${docNumStr}</td>
-                <td class="p-4 text-blue-600">${toThaiDateString(row["วันที่ลงรับ"])}</td>
+                <td class="p-4 text-blue-600">${fDateIn}</td>
                 <td class="p-4 font-medium text-gray-800 truncate max-w-[200px]">${row["ชื่อเรื่อง"] || '-'}</td>
                 <td class="p-4 text-gray-600">${row["ผู้รับผิดชอบ"] || '-'}</td>
                 <td class="p-4 text-center">${statusBadge}</td>
-                <td class="p-4 text-center admin-view-cell" style="display:${isAdmin?'':'none'}">${statusSelect}</td>
-                <td class="p-4 text-center">${viewDetailsBtn}</td>
+                <td class="p-4 text-center admin-view-cell" style="display:${isAdmin?'':'none'}">${statusEditBtn}</td>
             `;
             statusTbody.appendChild(trStatus);
         });
     }
 
-    // ฟังก์ชันดูรายละเอียดเต็ม
+    // ข้อ 3: ฟังก์ชันดูรายละเอียดเต็ม
     function viewDetails(docNum) {
         const doc = allData.find(r => r["เลขรับ"] == docNum);
         if(!doc) return;
@@ -583,19 +604,25 @@
 
     function closeDetailsModal() { document.getElementById("detailsModal").classList.add("hidden"); }
 
-    // ฟังก์ชันแก้ไขสถานะ
-    async function updateStatus(docNum, selectElem) {
-        const newStatus = selectElem.value;
-        selectElem.disabled = true;
+    // ข้อ 2: ฟังก์ชันสำหรับ Modal แก้ไขสถานะ
+    function openStatusModal(docNum, status) {
+        currentStatusDocNum = docNum;
+        document.getElementById("statusModalDocNum").innerText = "เลขรับ: " + docNum;
+        document.getElementById("newStatusSelect").value = status;
+        document.getElementById("statusModal").classList.remove("hidden");
+    }
+    function closeStatusModal() { document.getElementById("statusModal").classList.add("hidden"); }
+    async function confirmUpdateStatus() {
+        const newStatus = document.getElementById("newStatusSelect").value;
+        closeStatusModal();
+        showToast("กำลังบันทึกสถานะ...");
         try {
             await fetch(WEB_APP_URL, { 
                 method: "POST", 
-                body: JSON.stringify({ action: "UPDATE_STATUS", docNum: docNum, status: newStatus }) 
+                body: JSON.stringify({ action: "UPDATE_STATUS", docNum: currentStatusDocNum, status: newStatus }) 
             });
-            showToast("อัปเดตสถานะเป็น " + newStatus);
             loadDataFromSheet(); 
         } catch(e) {
-            showToast("อัปเดตสถานะสำเร็จ!");
             setTimeout(() => { loadDataFromSheet(); }, 1500);
         }
     }
@@ -732,7 +759,7 @@
             admins.forEach(el => el.classList.add('hidden')); cells.forEach(el => el.style.display = 'none');
         }
     }
-    
+
     let toastTimeout;
     function showToast(msg = "ดำเนินการเรียบร้อยแล้ว") {
         const t = document.getElementById("toastSuccess");
