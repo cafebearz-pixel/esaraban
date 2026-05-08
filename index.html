@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v9.7 (Auto-Run Number & Today's View)</title>
+    <title>eSaraban v9.8 (Dedicated Sign & Receive Page)</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -117,6 +117,10 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 <span class="text-sm font-medium">สถานะหนังสือ</span>
             </li>
+            <li onclick="showPage('sign-receive')" id="menu-sign-receive" class="menu-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                <span class="text-sm font-medium">ลงนามรับหนังสือ</span>
+            </li>
             <li onclick="showPage('placeholder')" class="menu-item">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 <span class="text-sm font-medium">เสร็จสิ้นแล้ว</span>
@@ -159,7 +163,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
                     <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg></div>
-                    <div><p class="text-sm text-gray-500 font-medium">หนังสือทั้งหมด</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-receive">0</span> <span class="text-base font-normal">ลงรับ</span></h3></div>
+                    <div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-receive">0</span> <span class="text-base font-normal">ลงรับ</span></h3></div>
                 </div>
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
                     <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></div>
@@ -205,6 +209,7 @@
                     </div>
                     <a href="https://cafebearz-pixel.github.io/esaraban/แบบคำร้องทั่วไป.pdf" target="_blank" download="แบบคำร้องทั่วไป.pdf" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">ดาวน์โหลด</a>
                 </div>
+                
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between h-full hover:shadow-md transition">
                     <div>
                         <div class="w-12 h-12 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
@@ -212,6 +217,7 @@
                     </div>
                     <a href="#" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">ดาวน์โหลด</a>
                 </div>
+                
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between h-full hover:shadow-md transition">
                     <div>
                         <div class="w-12 h-12 bg-yellow-50 text-yellow-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
@@ -308,6 +314,43 @@
                         </thead>
                         <tbody id="statusTableBody" class="text-sm divide-y divide-gray-50 text-gray-700">
                             <tr><td colspan="6" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-sign-receive" class="page-content space-y-6">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="bg-white p-3.5 rounded-2xl shadow-sm text-[var(--primary-color)]">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                </div>
+                <div><h2 class="text-2xl font-bold text-gray-800">ลงนามรับหนังสือ</h2><p class="text-sm text-gray-500">สำหรับแต่ละกองเพื่อกดรับหนังสือและประทับเวลาอัตโนมัติ</p></div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-4">
+                <div class="relative w-full md:w-1/2">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    </div>
+                    <input type="text" id="signSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition">
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left whitespace-nowrap">
+                        <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
+                            <tr>
+                                <th class="p-5">เลขรับ</th>
+                                <th class="p-5">วันที่ลงรับ</th>
+                                <th class="p-5 w-1/3">ชื่อเรื่อง</th>
+                                <th class="p-5 text-center">ผู้เซ็นรับ</th>
+                                <th class="p-5 text-center">รับหนังสือ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="signReceiveTableBody" class="text-sm divide-y divide-gray-50 text-gray-700">
+                            <tr><td colspan="5" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -445,6 +488,30 @@
     </div>
 </div>
 
+<div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 text-center">
+        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-green-600 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">ลงนามรับหนังสือ</h2>
+        <p class="text-sm text-gray-500 mb-4">กรุณากรอกข้อมูลเพื่อยืนยันการรับเอกสาร</p>
+        
+        <div class="space-y-3 mb-6 text-left">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">ชื่อ-นามสกุล ผู้รับ <span class="text-red-500">*</span></label>
+                <input type="text" id="receiverName" placeholder="พิมพ์ชื่อผู้รับ" class="w-full p-3 rounded-xl border border-gray-200 focus:border-green-500 outline-none text-gray-800 bg-gray-50 focus:bg-white transition">
+            </div>
+            <div class="hidden">
+                <input type="date" id="receiverDate" class="hidden"> </div>
+        </div>
+
+        <div class="flex gap-2">
+            <button onclick="closeSignModal()" class="flex-1 py-3 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200 transition">ยกเลิก</button>
+            <button onclick="confirmSign()" class="flex-1 py-3 bg-[var(--primary-color)] text-white rounded-xl font-bold hover:bg-[#0f3835] transition shadow-md">ยืนยันการรับ</button>
+        </div>
+    </div>
+</div>
+
 <div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white p-8 rounded-3xl shadow-2xl w-[340px] text-center relative border border-gray-100">
         <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 p-1.5 rounded-full transition">
@@ -474,7 +541,7 @@
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
     
     let isAdmin = false, isSidebarOpen = window.innerWidth >= 1024, allData = [];
-    let currentEditId = null, currentStatusDocNum = null;
+    let currentEditId = null, currentStatusDocNum = null, currentSignDocNum = null;
     let fpDateOut, fpDateIn;
 
     window.onload = () => {
@@ -634,6 +701,7 @@
             let ceYear = y;
             if (y > 3000) ceYear = y - 1086; 
             else if (y > 2500) ceYear = y - 543; 
+
             return `${ceYear}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
         }
         return "";
@@ -648,6 +716,7 @@
         } catch(e) { 
             document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
             document.getElementById("statusTableBody").innerHTML = `<tr><td colspan="6" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
+            document.getElementById("signReceiveTableBody").innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
         }
     }
 
@@ -689,31 +758,34 @@
     function renderTables() {
         const receiveTbody = document.getElementById("desktopTableBody");
         const statusTbody = document.getElementById("statusTableBody");
+        const signReceiveTbody = document.getElementById("signReceiveTableBody");
         
-        // รับค่าค้นหาหน้า Receive
+        // รับค่าค้นหา
         const rSearch = (document.getElementById("receiveSearchInput")?.value || "").toLowerCase();
-
-        // รับค่าค้นหาหน้า Status
+        
         const sSearch = (document.getElementById("statusSearchInput")?.value || "").toLowerCase();
         const sType = document.getElementById("statusFilterType")?.value || "";
         const sSpeed = document.getElementById("statusFilterSpeed")?.value || "";
         const sCat = document.getElementById("statusFilterCat")?.value || "";
 
+        const sgSearch = (document.getElementById("signSearchInput")?.value || "").toLowerCase();
+
         receiveTbody.innerHTML = "";
         statusTbody.innerHTML = "";
+        signReceiveTbody.innerHTML = "";
         
         if(!allData || allData.length === 0) {
             receiveTbody.innerHTML = `<tr><td colspan="9" class="p-10 text-center text-gray-400">ยังไม่มีข้อมูลหนังสือรับ</td></tr>`;
             statusTbody.innerHTML = `<tr><td colspan="6" class="p-10 text-center text-gray-400">ยังไม่มีข้อมูล</td></tr>`;
+            signReceiveTbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-400">ยังไม่มีข้อมูล</td></tr>`;
             return;
         }
 
-        // เรียงข้อมูล
         let sortedData = allData.slice().sort((a, b) => {
             return String(a["เลขรับ"] || "").localeCompare(String(b["เลขรับ"] || ""), undefined, { numeric: true });
         });
 
-        // สร้างวันที่วันนี้รูปแบบไทยเป๊ะๆ ไว้เช็ค
+        // สร้างวันที่วันนี้รูปแบบไทย
         const t = new Date();
         const mTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
         const todayThaiStr = `${t.getDate()} ${mTh[t.getMonth()]} ${t.getFullYear() + 543}`;
@@ -721,6 +793,7 @@
 
         sortedData.forEach(row => {
             let fDateIn = parseAnyDateToThai(row["วันที่ลงรับ"]);
+
             const docNumStr = row["เลขรับ"] || '';
             const currentStatus = row["สถานะ"] || "ลงรับ";
             const statusBadge = getStatusBadge(currentStatus);
@@ -733,7 +806,7 @@
 
             const actionBtns = `
                 <div class="flex gap-2 justify-center items-center">
-                    <button onclick="event.stopPropagation(); editDoc('${docNumStr}')" class="admin-view-cell w-9 h-9 rounded-xl border border-gray-200 text-gray-500 hover:text-[var(--primary-color)] hover:bg-teal-50 hover:border-teal-200 flex items-center justify-center transition shadow-sm bg-white" title="แก้ไขเอกสาร" style="display:${isAdmin?'':'none'}">
+                    <button onclick="event.stopPropagation(); editDoc('${docNumStr}')" class="admin-view-cell w-9 h-9 rounded-xl border border-gray-200 text-gray-500 hover:text-[var(--primary-color)] hover:bg-teal-50 hover:border-teal-200 flex items-center justify-center transition shadow-sm bg-white" title="แก้ไข" style="display:${isAdmin?'':'none'}">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                     </button>
                     <button onclick="event.stopPropagation(); deleteDoc('${docNumStr}')" class="admin-view-cell w-9 h-9 rounded-xl border border-gray-200 text-gray-500 hover:text-red-600 hover:bg-red-50 hover:border-red-200 flex items-center justify-center transition shadow-sm bg-white" title="ลบ" style="display:${isAdmin?'':'none'}">
@@ -795,14 +868,46 @@
                 `;
                 statusTbody.appendChild(trStatus);
             }
+
+            // ---- แสดงผลในตาราง ลงนามรับหนังสือ ----
+            const matchSgSearch = (row["เลขรับ"]?.toLowerCase().includes(sgSearch) || row["ชื่อเรื่อง"]?.toLowerCase().includes(sgSearch));
+            if (matchSgSearch) {
+                const trSign = document.createElement("tr");
+                trSign.setAttribute("onclick", `viewDetails('${docNumStr}')`);
+                trSign.className = "hover:bg-teal-50/50 transition cursor-pointer";
+                
+                let signBtnDisplay = "";
+                let signedInfo = "-";
+                if(row["ชื่อผู้รับ"] && row["ชื่อผู้รับ"].trim() !== "") {
+                    signBtnDisplay = `<div class="text-xs text-green-700 bg-green-50 rounded-lg p-2 border border-green-200 inline-block shadow-sm leading-tight text-left">
+                        <span class="font-bold">${row["ชื่อผู้รับ"]}</span><br><span class="text-gray-500">${row["วันที่รับ"]}</span>
+                    </div>`;
+                    signedInfo = `<span class="font-bold text-gray-800">${row["ชื่อผู้รับ"]}</span>`;
+                } else {
+                    signBtnDisplay = `<button onclick="event.stopPropagation(); openSignModal('${docNumStr}')" class="inline-flex items-center gap-1.5 px-4 py-2 bg-[var(--primary-color)] text-white font-bold rounded-xl hover:bg-[#0f3835] transition text-xs shadow-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg> กดรับหนังสือ</button>`;
+                    signedInfo = `<span class="text-gray-400">-</span>`;
+                }
+
+                trSign.innerHTML = `
+                    <td class="p-5 font-bold text-gray-900">${docNumStr}</td>
+                    <td class="p-5 text-[#185a56] font-medium">${fDateIn}</td>
+                    <td class="p-5 font-medium text-gray-800 truncate max-w-[300px]" title="${row["ชื่อเรื่อง"]}">${row["ชื่อเรื่อง"] || '-'}</td>
+                    <td class="p-5 text-center">${signedInfo}</td>
+                    <td class="p-5 text-center">${signBtnDisplay}</td>
+                `;
+                signReceiveTbody.appendChild(trSign);
+            }
         });
 
-        // ถ้าไม่มีข้อมูลในหน้า Receive เลยให้โชว์ข้อความ
+        // ข้อความกรณีไม่มีข้อมูลในหน้าต่างๆ
         if (receiveTbody.innerHTML === "") {
             receiveTbody.innerHTML = `<tr><td colspan="9" class="p-10 text-center text-gray-400">ยังไม่มีหนังสือที่ลงรับในวันนี้</td></tr>`;
         }
         if (statusTbody.innerHTML === "") {
             statusTbody.innerHTML = `<tr><td colspan="6" class="p-10 text-center text-gray-400">ไม่พบข้อมูลที่ค้นหา</td></tr>`;
+        }
+        if (signReceiveTbody.innerHTML === "") {
+            signReceiveTbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-400">ไม่พบข้อมูลที่ค้นหา</td></tr>`;
         }
     }
 
@@ -819,6 +924,7 @@
 
         let fDateOut = parseAnyDateToThai(doc["วันที่ออกหนังสือ"]);
         let fDateIn = parseAnyDateToThai(doc["วันที่ลงรับ"]);
+        let fDateSign = doc["วันที่รับ"] || ''; // แสดงวันที่และเวลาที่เซ็นไว้
 
         const html = `
             <div class="grid grid-cols-2 gap-y-5 gap-x-6">
@@ -831,10 +937,10 @@
                 <div><span class="text-gray-500 block text-xs mb-1">ผู้รับผิดชอบ</span><span class="font-medium text-gray-800">${doc["ผู้รับผิดชอบ"]||'-'}</span></div>
                 <div><span class="text-gray-500 block text-xs mb-1">หมวดหมู่</span><span class="font-medium text-gray-800">${doc["หมวดหมู่"]||'-'}</span></div>
                 <div class="col-span-2 mt-2 flex justify-between items-center bg-gray-50 p-5 rounded-xl border border-gray-100">
-                    <span class="text-gray-500 text-xs font-bold uppercase tracking-wider">สถานะการดำเนินงาน</span>
-                    ${getStatusBadge(doc["สถานะ"]||'ลงรับ')}
+                    <div><span class="text-gray-400 block text-xs mb-1">ผู้เซ็นรับหนังสือ</span><span class="font-bold text-green-700">${doc["ชื่อผู้รับ"]||'-'}</span> <span class="text-xs text-gray-500">${fDateSign}</span></div>
+                    <div><span class="text-gray-400 block text-xs mb-1 text-right">สถานะปัจจุบัน</span>${getStatusBadge(doc["สถานะ"]||'ลงรับ')}</div>
                 </div>
-                <div class="col-span-2 mt-2 text-center">
+                <div class="col-span-2 mt-4 text-center">
                     ${docBtn}
                 </div>
             </div>
@@ -940,7 +1046,7 @@
         currentEditId = null; 
         document.getElementById("modalTitle").innerText = "ลงระบบหนังสือรับ";
         
-        // ระบบรันเลขรับอัตโนมัติ
+        // ระบบรันเลขรับอัตโนมัติ (Auto-Increment)
         let maxNum = 0;
         let suffix = "";
         allData.forEach(row => {
@@ -950,7 +1056,7 @@
                 let num = parseInt(match[1], 10);
                 if (num > maxNum) {
                     maxNum = num;
-                    suffix = match[2] || ""; // เก็บค่าข้างหลังทับ เช่น /2569 ไว้
+                    suffix = match[2] || ""; // ดึงตัวอักษรต่อท้าย เช่น /2569 มาด้วย
                 }
             }
         });
@@ -965,7 +1071,7 @@
         document.getElementById("inputCategory").value = "";
         document.getElementById("inputDriveLink").value = "";
         
-        // ตั้งค่าเริ่มต้นวันที่ลงรับเป็นวันนี้
+        // เซ็ตวันที่ลงรับอัตโนมัติให้เป็นวันนี้
         if(fpDateOut) fpDateOut.clear();
         if(fpDateIn) {
             const today = new Date().toISOString().split('T')[0];
@@ -975,6 +1081,38 @@
         document.getElementById("addDocModal").classList.remove("hidden"); 
     }
     function closeAddDocModal() { document.getElementById("addDocModal").classList.add("hidden"); currentEditId = null; }
+
+    function openSignModal(docNum) { 
+        currentSignDocNum = docNum;
+        document.getElementById("signModal").classList.remove("hidden"); 
+        document.getElementById("receiverName").value = "";
+        setTimeout(()=> document.getElementById("receiverName").focus(), 100);
+    }
+    function closeSignModal() { document.getElementById("signModal").classList.add("hidden"); }
+    
+    // บันทึกการเซ็นรับ พร้อมวันที่และ "เวลาปัจจุบัน"
+    async function confirmSign() {
+        const name = document.getElementById("receiverName").value;
+        if(!name) return alert("กรุณากรอกชื่อผู้รับให้ครบถ้วน");
+
+        const t = new Date();
+        const mTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+        const timeStr = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')} น.`;
+        const fDate = `${t.getDate()} ${mTh[t.getMonth()]} ${t.getFullYear() + 543} ${timeStr}`;
+
+        closeSignModal();
+        showToast("กำลังบันทึกการเซ็นรับ...");
+
+        try {
+            await fetch(WEB_APP_URL, { 
+                method: "POST", 
+                body: JSON.stringify({ action: "SIGN", docNum: currentSignDocNum, receiverName: name, receiveDate: fDate }) 
+            });
+            loadDataFromSheet();
+        } catch(e) {
+            setTimeout(() => { loadDataFromSheet(); }, 1500);
+        }
+    }
 
     function showPage(id) {
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
