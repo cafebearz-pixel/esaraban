@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v9.5 (Ultimate Thai Date Fix)</title>
+    <title>eSaraban v9.6 (Interactive Dashboard & Sidebar)</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
             --primary-color: #114e4b;
         }
         
-        body { background: var(--app-bg); font-family: 'Prompt', sans-serif; }
+        body { background: var(--app-bg); font-family: 'Prompt', sans-serif; overflow-x: hidden; }
         
         /* สไตล์ Sidebar และพื้นหลังลูกเล่น */
         #sidebar { 
@@ -29,7 +29,7 @@
             background-position: bottom center;
             background-size: contain;
             background-repeat: no-repeat;
-            background-blend-mode: multiply; /* ทำให้รูปกลืนไปกับสีพื้นหลัง */
+            background-blend-mode: multiply;
             transition: transform 0.3s ease-in-out; 
             z-index: 50; 
         }
@@ -48,7 +48,7 @@
             color: #9cc1be; 
             margin-left: 1.25rem;
             padding: 0.875rem 1.25rem;
-            border-radius: 1.5rem 0 0 1.5rem; /* โค้งซ้าย แบนขวา */
+            border-radius: 1.5rem 0 0 1.5rem; 
             position: relative;
             display: flex;
             align-items: center;
@@ -62,7 +62,6 @@
             color: var(--primary-color) !important; 
             font-weight: 600; 
         }
-        /* สร้างมุมเว้าด้านบน */
         .menu-active::before {
             content: ''; position: absolute; right: 0; top: -20px;
             width: 20px; height: 20px; background-color: transparent;
@@ -70,7 +69,6 @@
             box-shadow: 10px 10px 0 10px var(--app-bg);
             pointer-events: none;
         }
-        /* สร้างมุมเว้าด้านล่าง */
         .menu-active::after {
             content: ''; position: absolute; right: 0; bottom: -20px;
             width: 20px; height: 20px; background-color: transparent;
@@ -86,7 +84,7 @@
 </head>
 <body>
 
-<div id="sidebar" class="fixed left-0 top-0 h-full w-64 text-white shadow-2xl transform -translate-x-full lg:translate-x-0 overflow-y-auto overflow-x-hidden">
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 text-white shadow-2xl overflow-y-auto overflow-x-hidden" style="transform: translateX(-100%);">
     
     <div class="flex items-center gap-3 mt-8 mb-6 pl-5 pr-4 relative z-10">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-0 shadow-lg border-2 border-yellow-400 flex-shrink-0 overflow-hidden">
@@ -96,7 +94,7 @@
             <h1 class="font-bold text-[19px] tracking-tight leading-none text-white">eSaraban</h1>
             <p class="text-[11px] text-teal-200 mt-1">อบต.ชำผักแพว</p>
         </div>
-        <button onclick="toggleSidebar()" class="ml-auto hover:text-yellow-400 transition-colors lg:hidden">
+        <button onclick="toggleSidebar()" class="ml-auto hover:text-yellow-400 transition-colors p-1">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
     </div>
@@ -135,14 +133,14 @@
     </nav>
 </div>
 
-<div id="content" class="lg:ml-64 min-h-screen flex flex-col transition-all duration-300 ml-0 relative">
+<div id="content" class="min-h-screen flex flex-col transition-all duration-300 ml-0 relative">
     
     <header class="bg-white text-gray-800 p-4 flex justify-between items-center sticky top-0 shadow-sm z-40 border-b border-gray-100">
         <div class="flex items-center gap-4">
-            <button onclick="toggleSidebar()" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors p-1 lg:hidden">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <button onclick="toggleSidebar()" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors p-1">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
-            <div class="hidden lg:flex flex-col justify-center ml-2">
+            <div class="flex flex-col justify-center ml-2">
                 <h2 class="font-bold text-lg text-gray-800 leading-tight">ยินดีต้อนรับ,</h2>
                 <p class="text-xs text-gray-400 tracking-wide mt-0.5" id="userRoleText">ผู้ดูแลระบบ</p>
             </div>
@@ -160,20 +158,20 @@
         <div id="page-home" class="page-content space-y-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></div>
-                    <div><p class="text-sm text-gray-500 font-medium">หนังสือทั้งหมด</p><h3 class="text-2xl font-bold text-gray-800">ระบบสารบัญ</h3></div>
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg></div>
+                    <div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-receive">0</span> <span class="text-base font-normal">ลงรับ</span></h3></div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></div>
+                    <div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-propose">0</span> <span class="text-base font-normal">เสนอ</span></h3></div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+                    <div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-distribute">0</span> <span class="text-base font-normal">แจกกอง</span></h3></div>
                 </div>
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
                     <div class="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                    <div><p class="text-sm text-gray-500 font-medium">ดำเนินการ</p><h3 class="text-2xl font-bold text-gray-800">เสร็จสิ้นแล้ว</h3></div>
-                </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                    <div><p class="text-sm text-gray-500 font-medium">หนังสือ</p><h3 class="text-2xl font-bold text-gray-800">รอดำเนินการ</h3></div>
-                </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                    <div><p class="text-sm text-gray-500 font-medium">หนังสือ</p><h3 class="text-2xl font-bold text-gray-800">ยกเลิก/ตีกลับ</h3></div>
+                    <div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-complete">0</span> <span class="text-base font-normal">เสร็จสิ้น</span></h3></div>
                 </div>
             </div>
 
@@ -473,6 +471,9 @@
         loadDataFromSheet();
         showPage('home'); 
         updateUI();
+        
+        let savedAnnounce = localStorage.getItem("esaraban_announce");
+        if(savedAnnounce) document.getElementById("announceText").innerText = savedAnnounce;
     };
 
     function initDatePickers() {
@@ -506,14 +507,28 @@
         fpDateIn = flatpickr("#inputDocDateIn", config);
     }
 
-    function toggleSidebar() {
-        const s = document.getElementById("sidebar"), c = document.getElementById("content");
-        isOpen = !isOpen;
-        s.style.transform = isOpen ? "translateX(0)" : "translateX(-100%)";
-        if(window.innerWidth >= 1024) c.style.marginLeft = isOpen ? "16rem" : "0";
+    let isSidebarOpen = window.innerWidth >= 1024;
+    function updateSidebarUI() {
+        const s = document.getElementById("sidebar");
+        const c = document.getElementById("content");
+        if (isSidebarOpen) {
+            s.style.transform = "translateX(0)";
+            if (window.innerWidth >= 1024) c.style.marginLeft = "16rem";
+        } else {
+            s.style.transform = "translateX(-100%)";
+            c.style.marginLeft = "0";
+        }
     }
+    function toggleSidebar() {
+        isSidebarOpen = !isSidebarOpen;
+        updateSidebarUI();
+    }
+    window.addEventListener('resize', () => {
+        if(window.innerWidth >= 1024 && !isSidebarOpen) { isSidebarOpen = true; updateSidebarUI(); }
+        else if (window.innerWidth < 1024 && isSidebarOpen) { isSidebarOpen = false; updateSidebarUI(); }
+    });
 
-    // สมองกลประมวลผลวันที่ให้กลายเป็น "8 พ.ค. 2569" โคตรฉลาด ป้องกันทุกบัค!
+    // สมองกลประมวลผลวันที่ฉบับสมบูรณ์ ป้องกันบัค 3112 
     function parseAnyDateToThai(dateStr) {
         if (!dateStr || dateStr === '-' || String(dateStr).trim() === '') return '-';
         let str = String(dateStr).trim();
@@ -537,11 +552,11 @@
             let sep = str.includes('/') ? '/' : '-';
             let parts = str.split('T')[0].split(sep);
             if (parts.length >= 3) {
-                if (parts[0].length === 4) { // YYYY-MM-DD
+                if (parts[0].length === 4) { 
                     y = parseInt(parts[0]);
                     m = parseInt(parts[1]) - 1;
                     d = parseInt(parts[2]);
-                } else { // DD/MM/YYYY
+                } else { 
                     d = parseInt(parts[0]);
                     m = parseInt(parts[1]) - 1;
                     y = parseInt(parts[2]);
@@ -557,17 +572,15 @@
         }
 
         if (d !== undefined && m !== undefined && y !== undefined && !isNaN(d) && !isNaN(m) && !isNaN(y) && m >= 0 && m < 12) {
-            // ระบบปรับปีให้เป็น พ.ศ. อัตโนมัติ แก้ปัญหาปี 3112 
             let beYear = y;
             if (y < 2500) beYear = y + 543;
-            else if (y > 3000) beYear = y - 543; 
+            else if (y > 3000) beYear = y - 543; // แก้บัคปี 3112
             
             return `${d} ${monthsTh[m]} ${beYear}`;
         }
         return str; 
     }
 
-    // สมองกลแปลงข้อมูลกลับไปให้ระบบปฏิทินของ Flatpickr (ต้องเป็นปี ค.ศ.)
     function convertToDateInputFormat(dateStr) {
         if(!dateStr || dateStr === '-') return "";
         let str = String(dateStr).trim();
@@ -609,9 +622,8 @@
         }
 
         if (d !== undefined && m !== undefined && y !== undefined && !isNaN(d) && !isNaN(m) && !isNaN(y) && m >= 0 && m < 12) {
-            // ระบบปรับปีให้เป็น ค.ศ. อัตโนมัติ แก้ปัญหาการแก้ไขข้อมูล
             let ceYear = y;
-            if (y > 3000) ceYear = y - 1086; 
+            if (y > 3000) ceYear = y - 1086; // แก้บัคตอนดึงข้อมูลเก่า
             else if (y > 2500) ceYear = y - 543; 
 
             return `${ceYear}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
@@ -624,9 +636,38 @@
             const response = await fetch(WEB_APP_URL);
             allData = await response.json();
             renderTables();
+            updateDashboard();
         } catch(e) { 
             document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
             document.getElementById("statusTableBody").innerHTML = `<tr><td colspan="6" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
+        }
+    }
+
+    function updateDashboard() {
+        let cReceive = 0, cPropose = 0, cDistribute = 0, cComplete = 0;
+        allData.forEach(row => {
+            let status = row["สถานะ"] || "ลงรับ";
+            if(status === 'ลงรับ') cReceive++;
+            else if(status === 'เสนอ') cPropose++;
+            else if(status === 'แจกกอง') cDistribute++;
+            else if(status === 'เสร็จสิ้น') cComplete++;
+        });
+        document.getElementById('count-receive').innerText = cReceive;
+        document.getElementById('count-propose').innerText = cPropose;
+        document.getElementById('count-distribute').innerText = cDistribute;
+        document.getElementById('count-complete').innerText = cComplete;
+    }
+
+    function editAnnounce() {
+        let currentText = document.getElementById("announceText").innerText;
+        if(currentText.startsWith("ประกาศ: ")) currentText = currentText.substring(8);
+        
+        let newText = prompt("แก้ไขข้อความประกาศ:", currentText);
+        if (newText !== null && newText.trim() !== "") {
+            let fullText = "ประกาศ: " + newText.trim();
+            document.getElementById("announceText").innerText = fullText;
+            localStorage.setItem("esaraban_announce", fullText);
+            showToast("แก้ไขประกาศเรียบร้อยแล้ว (แสดงเฉพาะเครื่องนี้)");
         }
     }
 
@@ -665,7 +706,6 @@
             const matchSpeed = !speed || row["ชั้นความเร็ว"] === speed;
             const matchCat = !cat || row["หมวดหมู่"] === cat;
 
-            // ส่งข้อมูลผ่านสมองกลแปลงวันที่ตัวใหม่
             let fDateIn = parseAnyDateToThai(row["วันที่ลงรับ"]);
 
             const docNumStr = row["เลขรับ"] || '';
@@ -740,7 +780,6 @@
             docBtn = `<a href="${doc["ลิงก์ Google Drive"]}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-xl hover:bg-teal-50 transition shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เปิดดูเอกสารอ้างอิง</a>`;
         }
 
-        // ส่งข้อมูลผ่านสมองกลแปลงวันที่ตัวใหม่
         let fDateOut = parseAnyDateToThai(doc["วันที่ออกหนังสือ"]);
         let fDateIn = parseAnyDateToThai(doc["วันที่ลงรับ"]);
 
@@ -832,7 +871,6 @@
             action: currentEditId ? "EDIT" : "ADD",
             oldDocNum: currentEditId,
             docNum: document.getElementById("inputDocNum").value,
-            // ส่งค่าไปเป็น Y-m-d แล้วแปลงเป็นรูปแบบ 8 พ.ค. 2569 ก่อนบันทึกลง Sheet
             docDateOut: parseAnyDateToThai(document.getElementById("inputDocDateOut").value),
             docDateIn: parseAnyDateToThai(document.getElementById("inputDocDateIn").value),
             docFrom: document.getElementById("inputDocFrom").value,
@@ -883,7 +921,7 @@
         document.getElementById('page-' + id).classList.add('page-active');
         document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('menu-active'));
         if(document.getElementById('menu-' + id)) document.getElementById('menu-' + id).classList.add('menu-active');
-        if(window.innerWidth < 1024 && isOpen) toggleSidebar();
+        if(window.innerWidth < 1024 && isSidebarOpen) toggleSidebar();
     }
 
     function handleAuthToggle() {
