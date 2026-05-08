@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v9.4 (Bulletproof Thai B.E. Calendar)</title>
+    <title>eSaraban v9.5 (Ultimate Thai Date Fix)</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -476,7 +476,6 @@
     };
 
     function initDatePickers() {
-        // ฟังก์ชันช่วยเพื่อแก้ปี พ.ศ. ของ flatpickr ให้เป๊ะ
         const forceThaiYear = function(selectedDates, dateStr, instance) {
             if(instance.currentYearElement) {
                 instance.currentYearElement.value = instance.currentYear + 543;
@@ -514,67 +513,108 @@
         if(window.innerWidth >= 1024) c.style.marginLeft = isOpen ? "16rem" : "0";
     }
 
-    function toThaiDateString(dateVal) {
-        if (!dateVal || dateVal === '-' || String(dateVal).trim() === '') return '-';
-        const strVal = String(dateVal).trim();
-        
-        // ถ้ารูปแบบเป็นภาษาไทยอยู่แล้ว เช่น "08 พ.ค. 2569" ให้ตัด 0 ข้างหน้าออกแล้วคืนค่าเลย
-        if (/[ก-๙]/.test(strVal)) return strVal.replace(/^0+/, ''); 
+    // สมองกลประมวลผลวันที่ให้กลายเป็น "8 พ.ค. 2569" โคตรฉลาด ป้องกันทุกบัค!
+    function parseAnyDateToThai(dateStr) {
+        if (!dateStr || dateStr === '-' || String(dateStr).trim() === '') return '-';
+        let str = String(dateStr).trim();
 
-        // ถ้ารูปแบบมาจาก Flatpickr คือ YYYY-MM-DD
-        if (strVal.match(/^\d{4}-\d{2}-\d{2}/)) {
-            const parts = strVal.split('T')[0].split('-');
-            let year = parseInt(parts[0]);
-            let month = parseInt(parts[1]) - 1;
-            let day = parseInt(parts[2]);
-            const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-            let thaiYear = year < 2500 ? year + 543 : year;
-            return `${day} ${months[month]} ${thaiYear}`;
-        }
+        const monthsTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+        const monthsFullTh = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
         
-        // ท่าสำรองใช้ Date()
-        const d = new Date(strVal);
-        if (!isNaN(d)) {
-            const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-            let thaiYear = d.getFullYear() < 2500 ? d.getFullYear() + 543 : d.getFullYear();
-            return `${d.getDate()} ${months[d.getMonth()]} ${thaiYear}`;
-        }
-        return strVal;
-    }
+        let d, m, y;
 
-    function convertToDateInputFormat(dateStr) {
-        if(!dateStr || dateStr === '-') return "";
-        
-        // ถ้าเป็นแบบ YYYY-MM-DD อยู่แล้ว (แต่อาจจะจำปี พ.ศ. ไว้) ให้แปลงกลับเป็น ค.ศ.
-        if(dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
-            let parts = dateStr.split('-');
-            let year = parseInt(parts[0]);
-            if (year > 2500) year -= 543;
-            return `${year}-${parts[1]}-${parts[2]}`;
-        }
-        
-        // ถ้าเป็นภาษาไทย เช่น "8 พ.ค. 2569"
-        const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-        const parts = dateStr.trim().split(' ');
-        if(parts.length >= 3) { 
-            let day = parts[0].padStart(2, '0');
-            let monthStr = parts[1];
-            // ค้นหาเดือน ไม่ว่าจะพิมพ์มาเต็มหรือย่อ หรือมีจุดไม่มีจุด
-            let monthIdx = months.findIndex(m => m === monthStr || monthStr.includes(m.replace('.', '')));
-            let year = parseInt(parts[2]);
-            if(monthIdx !== -1 && !isNaN(year)) {
-                let month = (monthIdx + 1).toString().padStart(2, '0');
-                let isoYear = year > 2500 ? year - 543 : year;
-                return `${isoYear}-${month}-${day}`;
+        if (/[ก-๙]/.test(str)) {
+            let parts = str.split(/\s+/);
+            if (parts.length >= 3) {
+                d = parseInt(parts[0]);
+                let mStr = parts[1].replace(/\./g, '');
+                m = monthsTh.findIndex(month => month.replace(/\./g, '') === mStr);
+                if (m === -1) m = monthsFullTh.findIndex(month => month === mStr);
+                y = parseInt(parts[2]);
+            }
+        } 
+        else if (str.includes('/') || str.includes('-')) {
+            let sep = str.includes('/') ? '/' : '-';
+            let parts = str.split('T')[0].split(sep);
+            if (parts.length >= 3) {
+                if (parts[0].length === 4) { // YYYY-MM-DD
+                    y = parseInt(parts[0]);
+                    m = parseInt(parts[1]) - 1;
+                    d = parseInt(parts[2]);
+                } else { // DD/MM/YYYY
+                    d = parseInt(parts[0]);
+                    m = parseInt(parts[1]) - 1;
+                    y = parseInt(parts[2]);
+                }
+            }
+        } else {
+            let temp = new Date(str);
+            if (!isNaN(temp)) {
+                d = temp.getDate();
+                m = temp.getMonth();
+                y = temp.getFullYear();
             }
         }
 
-        // ท่าสำรอง Date()
-        let d = new Date(dateStr);
-        if(!isNaN(d)) {
-            let year = d.getFullYear();
-            if (year > 2500) year -= 543;
-            return `${year}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        if (d !== undefined && m !== undefined && y !== undefined && !isNaN(d) && !isNaN(m) && !isNaN(y) && m >= 0 && m < 12) {
+            // ระบบปรับปีให้เป็น พ.ศ. อัตโนมัติ แก้ปัญหาปี 3112 
+            let beYear = y;
+            if (y < 2500) beYear = y + 543;
+            else if (y > 3000) beYear = y - 543; 
+            
+            return `${d} ${monthsTh[m]} ${beYear}`;
+        }
+        return str; 
+    }
+
+    // สมองกลแปลงข้อมูลกลับไปให้ระบบปฏิทินของ Flatpickr (ต้องเป็นปี ค.ศ.)
+    function convertToDateInputFormat(dateStr) {
+        if(!dateStr || dateStr === '-') return "";
+        let str = String(dateStr).trim();
+        const monthsTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+        const monthsFullTh = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+        
+        let d, m, y;
+        
+        if (/[ก-๙]/.test(str)) {
+            let parts = str.split(/\s+/);
+            if (parts.length >= 3) {
+                d = parseInt(parts[0]);
+                let mStr = parts[1].replace(/\./g, '');
+                m = monthsTh.findIndex(month => month.replace(/\./g, '') === mStr);
+                if (m === -1) m = monthsFullTh.findIndex(month => month === mStr);
+                y = parseInt(parts[2]);
+            }
+        } else if (str.includes('/') || str.includes('-')) {
+            let sep = str.includes('/') ? '/' : '-';
+            let parts = str.split('T')[0].split(sep);
+            if (parts.length >= 3) {
+                if (parts[0].length === 4) {
+                    y = parseInt(parts[0]);
+                    m = parseInt(parts[1]) - 1;
+                    d = parseInt(parts[2]);
+                } else {
+                    d = parseInt(parts[0]);
+                    m = parseInt(parts[1]) - 1;
+                    y = parseInt(parts[2]);
+                }
+            }
+        } else {
+            let temp = new Date(str);
+            if (!isNaN(temp)) {
+                d = temp.getDate();
+                m = temp.getMonth();
+                y = temp.getFullYear();
+            }
+        }
+
+        if (d !== undefined && m !== undefined && y !== undefined && !isNaN(d) && !isNaN(m) && !isNaN(y) && m >= 0 && m < 12) {
+            // ระบบปรับปีให้เป็น ค.ศ. อัตโนมัติ แก้ปัญหาการแก้ไขข้อมูล
+            let ceYear = y;
+            if (y > 3000) ceYear = y - 1086; 
+            else if (y > 2500) ceYear = y - 543; 
+
+            return `${ceYear}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
         }
         return "";
     }
@@ -585,7 +625,7 @@
             allData = await response.json();
             renderTables();
         } catch(e) { 
-            document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้ กรุณาตรวจสอบ URL</td></tr>`;
+            document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
             document.getElementById("statusTableBody").innerHTML = `<tr><td colspan="6" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
         }
     }
@@ -625,7 +665,8 @@
             const matchSpeed = !speed || row["ชั้นความเร็ว"] === speed;
             const matchCat = !cat || row["หมวดหมู่"] === cat;
 
-            let fDateIn = toThaiDateString(row["วันที่ลงรับ"]);
+            // ส่งข้อมูลผ่านสมองกลแปลงวันที่ตัวใหม่
+            let fDateIn = parseAnyDateToThai(row["วันที่ลงรับ"]);
 
             const docNumStr = row["เลขรับ"] || '';
             const currentStatus = row["สถานะ"] || "ลงรับ";
@@ -699,10 +740,14 @@
             docBtn = `<a href="${doc["ลิงก์ Google Drive"]}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-xl hover:bg-teal-50 transition shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เปิดดูเอกสารอ้างอิง</a>`;
         }
 
+        // ส่งข้อมูลผ่านสมองกลแปลงวันที่ตัวใหม่
+        let fDateOut = parseAnyDateToThai(doc["วันที่ออกหนังสือ"]);
+        let fDateIn = parseAnyDateToThai(doc["วันที่ลงรับ"]);
+
         const html = `
             <div class="grid grid-cols-2 gap-y-5 gap-x-6">
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><span class="text-gray-500 block text-xs mb-1">วันที่ออกหนังสือ</span><span class="font-medium text-gray-800">${toThaiDateString(doc["วันที่ออกหนังสือ"])}</span></div>
-                <div class="bg-teal-50 p-4 rounded-xl border border-teal-100"><span class="text-teal-600 block text-xs mb-1 font-semibold">วันที่ลงรับ</span><span class="font-bold text-[var(--primary-color)]">${toThaiDateString(doc["วันที่ลงรับ"])}</span></div>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><span class="text-gray-500 block text-xs mb-1">วันที่ออกหนังสือ</span><span class="font-medium text-gray-800">${fDateOut}</span></div>
+                <div class="bg-teal-50 p-4 rounded-xl border border-teal-100"><span class="text-teal-600 block text-xs mb-1 font-semibold">วันที่ลงรับ</span><span class="font-bold text-[var(--primary-color)]">${fDateIn}</span></div>
                 <div class="col-span-2"><span class="text-gray-500 block text-xs mb-1">จาก (หน่วยงาน)</span><span class="font-medium text-gray-800">${doc["จาก"]||'-'}</span></div>
                 <div class="col-span-2"><span class="text-gray-500 block text-xs mb-1">ชื่อเรื่อง</span><span class="font-bold text-gray-900 text-base leading-tight block">${doc["ชื่อเรื่อง"]||'-'}</span></div>
                 <div><span class="text-gray-500 block text-xs mb-1">ประเภทหนังสือ</span><span class="font-medium text-gray-800">${doc["ประเภทหนังสือ"]||'-'}</span></div>
@@ -787,8 +832,9 @@
             action: currentEditId ? "EDIT" : "ADD",
             oldDocNum: currentEditId,
             docNum: document.getElementById("inputDocNum").value,
-            docDateOut: toThaiDateString(document.getElementById("inputDocDateOut").value),
-            docDateIn: toThaiDateString(document.getElementById("inputDocDateIn").value),
+            // ส่งค่าไปเป็น Y-m-d แล้วแปลงเป็นรูปแบบ 8 พ.ค. 2569 ก่อนบันทึกลง Sheet
+            docDateOut: parseAnyDateToThai(document.getElementById("inputDocDateOut").value),
+            docDateIn: parseAnyDateToThai(document.getElementById("inputDocDateIn").value),
             docFrom: document.getElementById("inputDocFrom").value,
             docTitle: document.getElementById("inputDocTitle").value,
             docType: document.getElementById("inputType").value,
