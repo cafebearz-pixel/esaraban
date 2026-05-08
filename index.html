@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v9.2 (PDF Downloadable Forms)</title>
+    <title>eSaraban v9.4 (Bulletproof Thai B.E. Calendar)</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -90,7 +90,7 @@
     
     <div class="flex items-center gap-3 mt-8 mb-6 pl-5 pr-4 relative z-10">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-0 shadow-lg border-2 border-yellow-400 flex-shrink-0 overflow-hidden">
-            <img src="https://cafebearz-pixel.github.io/esaraban/cpp.png" alt="Logo" class="w-full h-full object-cover">
+            <img src="https://cafebearz-pixel.github.io/esaraban/cpp.png" alt="Logo" class="w-full h-full object-cover scale-[1.2]">
         </div>
         <div class="flex flex-col">
             <h1 class="font-bold text-[19px] tracking-tight leading-none text-white">eSaraban</h1>
@@ -200,13 +200,12 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between h-full hover:shadow-md transition">
                     <div>
                         <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
                         <h3 class="font-bold text-gray-800 text-lg mb-1">แบบคำร้องทั่วไป</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p>
                     </div>
-                    <a href="แบบคำร้องทั่วไป.pdf" download="แบบคำร้องทั่วไป.pdf" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">ดาวน์โหลด</a>
+                    <a href="https://cafebearz-pixel.github.io/esaraban/แบบคำร้องทั่วไป.pdf" target="_blank" download="แบบคำร้องทั่วไป.pdf" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">ดาวน์โหลด</a>
                 </div>
                 
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between h-full hover:shadow-md transition">
@@ -477,6 +476,16 @@
     };
 
     function initDatePickers() {
+        // ฟังก์ชันช่วยเพื่อแก้ปี พ.ศ. ของ flatpickr ให้เป๊ะ
+        const forceThaiYear = function(selectedDates, dateStr, instance) {
+            if(instance.currentYearElement) {
+                instance.currentYearElement.value = instance.currentYear + 543;
+                if (!instance.currentYearElement.hasAttribute('readonly')) {
+                    instance.currentYearElement.setAttribute('readonly', 'readonly');
+                }
+            }
+        };
+
         const config = {
             locale: "th",
             altInput: true,
@@ -488,18 +497,11 @@
                 const y = date.getFullYear() + 543;
                 return `${d} ${m} ${y}`;
             },
-            onReady: function(selectedDates, dateStr, instance) {
-                if(instance.currentYearElement) {
-                    instance.currentYearElement.value = instance.currentYear + 543;
-                    instance.currentYearElement.setAttribute("readonly", "readonly");
-                }
-            },
-            onYearChange: function(selectedDates, dateStr, instance) {
-                if(instance.currentYearElement) instance.currentYearElement.value = instance.currentYear + 543;
-            },
-            onMonthChange: function(selectedDates, dateStr, instance) {
-                if(instance.currentYearElement) instance.currentYearElement.value = instance.currentYear + 543;
-            }
+            onReady: forceThaiYear,
+            onYearChange: forceThaiYear,
+            onMonthChange: forceThaiYear,
+            onOpen: forceThaiYear,
+            onValueUpdate: forceThaiYear
         };
         fpDateOut = flatpickr("#inputDocDateOut", config);
         fpDateIn = flatpickr("#inputDocDateIn", config);
@@ -515,20 +517,22 @@
     function toThaiDateString(dateVal) {
         if (!dateVal || dateVal === '-' || String(dateVal).trim() === '') return '-';
         const strVal = String(dateVal).trim();
+        
+        // ถ้ารูปแบบเป็นภาษาไทยอยู่แล้ว เช่น "08 พ.ค. 2569" ให้ตัด 0 ข้างหน้าออกแล้วคืนค่าเลย
         if (/[ก-๙]/.test(strVal)) return strVal.replace(/^0+/, ''); 
 
-        if (strVal.includes('-')) {
+        // ถ้ารูปแบบมาจาก Flatpickr คือ YYYY-MM-DD
+        if (strVal.match(/^\d{4}-\d{2}-\d{2}/)) {
             const parts = strVal.split('T')[0].split('-');
-            if(parts.length >= 3) {
-                let year = parseInt(parts[0]);
-                let month = parseInt(parts[1]) - 1;
-                let day = parseInt(parts[2]);
-                const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-                let thaiYear = year < 2500 ? year + 543 : year;
-                return `${day} ${months[month]} ${thaiYear}`;
-            }
+            let year = parseInt(parts[0]);
+            let month = parseInt(parts[1]) - 1;
+            let day = parseInt(parts[2]);
+            const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+            let thaiYear = year < 2500 ? year + 543 : year;
+            return `${day} ${months[month]} ${thaiYear}`;
         }
         
+        // ท่าสำรองใช้ Date()
         const d = new Date(strVal);
         if (!isNaN(d)) {
             const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
@@ -540,13 +544,23 @@
 
     function convertToDateInputFormat(dateStr) {
         if(!dateStr || dateStr === '-') return "";
-        if(dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) return dateStr;
         
+        // ถ้าเป็นแบบ YYYY-MM-DD อยู่แล้ว (แต่อาจจะจำปี พ.ศ. ไว้) ให้แปลงกลับเป็น ค.ศ.
+        if(dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            let parts = dateStr.split('-');
+            let year = parseInt(parts[0]);
+            if (year > 2500) year -= 543;
+            return `${year}-${parts[1]}-${parts[2]}`;
+        }
+        
+        // ถ้าเป็นภาษาไทย เช่น "8 พ.ค. 2569"
         const months = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
         const parts = dateStr.trim().split(' ');
         if(parts.length >= 3) { 
             let day = parts[0].padStart(2, '0');
-            let monthIdx = months.indexOf(parts[1]);
+            let monthStr = parts[1];
+            // ค้นหาเดือน ไม่ว่าจะพิมพ์มาเต็มหรือย่อ หรือมีจุดไม่มีจุด
+            let monthIdx = months.findIndex(m => m === monthStr || monthStr.includes(m.replace('.', '')));
             let year = parseInt(parts[2]);
             if(monthIdx !== -1 && !isNaN(year)) {
                 let month = (monthIdx + 1).toString().padStart(2, '0');
@@ -554,8 +568,14 @@
                 return `${isoYear}-${month}-${day}`;
             }
         }
+
+        // ท่าสำรอง Date()
         let d = new Date(dateStr);
-        if(!isNaN(d)) return d.toISOString().split('T')[0];
+        if(!isNaN(d)) {
+            let year = d.getFullYear();
+            if (year > 2500) year -= 543;
+            return `${year}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
         return "";
     }
 
@@ -565,7 +585,7 @@
             allData = await response.json();
             renderTables();
         } catch(e) { 
-            document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
+            document.getElementById("desktopTableBody").innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้ กรุณาตรวจสอบ URL</td></tr>`;
             document.getElementById("statusTableBody").innerHTML = `<tr><td colspan="6" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้</td></tr>`;
         }
     }
@@ -605,8 +625,7 @@
             const matchSpeed = !speed || row["ชั้นความเร็ว"] === speed;
             const matchCat = !cat || row["หมวดหมู่"] === cat;
 
-            let fDateIn = row["วันที่ลงรับ"] || '-';
-            if (fDateIn.includes('-')) fDateIn = toThaiDateString(fDateIn);
+            let fDateIn = toThaiDateString(row["วันที่ลงรับ"]);
 
             const docNumStr = row["เลขรับ"] || '';
             const currentStatus = row["สถานะ"] || "ลงรับ";
@@ -620,7 +639,7 @@
                 const driveLink = row["ลิงก์ Google Drive"] || "";
                 let docBtn = '<span class="text-gray-300">-</span>';
                 if (driveLink.trim() !== "") {
-                    docBtn = `<a href="${driveLink}" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-gray-200 text-blue-600 font-bold rounded-lg hover:bg-teal-50 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เอกสาร</a>`;
+                    docBtn = `<a href="${driveLink}" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-gray-200 text-[#185a56] font-bold rounded-lg hover:bg-teal-50 transition text-xs shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เอกสาร</a>`;
                 }
 
                 const actionBtns = `
@@ -680,16 +699,10 @@
             docBtn = `<a href="${doc["ลิงก์ Google Drive"]}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-xl hover:bg-teal-50 transition shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เปิดดูเอกสารอ้างอิง</a>`;
         }
 
-        let fDateOut = doc["วันที่ออกหนังสือ"] || '-';
-        let fDateIn = doc["วันที่ลงรับ"] || '-';
-        
-        if (fDateOut.includes('-')) fDateOut = toThaiDateString(fDateOut);
-        if (fDateIn.includes('-')) fDateIn = toThaiDateString(fDateIn);
-
         const html = `
             <div class="grid grid-cols-2 gap-y-5 gap-x-6">
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><span class="text-gray-500 block text-xs mb-1">วันที่ออกหนังสือ</span><span class="font-medium text-gray-800">${fDateOut}</span></div>
-                <div class="bg-teal-50 p-4 rounded-xl border border-teal-100"><span class="text-teal-600 block text-xs mb-1 font-semibold">วันที่ลงรับ</span><span class="font-bold text-[var(--primary-color)]">${fDateIn}</span></div>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><span class="text-gray-500 block text-xs mb-1">วันที่ออกหนังสือ</span><span class="font-medium text-gray-800">${toThaiDateString(doc["วันที่ออกหนังสือ"])}</span></div>
+                <div class="bg-teal-50 p-4 rounded-xl border border-teal-100"><span class="text-teal-600 block text-xs mb-1 font-semibold">วันที่ลงรับ</span><span class="font-bold text-[var(--primary-color)]">${toThaiDateString(doc["วันที่ลงรับ"])}</span></div>
                 <div class="col-span-2"><span class="text-gray-500 block text-xs mb-1">จาก (หน่วยงาน)</span><span class="font-medium text-gray-800">${doc["จาก"]||'-'}</span></div>
                 <div class="col-span-2"><span class="text-gray-500 block text-xs mb-1">ชื่อเรื่อง</span><span class="font-bold text-gray-900 text-base leading-tight block">${doc["ชื่อเรื่อง"]||'-'}</span></div>
                 <div><span class="text-gray-500 block text-xs mb-1">ประเภทหนังสือ</span><span class="font-medium text-gray-800">${doc["ประเภทหนังสือ"]||'-'}</span></div>
