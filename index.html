@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSaraban v9.0 (Modern Teal Dashboard)</title>
+    <title>eSaraban v9.1 (Custom Logo)</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script>
@@ -89,7 +90,7 @@
     
     <div class="flex items-center gap-3 mt-8 mb-6 pl-5 pr-4 relative z-10">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1 shadow-lg border-2 border-yellow-400 flex-shrink-0">
-            <img src="https://cdn-icons-png.flaticon.com/512/5550/5550473.png" alt="Logo" class="w-full h-full object-contain">
+            <img src="cpp.png" alt="Logo" class="w-full h-full object-contain">
         </div>
         <div class="flex flex-col">
             <h1 class="font-bold text-[19px] tracking-tight leading-none text-white">eSaraban</h1>
@@ -444,10 +445,10 @@
         <h2 class="font-bold text-gray-800 mb-6 text-xl">เข้าสู่ระบบ</h2>
         <div class="flex bg-gray-100 rounded-full p-1.5 mb-6 shadow-inner">
             <div class="flex-1 py-1.5 rounded-full font-bold text-sm text-gray-400 cursor-default">ผู้ชม</div>
-            <div class="flex-1 py-1.5 rounded-full bg-white shadow-sm font-bold text-sm text-[var(--primary-color)] cursor-default">Admin</div>
+            <div class="flex-1 py-1.5 rounded-full bg-white shadow-sm font-bold text-sm text-[#185a56] cursor-default">Admin</div>
         </div>
-        <input id="passInput" type="password" placeholder="••••••" class="w-full p-4 rounded-xl border border-gray-200 text-center mb-6 focus:border-[var(--primary-color)] outline-none text-xl tracking-widest bg-gray-50 focus:bg-white transition">
-        <button onclick="checkPass()" class="w-full bg-[var(--primary-color)] text-white p-3.5 rounded-xl font-bold hover:bg-[#0f3835] transition shadow-md">เข้าสู่ระบบ</button>
+        <input id="passInput" type="password" placeholder="••••••" class="w-full p-4 rounded-xl border border-gray-200 text-center mb-6 focus:border-[#185a56] outline-none text-xl tracking-widest bg-gray-50 focus:bg-white transition">
+        <button onclick="checkPass()" class="w-full bg-[#185a56] text-white p-3.5 rounded-xl font-bold hover:bg-[#0f3835] transition shadow-md">เข้าสู่ระบบ</button>
     </div>
 </div>
 
@@ -673,7 +674,7 @@
         
         let docBtn = '';
         if (doc["ลิงก์ Google Drive"]) {
-            docBtn = `<a href="${doc["ลิงก์ Google Drive"]}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-xl hover:bg-teal-50 transition shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เปิดดูเอกสารอ้างอิง</a>`;
+            docBtn = `<a href="${doc["ลิงก์ Google Drive"]}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-[#185a56] font-bold rounded-xl hover:bg-teal-50 transition shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> เปิดดูเอกสารอ้างอิง</a>`;
         }
 
         let fDateOut = doc["วันที่ออกหนังสือ"] || '-';
