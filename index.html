@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eSaraban - อบต.ชำผักแพว</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script>
-
     <style>
         :root {
             --app-bg: #f0f4f8;
@@ -32,9 +29,6 @@
         .menu-active { background: var(--app-bg) !important; color: var(--primary-color) !important; font-weight: 600; }
         .menu-active::before { content: ''; position: absolute; right: 0; top: -20px; width: 20px; height: 20px; background-color: transparent; border-bottom-right-radius: 20px; box-shadow: 10px 10px 0 10px var(--app-bg); pointer-events: none; }
         .menu-active::after { content: ''; position: absolute; right: 0; bottom: -20px; width: 20px; height: 20px; background-color: transparent; border-top-right-radius: 20px; box-shadow: 10px -10px 0 10px var(--app-bg); pointer-events: none; }
-        select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
-        .toast-enter { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes slideUp { from { transform: translate(-50%, 100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
         .doc-checkbox { accent-color: var(--primary-color); transform: scale(1.3); cursor: pointer; }
     </style>
 </head>
@@ -42,9 +36,7 @@
 
 <div id="sidebar" class="fixed left-0 top-0 h-full w-64 text-white shadow-2xl overflow-y-auto overflow-x-hidden" style="transform: translateX(-100%);">
     <div class="flex items-center gap-3 mt-8 mb-6 pl-5 pr-4 relative z-10">
-        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-0 shadow-lg border-2 border-yellow-400 flex-shrink-0 overflow-hidden">
-            <img src="https://cafebearz-pixel.github.io/esaraban/cpp.png" alt="Logo" class="w-full h-full object-cover scale-[1.2]">
-        </div>
+        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-0 shadow-lg border-2 border-yellow-400 flex-shrink-0 overflow-hidden"><img src="https://cafebearz-pixel.github.io/esaraban/cpp.png" alt="Logo" class="w-full h-full object-cover scale-[1.2]"></div>
         <div class="flex flex-col"><h1 class="font-bold text-[19px] tracking-tight leading-none text-white">eSaraban</h1><p class="text-[11px] text-teal-200 mt-1">อบต.ชำผักแพว</p></div>
         <button onclick="toggleSidebar()" class="ml-auto text-gray-300 hover:text-white transition-colors p-1 lg:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
     </div>
@@ -52,680 +44,180 @@
         <ul id="menuList">
             <li onclick="showPage('home')" id="menu-home" class="menu-item"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span class="text-sm">หน้าหลัก</span></li>
             <li onclick="showPage('receive')" id="menu-receive" class="menu-item"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="text-sm">ทะเบียนหนังสือรับ</span></li>
-            <li onclick="showPage('forms')" id="menu-forms" class="menu-item"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span class="text-sm">แบบฟอร์มเอกสาร</span></li>
             <li onclick="showPage('status')" id="menu-status" class="menu-item"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg><span class="text-sm">สถานะหนังสือ</span></li>
             <li onclick="showPage('sign-receive')" id="menu-sign-receive" class="menu-item"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg><span class="text-sm">ลงนามรับหนังสือ</span></li>
             <li onclick="showPage('completed')" id="menu-completed" class="menu-item"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-sm">เสร็จสิ้นแล้ว</span></li>
         </ul>
     </nav>
 </div>
-
 <div id="content" class="min-h-screen flex flex-col transition-all duration-300 ml-0 relative">
     <header class="bg-white text-gray-800 p-4 flex justify-between items-center sticky top-0 shadow-sm z-40 border-b border-gray-100">
-        <div class="flex items-center gap-3">
-            <button onclick="toggleSidebar()" class="text-gray-500 hover:text-[var(--primary-color)] transition-colors p-2 rounded-lg hover:bg-gray-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
-            <div class="hidden sm:flex flex-col justify-center ml-2"><h2 class="font-bold text-lg text-gray-800 leading-tight">ระบบสารบัญอิเล็กทรอนิกส์</h2><p class="text-xs text-gray-500 tracking-wide mt-0.5" id="userRoleText">อบต.ชำผักแพว</p></div>
-        </div>
-        <div class="flex items-center gap-4">
-            <button id="authBtn" onclick="handleAuthToggle()" class="bg-gray-100 text-gray-700 px-6 py-2.5 rounded-full font-bold shadow-sm hover:bg-gray-200 transition-all text-sm flex items-center gap-2 border border-gray-200"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg> GUEST</button>
-        </div>
+        <button onclick="toggleSidebar()" class="text-gray-500 hover:text-[var(--primary-color)] p-2 text-xl">☰</button>
+        <button id="authBtn" onclick="handleAuthToggle()" class="bg-gray-100 text-gray-700 px-6 py-2.5 rounded-full font-bold shadow-sm hover:bg-gray-200 transition-all text-sm border border-gray-200">เข้าสู่ระบบ Admin</button>
     </header>
 
     <main class="p-4 md:p-8 flex-1 w-full mx-auto max-w-[1600px] z-10 relative">
         <div id="page-home" class="page-content space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg></div><div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-receive">0</span> <span class="text-base font-normal">ลงรับ</span></h3></div></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></div><div><p class="text-sm text-gray-500 font-medium">รอดำเนินการ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-propose">0</span> <span class="text-base font-normal">เสนอ</span></h3></div></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div><p class="text-sm text-gray-500 font-medium">รอดำเนินการ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-distribute">0</span> <span class="text-base font-normal">แจกกอง</span></h3></div></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><p class="text-sm text-gray-500 font-medium">ดำเนินการ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-complete">0</span> <span class="text-base font-normal">เสร็จสิ้น</span></h3></div></div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 text-center">ลงรับ<h3 id="count-receive" class="text-2xl font-bold text-blue-600">0</h3></div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 text-center">เสนอ<h3 id="count-propose" class="text-2xl font-bold text-yellow-600">0</h3></div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 text-center">แจกกอง<h3 id="count-distribute" class="text-2xl font-bold text-purple-600">0</h3></div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 text-center">เสร็จสิ้น<h3 id="count-complete" class="text-2xl font-bold text-green-600">0</h3></div>
             </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex justify-between items-center relative overflow-hidden mt-6">
-                <div class="absolute top-0 left-0 w-2 h-full bg-[var(--primary-color)]"></div>
-                <div class="flex items-center gap-4 pl-4"><div class="p-3 bg-teal-50 text-[var(--primary-color)] rounded-xl"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg></div><p id="announceText" class="text-gray-700 font-medium text-lg">ประกาศ: ยินดีต้อนรับสู่ระบบงานสารบัญอิเล็กทรอนิกส์</p></div>
-                <button onclick="editAnnounce()" class="admin-only hidden text-gray-400 hover:text-[var(--primary-color)] flex items-center gap-1 text-sm font-medium transition bg-gray-50 px-4 py-2 rounded-lg border border-gray-200"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg> แก้ไข</button>
-            </div>
-        </div>
-
-        <div id="page-forms" class="page-content space-y-6">
-            <div class="flex items-center gap-4 mb-6"><div class="bg-white p-3.5 rounded-2xl shadow-sm text-[var(--primary-color)] border border-gray-200"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div><h2 class="text-2xl font-bold text-gray-800">ดาวน์โหลดแบบฟอร์ม</h2><p class="text-sm text-gray-500">แบบฟอร์มเอกสารต่างๆ (Google Drive)</p></div></div>
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">แบบคำร้องทั่วไป</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1MDwEoYiVrLriR-NDY0pfTUa-KootpNBu/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">ใบลาป่วย</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/16UFjCqi8GzZ1grBXzdryQUjYMyRGnsJR/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">ใบลาพักผ่อน</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1Zgbo8iyCx5PA_vhyLTWHXL0dt1jKQDST/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-yellow-50 text-yellow-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">ใบแจ้งซ่อมไฟฟ้า</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1REALuatUR-NtnpvP2vejv9QkUBpmO3QQ/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">อปพร.</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1ZfLIO1MRX5qX0YbvPjERg0d6Jd_WMEv2/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-teal-50 text-teal-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">ขอดูกล้อง CCTV</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1oA4jwDCmhO4A77Mo26BNDzR1OdLxfVLK/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">แลกเปลี่ยนเวรยาม</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="#" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">รถยนต์</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1do2nyNI758mDsFJZUoKwQqwDB8BKGaDB/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex flex-col justify-between h-full hover:shadow-md transition"><div><div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mb-5"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><h3 class="font-bold text-gray-800 text-lg mb-1">รถขยะ</h3><p class="text-sm text-gray-400 mb-6">ไฟล์เอกสาร .pdf</p></div><a href="https://drive.google.com/file/d/1Qe20p9-VTx80raPJVdt-t4zoTOKmAuOG/view?usp=drive_link" target="_blank" class="block w-full text-center bg-gray-50 text-[var(--primary-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-white transition">เปิดไฟล์ Drive</a></div>
-            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-200">ยินดีต้อนรับสู่ระบบงานสารบัญอิเล็กทรอนิกส์ อบต.ชำผักแพว</div>
         </div>
 
         <div id="page-receive" class="page-content space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-                <div class="flex items-center gap-4"><div class="bg-white p-3.5 rounded-2xl shadow-sm text-[var(--primary-color)] border border-gray-200"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><div><h2 class="text-2xl font-bold text-gray-800">ทะเบียนหนังสือรับ (วันนี้)</h2><p class="text-sm text-gray-500" id="todayDateLabel">รายการหนังสือที่ลงรับในวันนี้เท่านั้น</p></div></div>
-                <button onclick="openAddDocModal()" class="admin-only hidden bg-[var(--primary-color)] text-white px-6 py-3.5 rounded-2xl hover:bg-[#0f3835] transition shadow-md font-bold flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg> ลงรับหนังสือใหม่</button>
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold">ทะเบียนหนังสือรับวันนี้</h2>
+                <button onclick="openAddDocModal()" class="admin-only hidden bg-[#114e4b] text-white px-6 py-3.5 rounded-2xl font-bold shadow-lg">+ ลงรับหนังสือใหม่</button>
             </div>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><div class="relative w-full md:w-1/2"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="receiveSearchInput" oninput="renderTables()" placeholder="ค้นหาเอกสารที่ลงรับวันนี้..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div></div>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left whitespace-nowrap">
-                        <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                            <tr><th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5">จาก</th><th class="p-5 w-1/4">ชื่อเรื่อง</th><th class="p-5 admin-view-cell">ประเภท</th><th class="p-5 admin-view-cell">ความเร็ว</th><th class="p-5">ผู้รับผิดชอบ</th><th class="p-5 text-center">เอกสาร</th><th class="p-5 text-center admin-view-cell">จัดการ</th></tr>
-                        </thead>
-                        <tbody id="desktopTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="9" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-x-auto"><table class="w-full text-left whitespace-nowrap"><thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100"><tr><th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5">จาก</th><th class="p-5 w-1/4">ชื่อเรื่อง</th><th class="p-5">ผู้รับผิดชอบ</th><th class="p-5 text-center admin-view-cell">จัดการ</th></tr></thead><tbody id="desktopTableBody" class="text-sm divide-y divide-gray-50"></tbody></table></div>
         </div>
 
         <div id="page-status" class="page-content space-y-6">
-            <div class="flex items-center gap-4 mb-4"><div class="bg-white p-3.5 rounded-2xl shadow-sm text-[var(--primary-color)] border border-gray-200"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><div><h2 class="text-2xl font-bold text-gray-800">สถานะหนังสือ (หนังสือทั้งหมด)</h2><p class="text-sm text-gray-500">รวมรายการหนังสือทั้งหมดในระบบ</p></div></div>
-            
+            <h2 class="text-2xl font-bold">สถานะหนังสือ</h2>
             <div class="flex justify-between items-center bg-blue-50 p-4 rounded-2xl border border-blue-100 shadow-sm admin-only hidden" id="batchStatusContainer" style="display: none;">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold" id="selectedStatusCount">0</div>
-                    <span class="text-blue-800 font-bold">รายการที่เลือก</span>
-                </div>
+                <div class="flex items-center gap-3">รายการที่เลือก <span id="selectedStatusCount" class="font-bold">0</span></div>
                 <div class="flex items-center gap-2">
-                    <select id="batchStatusSelect" class="p-2.5 rounded-xl border border-blue-200 outline-none text-sm font-medium">
-                        <option value="ลงรับ">ลงรับ</option><option value="เสนอ">เสนอ</option><option value="แจกกอง">แจกกอง</option><option value="เสร็จสิ้น">เสร็จสิ้น</option>
-                    </select>
-                    <button onclick="confirmBatchStatus()" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:bg-blue-700 transition">เปลี่ยนสถานะพร้อมกัน</button>
+                    <select id="batchStatusSelect" class="p-2.5 rounded-xl border border-blue-200 outline-none text-sm"><option value="ลงรับ">ลงรับ</option><option value="เสนอ">เสนอ</option><option value="แจกกอง">แจกกอง</option><option value="เสร็จสิ้น">เสร็จสิ้น</option></select>
+                    <button onclick="confirmBatchStatus()" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:bg-blue-700 transition">เปลี่ยนพร้อมกัน</button>
                 </div>
             </div>
-
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-                    <div class="relative"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="statusSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง, จาก..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div>
-                    <select id="statusFilterType" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">ประเภททั้งหมด</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select>
-                    <select id="statusFilterSpeed" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">ความเร็วทั้งหมด</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select>
-                    <select id="statusFilterCat" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">หมวดหมู่ทั้งหมด</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select>
-                </div>
-            </div>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left whitespace-nowrap">
-                        <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                            <tr>
-                                <th class="p-5 w-12 text-center admin-view-cell" style="display: none;"><input type="checkbox" id="selectAllStatus" onchange="toggleSelectAllStatus(this)" class="doc-checkbox rounded text-blue-600 cursor-pointer mx-auto block"></th>
-                                <th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5">ผู้รับผิดชอบ</th><th class="p-5 text-center">สถานะปัจจุบัน</th><th class="p-5 text-center admin-view-cell">จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody id="statusTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="7" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
+            <div class="bg-white rounded-3xl border overflow-x-auto"><table class="w-full text-left whitespace-nowrap"><thead class="bg-gray-50 text-gray-500 text-xs font-bold"><tr><th class="p-5 admin-view-cell" style="display: none;"><input type="checkbox" id="selectAllStatus" onchange="toggleSelectAllStatus(this)" class="doc-checkbox rounded mx-auto block"></th><th class="p-5">เลขรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5">ผู้รับผิดชอบ</th><th class="p-5 text-center">สถานะปัจจุบัน</th><th class="p-5 text-center admin-view-cell">จัดการ</th></tr></thead><tbody id="statusTableBody" class="text-sm divide-y divide-gray-50"></tbody></table></div>
         </div>
 
         <div id="page-sign-receive" class="page-content space-y-6">
-            <div class="flex items-center gap-4 mb-4"><div class="bg-white p-3.5 rounded-2xl shadow-sm text-[var(--primary-color)] border border-gray-200"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg></div><div><h2 class="text-2xl font-bold text-gray-800">ลงนามรับหนังสือ</h2><p class="text-sm text-gray-500">สำหรับแต่ละกองเพื่อกดรับหนังสือและประทับเวลาอัตโนมัติ</p></div></div>
-            
+            <h2 class="text-2xl font-bold">ลงนามรับหนังสือ</h2>
             <div class="flex justify-between items-center bg-teal-50 p-4 rounded-2xl border border-teal-100 shadow-sm" id="batchActionContainer" style="display: none;">
-                <div class="flex items-center gap-3"><div class="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold" id="selectedCountText">0</div><span class="text-teal-800 font-bold">รายการที่เลือก</span></div>
-                <button onclick="openBatchSignModal()" class="bg-[var(--primary-color)] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#0f3835] shadow-md transition flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ลงนามรับหนังสือที่เลือกทั้งหมด</button>
+                <div class="flex items-center gap-3">เลือกแล้ว <span id="selectedCountText" class="font-bold text-teal-600">0</span> เรื่อง</div>
+                <button onclick="openBatchSignModal()" class="bg-[#114e4b] text-white px-5 py-2.5 rounded-xl font-bold shadow-md">ลงนามรับทั้งหมด</button>
             </div>
-
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><div class="relative w-full md:w-1/2"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="signSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div></div>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left whitespace-nowrap">
-                        <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                            <tr><th class="p-5 w-12 text-center"><input type="checkbox" id="selectAllDocs" onclick="toggleSelectAll(this)" class="doc-checkbox rounded text-[var(--primary-color)] cursor-pointer"></th><th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5 text-center">ผู้เซ็นรับ</th><th class="p-5 text-center">รับหนังสือ</th></tr>
-                        </thead>
-                        <tbody id="signReceiveTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="6" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
+            <div class="bg-white rounded-3xl border overflow-x-auto"><table class="w-full text-left whitespace-nowrap"><thead class="bg-gray-50 text-gray-500 text-xs font-bold border-b"><tr><th class="p-5 w-12 text-center"><input type="checkbox" id="selectAllDocs" onclick="toggleSelectAll(this)" class="doc-checkbox rounded"></th><th class="p-5">เลขรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5">กองที่ต้องเซ็น</th><th class="p-5 text-center">จัดการ</th></tr></thead><tbody id="signReceiveTableBody" class="text-sm divide-y divide-gray-50"></tbody></table></div>
         </div>
 
         <div id="page-completed" class="page-content space-y-6">
-            <div class="flex items-center gap-4 mb-6"><div class="bg-white p-3.5 rounded-2xl shadow-sm text-green-600 border border-gray-200"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><div><h2 class="text-2xl font-bold text-gray-800">หนังสือที่ดำเนินการเสร็จสิ้นแล้ว</h2><p class="text-sm text-gray-500">ประวัติหนังสือที่เซ็นรับและเสร็จสมบูรณ์ทั้งหมด</p></div></div>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><input type="text" id="completedSearchInput" oninput="renderTables()" placeholder="ค้นหาประวัติ..." class="w-full h-12 px-6 rounded-xl border border-gray-200 focus:border-green-500 outline-none text-sm text-gray-700 bg-gray-50 transition"></div>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left whitespace-nowrap">
-                        <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                            <tr><th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5">ผู้เซ็นรับ</th><th class="p-5 text-center">วันเวลาที่รับ</th><th class="p-5 text-center">เอกสาร</th></tr>
-                        </thead>
-                        <tbody id="completedTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="6" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
+            <h2 class="text-2xl font-bold text-green-700">เสร็จสิ้นแล้ว</h2>
+            <div class="bg-white rounded-3xl border overflow-x-auto"><table class="w-full text-left whitespace-nowrap"><thead class="bg-gray-50 text-gray-500 text-xs font-bold border-b"><tr><th class="p-5">เลขรับ</th><th class="p-5">ชื่อเรื่อง</th><th class="p-5">กองที่เซ็นแล้ว</th></tr></thead><tbody id="completedTableBody" class="text-sm divide-y divide-gray-50"></tbody></table></div>
         </div>
-
     </main>
 </div>
 
-<div id="addDocModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 sm:p-6 z-50">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[95vh] overflow-y-auto p-6 md:p-8">
-        <div class="flex justify-between items-start mb-6 border-b border-gray-100 pb-5">
+<div id="addDocModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[95vh] overflow-y-auto p-8">
+        <div class="flex justify-between items-start mb-6 border-b pb-5">
             <h2 id="modalTitle" class="text-xl md:text-2xl font-bold text-gray-800">ลงระบบหนังสือรับ</h2>
-            <button onclick="closeAddDocModal()" class="text-gray-400 hover:text-gray-700 p-2 rounded-full bg-gray-50"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+            <button onclick="closeAddDocModal()" class="text-gray-400 p-2 rounded-full bg-gray-50">✕</button>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">เลขรับ <span class="text-red-500">*</span></label><input type="text" id="inputDocNum" class="w-full p-3.5 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none bg-gray-50" placeholder="รันเลขอัตโนมัติ"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">วันที่ออกหนังสือ</label><input type="text" id="inputDocDateOut" class="w-full p-3.5 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none bg-gray-50" placeholder="เลือกวันที่"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">วันที่ลงรับ <span class="text-red-500">*</span></label><input type="text" id="inputDocDateIn" class="w-full p-3.5 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none bg-gray-50" placeholder="เลือกวันที่"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">จาก <span class="text-red-500">*</span></label><input type="text" id="inputDocFrom" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"></div>
-            <div class="md:col-span-2"><label class="block text-sm font-bold mb-2 text-gray-700">ชื่อเรื่อง <span class="text-red-500">*</span></label><input type="text" id="inputDocTitle" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">ประเภทหนังสือ</label><select id="inputType" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"><option value="">เลือกประเภทหนังสือ</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select></div>
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">ชั้นความเร็ว</label><select id="inputSpeed" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"><option value="">เลือกชั้นความเร็ว</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select></div>
-            
+            <div><label class="block text-sm font-bold mb-2">เลขรับ *</label><input type="text" id="inputDocNum" class="w-full p-3.5 rounded-xl border outline-none bg-gray-50"></div>
+            <div><label class="block text-sm font-bold mb-2">วันที่ลงรับ *</label><input type="text" id="inputDocDateIn" class="w-full p-3.5 rounded-xl border outline-none bg-gray-50"></div>
+            <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">ชื่อเรื่อง *</label><input type="text" id="inputDocTitle" class="w-full p-3.5 rounded-xl border outline-none"></div>
+            <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">จาก</label><input type="text" id="inputDocFrom" class="w-full p-3.5 rounded-xl border outline-none"></div>
             <div class="md:col-span-2">
-                <label class="block text-sm font-bold mb-2 text-gray-700">ผู้รับผิดชอบ (เลือกได้หลายกอง)</label>
-                <div class="h-36 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
-                    <label class="flex items-center gap-3 cursor-pointer hover:text-[var(--primary-color)] transition"><input type="checkbox" value="ทุกกอง" class="person-cb w-4 h-4 text-[var(--primary-color)]"> <span class="text-sm font-bold">ทุกกอง</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สำนักปลัด" class="person-cb w-4 h-4"> <span class="text-sm">สำนักปลัด</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองคลัง" class="person-cb w-4 h-4"> <span class="text-sm">กองคลัง</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองช่าง" class="person-cb w-4 h-4"> <span class="text-sm">กองช่าง</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองการศึกษา" class="person-cb w-4 h-4"> <span class="text-sm">กองการศึกษา</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักทรัพย์" class="person-cb w-4 h-4"> <span class="text-sm">นักทรัพย์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นิติกร" class="person-cb w-4 h-4"> <span class="text-sm">นิติกร</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานป้องกัน" class="person-cb w-4 h-4"> <span class="text-sm">งานป้องกัน</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานสภา" class="person-cb w-4 h-4"> <span class="text-sm">งานสภา</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ประชาสัมพันธ์" class="person-cb w-4 h-4"> <span class="text-sm">ประชาสัมพันธ์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักจัดการ" class="person-cb w-4 h-4"> <span class="text-sm">นักจัดการ</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สาธารณสุข" class="person-cb w-4 h-4"> <span class="text-sm">สาธารณสุข</span></label>
-                        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb w-4 h-4"> <span class="text-sm">งานการเจ้าหน้าที่</span></label>
-                   <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักวิเคราะห์" class="person-cb w-4 h-4"> <span class="text-sm">นักวิเคราะห์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สปสช" class="person-cb w-4 h-4"> <span class="text-sm">สปสช</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ตรวจสอบภายใน" class="person-cb w-4 h-4"> <span class="text-sm">ตรวจสอบภายใน</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ธุรการ" class="person-cb w-4 h-4"> <span class="text-sm">ธุรการ</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="เกษตร" class="person-cb w-4 h-4"> <span class="text-sm">เกษตร</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สิ่งแวดล้อม" class="person-cb w-4 h-4"> <span class="text-sm">สิ่งแวดล้อม</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายก" class="person-cb w-4 h-4"> <span class="text-sm">นายก</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ปลัด" class="person-cb w-4 h-4"> <span class="text-sm">ปลัด</span></label>
+                <label class="block text-sm font-bold mb-2 text-gray-700">ผู้รับผิดชอบ (ติ๊กเลือกได้หลายกอง)</label>
+                <div class="h-36 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-2 md:grid-cols-3 gap-3" id="ownerCheckboxes">
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="ทุกกอง" class="person-cb"> <b>ทุกกอง</b></label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb"> งานการเจ้าหน้าที่</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="นักวิเคราะห์" class="person-cb"> นักวิเคราะห์</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="สำนักปลัด" class="person-cb"> สำนักปลัด</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองคลัง" class="person-cb"> กองคลัง</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองช่าง" class="person-cb"> กองช่าง</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองการศึกษา" class="person-cb"> กองการศึกษา</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองสวัสดิการ" class="person-cb"> กองสวัสดิการ</label>
+                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="สาธารณสุข" class="person-cb"> สาธารณสุข</label>
                 </div>
             </div>
-            
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">หมวดหมู่</label><select id="inputCategory" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"><option value="">เลือกหมวดหมู่</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select></div>
-            <div class="md:col-span-2 bg-teal-50/50 p-5 rounded-2xl border border-teal-100 mt-2"><label class="block text-sm font-bold mb-2 text-gray-800">ลิงก์ Google Drive</label><input type="url" id="inputDriveLink" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-white" placeholder="🔗 วางลิงก์ Google Drive ที่นี่"></div>
+            <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">ลิงก์ Google Drive</label><input type="url" id="inputDriveLink" class="w-full p-3.5 rounded-xl border outline-none" placeholder="🔗 วางลิงก์ที่นี่"></div>
         </div>
-        <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-100">
-            <button onclick="closeAddDocModal()" class="px-6 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200">ยกเลิก</button>
-            <button id="btnSave" onclick="saveNewDoc()" class="px-8 py-3.5 bg-[var(--primary-color)] text-white rounded-xl font-bold shadow-lg hover:bg-[#0f3835]">บันทึกข้อมูล</button>
-        </div>
-    </div>
-</div>
-
-<div id="detailsModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 sm:p-6 z-50">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8">
-        <div class="flex justify-between items-start mb-6 border-b border-gray-100 pb-5">
-            <h2 class="text-xl font-bold text-gray-800" id="detailDocNum">รายละเอียดหนังสือ</h2>
-            <button onclick="closeDetailsModal()" class="text-gray-400 hover:text-gray-700 bg-gray-50 p-2 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
-        </div>
-        <div id="detailsContent" class="space-y-5 text-sm text-gray-700"></div>
-    </div>
-</div>
-
-<div id="statusModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 text-center">
-        <h2 class="text-xl font-bold mb-2 text-gray-800">อัปเดตสถานะหนังสือ</h2>
-        <p class="text-sm text-gray-500 mb-6" id="statusModalDocNum">เลขรับ: -</p>
-        <div class="text-left mb-8">
-            <label class="block text-sm font-bold text-gray-700 mb-2">เลือกสถานะใหม่ <span class="text-red-500">*</span></label>
-            <select id="newStatusSelect" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50">
-                <option value="ลงรับ">ลงรับ</option><option value="เสนอ">เสนอ</option><option value="แจกกอง">แจกกอง</option><option value="เสร็จสิ้น">เสร็จสิ้น</option>
-            </select>
-        </div>
-        <div class="flex gap-3">
-            <button onclick="closeStatusModal()" class="flex-1 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200">ยกเลิก</button>
-            <button onclick="confirmUpdateStatus()" class="flex-1 py-3.5 bg-[var(--primary-color)] text-white rounded-xl font-bold hover:bg-[#0f3835]">บันทึกสถานะ</button>
-        </div>
+        <div class="flex justify-end gap-4 mt-8 pt-6 border-t"><button onclick="closeAddDocModal()" class="px-6 py-2">ยกเลิก</button><button id="btnSave" onclick="saveNewDoc()" class="bg-[#114e4b] text-white px-8 py-2 rounded-xl font-bold shadow-lg">บันทึกข้อมูล</button></div>
     </div>
 </div>
 
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 text-center max-h-[90vh] overflow-y-auto">
         <h2 class="text-2xl font-bold mb-2 text-gray-800">ลงนามรับหนังสือ</h2>
-        <p class="text-sm text-gray-500 mb-6">คุณกำลังจะลงนามรับหนังสือจำนวน <span id="signTotalCount" class="font-bold text-[var(--primary-color)]">0</span> เรื่อง</p>
-        
-        <div class="text-left mb-6">
-            <div id="signSelectedDocs" class="bg-teal-50 border border-teal-100 rounded-xl p-3 space-y-2 max-h-40 overflow-y-auto"></div>
-        </div>
-
-        <div class="bg-gray-50 p-4 rounded-xl text-center mb-6">
-            <p class="text-xs text-gray-500 font-bold mb-1">วันและเวลาที่บันทึก:</p>
-            <p id="displaySignTime" class="text-lg font-bold text-[var(--primary-color)]">-</p>
-        </div>
+        <p class="text-sm text-gray-500 mb-6">เลือกหนังสือ <span id="signTotalCount" class="font-bold text-[#114e4b]">0</span> เรื่อง</p>
+        <div id="signSelectedDocs" class="text-left bg-teal-50 border p-3 rounded-xl mb-6 text-sm space-y-2"></div>
         <div class="text-left mb-8">
-            <label class="block text-sm font-bold text-gray-700 mb-2">เลือกชื่อผู้รับ <span class="text-red-500">*</span></label>
-            <select id="receiverName" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50">
-                <option value="">-- เลือกรายชื่อ --</option>
-                <option value="น.ส.คุณัญญา ก้านพลู">น.ส.คุณัญญา ก้านพลู (สำนักปลัด)</option>
-                <option value="น.ส.เพ็ญประภา วัฒนศัพท์">น.ส.เพ็ญประภา วัฒนศัพท์ (กองคลัง)</option>
-                <option value="น.ส.ฐิติมา ปานจันทร์">น.ส.ฐิติมา ปานจันทร์ (กองคลัง)</option>
-                <option value="นายนิระมิตร ศรีหะจันทร์">นายนิระมิตร ศรีหะจันทร์ (กองช่าง)</option>
-                <option value="น.ส.สุภานิช จรรยา">น.ส.สุภานิช จรรยา (กองการศึกษา)</option>
-                <option value="น.ส.ขนิษฐา เหมือนประเสริฐ">น.ส.ขนิษฐา เหมือนประเสริฐ (กองคลัง)</option>
-                <option value="น.ส.สุพรรษา สุดสาลี">น.ส.สุพรรษา สุดสาลี (กองสวัสดิการ)</option>
-                <option value="นายประเวทย์ ถิตย์เจิม">นายประเวทย์ ถิตย์เจิม (กองสวัสดิการ)</option>
-                <option value="นางสาวธัญชนก มาลากอง">นางสาวธัญชนก มาลากอง (กองคลัง)</option>
+            <label class="block text-sm font-bold text-gray-700 mb-2">เลือกชื่อผู้รับ (กองงาน) *</label>
+            <select id="receiverName" class="w-full p-3.5 rounded-xl border bg-gray-50 outline-none">
+                <option value="">-- เลือกรายชื่อกองงาน --</option>
+                <option value="งานการเจ้าหน้าที่">งานการเจ้าหน้าที่</option>
+                <option value="สำนักปลัด">สำนักปลัด</option>
+                <option value="กองคลัง">กองคลัง</option>
+                <option value="กองช่าง">กองช่าง</option>
+                <option value="กองการศึกษา">กองการศึกษา</option>
+                <option value="กองสวัสดิการ">กองสวัสดิการ</option>
+                <option value="นักวิเคราะห์">นักวิเคราะห์</option>
+                <option value="สาธารณสุข">สาธารณสุข</option>
             </select>
         </div>
-        <div class="flex gap-3">
-            <button onclick="closeSignModal()" class="flex-1 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200">ยกเลิก</button>
-            <button onclick="confirmSign()" class="flex-1 py-3.5 bg-[var(--primary-color)] text-white rounded-xl font-bold shadow-md hover:bg-[#0f3835]">ยืนยันการรับ</button>
-        </div>
+        <div class="flex gap-3"><button onclick="closeSignModal()" class="flex-1 py-3.5 bg-gray-100 rounded-xl font-bold">ยกเลิก</button><button onclick="confirmSign()" class="flex-1 py-3.5 bg-[#114e4b] text-white rounded-xl font-bold shadow-md">ยืนยันการรับ</button></div>
     </div>
 </div>
 
-<div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-    <div class="bg-white p-8 rounded-3xl shadow-2xl w-[340px] text-center relative">
-        <h2 class="font-bold text-gray-800 mb-6 text-xl">เข้าสู่ระบบ Admin</h2>
-        <input id="passInput" type="password" placeholder="••••••" class="w-full p-4 rounded-xl border border-gray-200 text-center mb-6 outline-none text-xl tracking-widest bg-gray-50">
-        <button onclick="checkPass()" class="w-full bg-[#185a56] text-white p-3.5 rounded-xl font-bold shadow-md hover:bg-[#0f3835]">เข้าสู่ระบบ</button>
-        <button onclick="closeModal()" class="mt-4 text-sm text-gray-400 hover:text-gray-600">ปิดหน้าต่าง</button>
-    </div>
-</div>
+<div id="statusModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center z-50"><div class="bg-white p-8 rounded-3xl w-80 text-center"><h2 class="font-bold mb-4">เปลี่ยนสถานะ</h2><select id="newStatusSelect" class="w-full p-3 border rounded-xl mb-4 bg-gray-50 outline-none"><option value="ลงรับ">ลงรับ</option><option value="เสนอ">เสนอ</option><option value="แจกกอง">แจกกอง</option><option value="เสร็จสิ้น">เสร็จสิ้น</option></select><div class="flex gap-2"><button onclick="closeStatusModal()" class="flex-1 py-2 bg-gray-100 rounded-xl">ยกเลิก</button><button onclick="confirmUpdateStatus()" class="flex-1 py-2 bg-blue-600 text-white rounded-xl font-bold">บันทึก</button></div></div></div>
 
-<div id="toastSuccess" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-[150] bg-gray-900 text-white rounded-full shadow-2xl px-6 py-3 flex items-center gap-3">
-    <div class="text-sm font-medium" id="toastMessage">ดำเนินการสำเร็จเรียบร้อย</div>
-</div>
+<div id="loginModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center z-50"><div class="bg-white p-8 rounded-2xl w-80 text-center"><h2 class="font-bold mb-4 text-xl">Admin Login</h2><input id="passInput" type="password" class="w-full p-3 border rounded-xl mb-4 text-center outline-none"><button onclick="checkPass()" class="w-full bg-[#185a56] text-white py-3 rounded-xl font-bold shadow-md">เข้าสู่ระบบ Admin</button></div></div>
+
+<div id="toastSuccess" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-[150] bg-gray-900 text-white rounded-full px-6 py-3 text-sm shadow-2xl"><div class="text-sm font-medium" id="toastMessage">ดำเนินการสำเร็จ</div></div>
 
 <script>
-    // --------------------------------------------------------
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
-    // --------------------------------------------------------
+    let isAdmin = false, allData = [], currentEditId = null, currentStatusDocNum = null, currentSignDocNums = [], isSidebarOpen = false, fpDateIn;
 
-    let isAdmin = false;
-    let isSidebarOpen = window.innerWidth >= 1024;
-    let allData = [];
-    let currentEditId = null;
-    let currentStatusDocNum = null;
-    let currentSignDocNums = [];
-    let fpDateOut, fpDateIn;
-
-    window.onload = () => {
-        initDatePickers();
-        updateSidebarUI();
-        loadDataFromSheet();
-        showPage('home'); 
-        updateUI();
-        let savedAnnounce = localStorage.getItem("esaraban_announce");
-        if(savedAnnounce) document.getElementById("announceText").innerText = savedAnnounce;
-    };
-
-    function updateSidebarUI() {
-        const s = document.getElementById("sidebar");
-        const c = document.getElementById("content");
-        if (isSidebarOpen) { s.style.transform = "translateX(0)"; if (window.innerWidth >= 1024) c.style.marginLeft = "16rem"; } 
-        else { s.style.transform = "translateX(-100%)"; c.style.marginLeft = "0"; }
-    }
-    
-    function toggleSidebar() { isSidebarOpen = !isSidebarOpen; updateSidebarUI(); }
-    window.addEventListener('resize', () => { if(window.innerWidth >= 1024) { isSidebarOpen = true; updateSidebarUI(); } });
-
-    function initDatePickers() {
-        const forceThaiYear = function(selectedDates, dateStr, instance) {
-            if(instance.currentYearElement) { instance.currentYearElement.value = instance.currentYear + 543; instance.currentYearElement.setAttribute('readonly', 'readonly'); }
-        };
-        const config = {
-            locale: "th", altInput: true, altFormat: "j M Y", dateFormat: "Y-m-d",
-            formatDate: (date, format, locale) => `${date.getDate()} ${locale.months.shorthand[date.getMonth()]} ${date.getFullYear() + 543}`,
-            onReady: forceThaiYear, onYearChange: forceThaiYear, onMonthChange: forceThaiYear, onOpen: forceThaiYear, onValueUpdate: forceThaiYear
-        };
-        fpDateOut = flatpickr("#inputDocDateOut", config);
-        fpDateIn = flatpickr("#inputDocDateIn", config);
-    }
-
-    function parseAnyDateToThai(dateStr) {
-        if (!dateStr || dateStr === '-' || String(dateStr).trim() === '') return '-';
-        let str = String(dateStr).trim();
-        const mTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-        if (/[ก-๙]/.test(str)) {
-            let parts = str.split(/\s+/);
-            if (parts.length >= 3) {
-                let d = parseInt(parts[0]), y = parseInt(parts[2]);
-                if (y < 2500) y += 543; else if (y > 3000) y -= 543;
-                return `${d} ${parts[1]} ${y}`;
-            }
-        }
-        let d = new Date(str);
-        if (!isNaN(d)) return `${d.getDate()} ${mTh[d.getMonth()]} ${d.getFullYear() < 2500 ? d.getFullYear() + 543 : d.getFullYear()}`;
-        return str;
-    }
-
-    async function loadDataFromSheet() {
-        try {
-            const response = await fetch(WEB_APP_URL);
-            if (!response.ok) throw new Error("HTTP " + response.status);
-            allData = await response.json();
-            if(allData.length > 0 && allData[0].error) throw new Error(allData[0].error);
-            renderTables(); updateDashboard();
-        } catch(e) { 
-            console.error("Fetch Error:", e);
-            document.querySelectorAll("tbody").forEach(el => {
-                el.innerHTML = `<tr><td colspan="9" class="p-10 text-center text-red-500 font-bold">ไม่สามารถเชื่อมต่อฐานข้อมูลได้<br><span class="text-xs text-gray-500">โปรดลองรีเฟรชหน้าเว็บอีกครั้ง</span></td></tr>`;
-            }); 
-        }
-    }
-
-    function updateDashboard() {
-        let stats = { receive: 0, propose: 0, distribute: 0, complete: 0 };
-        allData.forEach(row => {
-            let s = row["สถานะ"] || "ลงรับ";
-            if(s === 'ลงรับ') stats.receive++; else if(s === 'เสนอ') stats.propose++; else if(s === 'แจกกอง') stats.distribute++; else if(s === 'เสร็จสิ้น') stats.complete++;
-        });
-        document.getElementById('count-receive').innerText = stats.receive;
-        document.getElementById('count-propose').innerText = stats.propose;
-        document.getElementById('count-distribute').innerText = stats.distribute;
-        document.getElementById('count-complete').innerText = stats.complete;
-    }
-
-    function toggleSelectAll(source) { document.querySelectorAll('.doc-checkbox-item').forEach(cb => cb.checked = source.checked); updateBatchUI(); }
-    
-    function updateBatchUI() {
-        const checked = document.querySelectorAll('.doc-checkbox-item:checked');
-        document.getElementById('batchActionContainer').style.display = checked.length > 0 ? "flex" : "none";
-        document.getElementById('selectedCountText').innerText = checked.length;
-    }
-
-    function toggleSelectAllStatus(source) { document.querySelectorAll('.status-checkbox-item').forEach(cb => cb.checked = source.checked); updateBatchStatusUI(); }
-    
-    function updateBatchStatusUI() {
-        const checked = document.querySelectorAll('.status-checkbox-item:checked');
-        document.getElementById('batchStatusContainer').style.display = checked.length > 0 ? "flex" : "none";
-        document.getElementById('selectedStatusCount').innerText = checked.length;
-    }
+    window.onload = () => { fpDateIn = flatpickr("#inputDocDateIn", { locale: "th", dateFormat: "Y-m-d" }); loadDataFromSheet(); showPage('home'); updateUI(); };
+    function toggleSidebar() { isSidebarOpen = !isSidebarOpen; const s = document.getElementById("sidebar"), c = document.getElementById("content"); s.style.transform = isSidebarOpen ? "translateX(0)" : "translateX(-100%)"; if(window.innerWidth >= 1024) c.style.marginLeft = isSidebarOpen ? "16rem" : "0"; }
+    async function loadDataFromSheet() { try { const r = await fetch(WEB_APP_URL); allData = await r.json(); renderTables(); updateDashboard(); } catch(e) { console.error(e); } }
 
     function renderTables() {
-        const receiveTbody = document.getElementById("desktopTableBody");
-        const statusTbody = document.getElementById("statusTableBody");
-        const signTbody = document.getElementById("signReceiveTableBody");
-        const compTbody = document.getElementById("completedTableBody");
-        
-        const rSearch = (document.getElementById("receiveSearchInput")?.value || "").toLowerCase();
-        const sSearch = (document.getElementById("statusSearchInput")?.value || "").toLowerCase();
-        const sgSearch = (document.getElementById("signSearchInput")?.value || "").toLowerCase();
-        const cSearch = (document.getElementById("completedSearchInput")?.value || "").toLowerCase();
+        const rT = document.getElementById("desktopTableBody"), sT = document.getElementById("statusTableBody"), siT = document.getElementById("signReceiveTableBody"), cT = document.getElementById("completedTableBody");
+        rT.innerHTML = ""; sT.innerHTML = ""; siT.innerHTML = ""; cT.innerHTML = "";
+        const today = new Date().toLocaleDateString('en-CA');
 
-        receiveTbody.innerHTML = "";
-        statusTbody.innerHTML = "";
-        signTbody.innerHTML = "";
-        compTbody.innerHTML = "";
-        
-        const t = new Date();
-        const mTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-        const todayStr = `${t.getDate()} ${mTh[t.getMonth()]} ${t.getFullYear() + 543}`;
+        allData.sort((a,b) => String(b["เลขรับ"]).localeCompare(String(a["เลขรับ"]), undefined, {numeric: true})).forEach(row => {
+            let num = String(row["เลขรับ"] || ""), title = String(row["ชื่อเรื่อง"] || ""), status = row["สถานะ"] || "ลงรับ", signed = String(row["ชื่อผู้รับ"] || ""), owners = String(row["ผู้รับผิดชอบ"] || "");
+            let dIn = row["วันที่ลงรับ"] ? new Date(row["วันที่ลงรับ"]).toLocaleDateString('en-CA') : "";
 
-        allData.sort((a,b) => String(a["เลขรับ"]).localeCompare(String(b["เลขรับ"]), undefined, {numeric: true})).forEach(row => {
-            let fDateIn = parseAnyDateToThai(row["วันที่ลงรับ"]);
-            
-            let num = String(row["เลขรับ"] || ""); 
-            let title = String(row["ชื่อเรื่อง"] || "");
-            let status = row["สถานะ"] || "ลงรับ";
-            let signed = String(row["ชื่อผู้รับ"] || "");
-            let rawSignDate = row["วันที่รับ"] || row["วันเวลาที่บันทึก"] || "";
-            const driveLink = row["ลิงก์ Google Drive"] || "";
-            
-            let docBtn = driveLink ? `<a href="${driveLink}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-lg hover:bg-teal-50 text-xs shadow-sm">เอกสาร</a>` : '-';
-
-            // 1. หน้าลงรับหนังสือ
-            if (fDateIn === todayStr && (num.toLowerCase().includes(rSearch) || title.toLowerCase().includes(rSearch))) {
-                receiveTbody.innerHTML += `
-                    <tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer">
-                        <td class="p-5 font-bold">${num}</td>
-                        <td class="p-5 text-[var(--primary-color)]">${fDateIn}</td>
-                        <td class="p-5">${row["จาก"]||'-'}</td>
-                        <td class="p-5 truncate max-w-[200px]">${title||'-'}</td>
-                        <td class="p-5 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ประเภทหนังสือ"]||'-'}</td>
-                        <td class="p-5 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ชั้นความเร็ว"]||'-'}</td>
-                        <td class="p-5">${row["ผู้รับผิดชอบ"]||'-'}</td>
-                        <td class="p-5 text-center">${docBtn}</td>
-                        <td class="p-5 admin-view-cell text-center" style="display:${isAdmin?'':'none'}">
-                            <button onclick="event.stopPropagation(); editDoc('${num}')" class="text-blue-600 font-bold hover:underline">แก้ไข</button>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            // 2. หน้าสถานะ (เพิ่มปุ่มแก้ไขและปุ่มเปลี่ยนสถานะ)
-            if (num.toLowerCase().includes(sSearch) || title.toLowerCase().includes(sSearch)) {
-                statusTbody.innerHTML += `
-                    <tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer">
-                        <td class="p-5 text-center admin-view-cell" style="display:${isAdmin?'':'none'}" onclick="event.stopPropagation()">
-                            <input type="checkbox" value="${num}" onchange="updateBatchStatusUI()" class="status-checkbox-item doc-checkbox mx-auto block">
-                        </td>
-                        <td class="p-5 font-bold">${num}</td>
-                        <td class="p-5">${fDateIn}</td>
-                        <td class="p-5 truncate max-w-[250px]">${title||'-'}</td>
-                        <td class="p-5">${row["ผู้รับผิดชอบ"]||'-'}</td>
-                        <td class="p-5 text-center">${getStatusBadge(status)}</td>
-                        <td class="p-5 admin-view-cell text-center" style="display:${isAdmin?'':'none'}">
-                            <div class="flex gap-2 justify-center items-center">
-                                <button onclick="event.stopPropagation(); openStatusModal('${num}', '${status}')" class="bg-blue-50 text-blue-600 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200 text-xs font-bold transition shadow-sm">เปลี่ยนสถานะ</button>
-                                <button onclick="event.stopPropagation(); editDoc('${num}')" class="bg-gray-50 text-gray-500 hover:text-[var(--primary-color)] hover:bg-teal-50 px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-bold transition shadow-sm">แก้ไข</button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }
-
-            // 3. หน้าลงนาม
-            if (num.toLowerCase().includes(sgSearch) || title.toLowerCase().includes(sgSearch)) {
-                let signUI = signed !== "" 
-                    ? `<div class="text-xs text-green-700 font-bold">${signed}<br><span class="text-gray-400 font-normal">${rawSignDate}</span></div>` 
-                    : `<button onclick="event.stopPropagation(); openSignModal(['${num}'])" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-[#0f3835]">ลงรับหนังสือ</button>`;
-                
-                let checkUI = signed !== "" ? `✅` : `<input type="checkbox" value="${num}" onchange="updateBatchUI()" onclick="event.stopPropagation()" class="doc-checkbox-item doc-checkbox">`;
-                
-                signTbody.innerHTML += `
-                    <tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer">
-                        <td class="p-5 text-center">${checkUI}</td>
-                        <td class="p-5 font-bold">${num}</td>
-                        <td class="p-5">${fDateIn}</td>
-                        <td class="p-5 truncate max-w-[300px]">${title||'-'}</td>
-                        <td class="p-5 text-center font-bold text-gray-800">${signed||'-'}</td>
-                        <td class="p-5 text-center">${signUI}</td>
-                    </tr>
-                `;
-            }
-
-            // 4. หน้าเสร็จสิ้น
-            if (signed !== "") {
-                if (num.toLowerCase().includes(cSearch) || title.toLowerCase().includes(cSearch) || signed.toLowerCase().includes(cSearch)) {
-                    compTbody.innerHTML += `
-                        <tr onclick="viewDetails('${num}')" class="hover:bg-green-50/50 cursor-pointer">
-                            <td class="p-5 font-bold">${num}</td>
-                            <td class="p-5">${fDateIn}</td>
-                            <td class="p-5 truncate max-w-[300px]">${title||'-'}</td>
-                            <td class="p-5 font-bold text-green-700">${signed}</td>
-                            <td class="p-5 text-center text-gray-500">${rawSignDate}</td>
-                            <td class="p-5 text-center">${docBtn}</td>
-                        </tr>
-                    `;
-                }
-            }
+            if (dIn === today) { rT.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-teal-50 cursor-pointer"><td>${num}</td><td>${row["วันที่ลงรับ"]}</td><td>${row["จาก"]}</td><td class="truncate max-w-[200px]">${title}</td><td>${owners}</td><td class="admin-view-cell" style="display:${isAdmin?'':'none'}"><button onclick="event.stopPropagation(); editDoc('${num}')">แก้ไข</button></td></tr>`; }
+            sT.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer"><td class="admin-view-cell" style="display:${isAdmin?'':'none'}" onclick="event.stopPropagation()"><input type="checkbox" value="${num}" onchange="updateBatchStatusUI()" class="status-checkbox-item doc-checkbox"></td><td>${num}</td><td class="truncate max-w-[300px]">${title}</td><td>${owners}</td><td class="text-center"><span class="px-2 bg-yellow-100 rounded text-xs">${status}</span></td><td class="admin-view-cell" style="display:${isAdmin?'':'none'}"><button onclick="event.stopPropagation(); openStatusModal('${num}','${status}')" class="text-blue-600 text-xs font-bold">เปลี่ยน</button> | <button onclick="event.stopPropagation(); editDoc('${num}')" class="text-xs">แก้ไข</button></td></tr>`;
+            let pending = owners.split(',').map(o => o.trim()).filter(o => !signed.includes(o));
+            if (pending.length > 0 || owners === "ทุกกอง") { siT.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-teal-50 cursor-pointer"><td onclick="event.stopPropagation()"><input type="checkbox" value="${num}" onchange="updateBatchUI()" class="doc-checkbox-item doc-checkbox"></td><td>${num}</td><td class="truncate max-w-[300px]">${title}</td><td class="text-red-500 font-bold text-xs">${pending.join(', ')}</td><td class="text-center"><button onclick="event.stopPropagation(); openSignModal(['${num}'])" class="bg-[#114e4b] text-white px-4 py-2 rounded-lg text-xs font-bold">เซ็นรับ</button></td></tr>`; }
+            if (signed !== "") { cT.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-green-50 cursor-pointer"><td>${num}</td><td class="truncate max-w-[300px]">${title}</td><td class="text-green-700 font-bold text-xs">${signed}</td></tr>`; }
         });
     }
 
-    function openBatchSignModal() {
-        const checked = Array.from(document.querySelectorAll('.doc-checkbox-item:checked')).map(cb => cb.value);
-        if(checked.length === 0) return;
-        openSignModal(checked);
-    }
-
-    function openSignModal(nums) {
-        currentSignDocNums = nums; 
-        document.getElementById("signModal").classList.remove("hidden");
-        
-        document.getElementById("signTotalCount").innerText = nums.length;
-
-        const preview = document.getElementById("signSelectedDocs"); 
-        preview.innerHTML = "";
-        nums.forEach(n => { 
-            let d = allData.find(r => String(r["เลขรับ"]) === String(n)); 
-            let title = d ? String(d["ชื่อเรื่อง"] || "-") : "-";
-            preview.innerHTML += `
-                <div class="bg-white p-2 rounded-lg border border-gray-100 flex flex-col">
-                    <span class="font-bold text-[var(--primary-color)] text-sm">${n}</span>
-                    <span class="text-xs text-gray-600 truncate" title="${title}">${title}</span>
-                </div>
-            `; 
-        });
-
-        const t = new Date();
-        const mTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-        document.getElementById("displaySignTime").innerText = `${t.getDate()} ${mTh[t.getMonth()]} ${t.getFullYear() + 543} เวลา ${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')} น.`;
-    }
-    
-    function closeSignModal() { document.getElementById("signModal").classList.add("hidden"); }
-    
-    async function confirmSign() {
-        const name = document.getElementById("receiverName").value; 
-        if(!name) return alert("โปรดเลือกรายชื่อผู้รับก่อนกดยืนยันครับ");
-        const time = document.getElementById("displaySignTime").innerText; 
-        closeSignModal();
-        
-        for (let i = 0; i < currentSignDocNums.length; i++) { 
-            showToast(`กำลังบันทึก (${i+1}/${currentSignDocNums.length})...`); 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "SIGN", docNum: currentSignDocNums[i], receiverName: name, receiveDate: time }) }); 
-        }
-        showToast("เซ็นรับเรียบร้อยแล้ว!"); 
-        loadDataFromSheet();
-    }
-
-    async function confirmBatchStatus() {
-        const checked = Array.from(document.querySelectorAll('.status-checkbox-item:checked')).map(cb => cb.value);
-        const nextStatus = document.getElementById("batchStatusSelect").value;
-        
-        if(!confirm(`ยืนยันเปลี่ยนสถานะเอกสาร ${checked.length} รายการ เป็น "${nextStatus}" ใช่หรือไม่?`)) return;
-        
-        for (let i = 0; i < checked.length; i++) { 
-            showToast(`กำลังเปลี่ยนสถานะ (${i+1}/${checked.length})...`); 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: checked[i], status: nextStatus }) }); 
-        }
-        showToast("เปลี่ยนสถานะเรียบร้อยแล้ว!"); 
-        loadDataFromSheet();
-    }
-
-    function viewDetails(docNum) {
-        const doc = allData.find(r => String(r["เลขรับ"]) === String(docNum)); 
-        if(!doc) return;
-        document.getElementById("detailDocNum").innerText = "เลขรับ: " + doc["เลขรับ"];
-        const rawSignDate = doc["วันที่รับ"] || doc["วันเวลาที่บันทึก"] || '-';
-        document.getElementById("detailsContent").innerHTML = `<div class="grid grid-cols-2 gap-4"><div class="bg-gray-50 p-4 rounded-xl"><span class="text-xs text-gray-400">วันที่ลงรับ</span><br><b>${parseAnyDateToThai(doc["วันที่ลงรับ"])}</b></div><div class="bg-teal-50 p-4 rounded-xl"><span class="text-xs text-teal-600">สถานะ</span><br>${getStatusBadge(doc["สถานะ"]||'ลงรับ')}</div><div class="col-span-2"><b>ชื่อเรื่อง:</b><br>${doc["ชื่อเรื่อง"]||'-'}</div><div class="col-span-2"><b>ผู้รับผิดชอบ:</b><br>${doc["ผู้รับผิดชอบ"]||'-'}</div><div class="col-span-2 bg-gray-50 p-4 rounded-xl"><b>ผู้เซ็นรับ:</b> ${doc["ชื่อผู้รับ"]||'-'} <span class="text-xs text-gray-500">(${rawSignDate})</span></div></div>`;
-        document.getElementById("detailsModal").classList.remove("hidden");
-    }
-    
-    function closeDetailsModal() { document.getElementById("detailsModal").classList.add("hidden"); }
-
-    function openStatusModal(docNum, status) {
-        currentStatusDocNum = docNum; 
-        document.getElementById("statusModalDocNum").innerText = "เลขรับ: " + docNum;
-        document.getElementById("newStatusSelect").value = status; 
-        document.getElementById("statusModal").classList.remove("hidden");
-    }
-    
-    function closeStatusModal() { document.getElementById("statusModal").classList.add("hidden"); }
-    
-    async function confirmUpdateStatus() {
-        const newStatus = document.getElementById("newStatusSelect").value; 
-        closeStatusModal();
-        showToast("กำลังบันทึก...");
-        try { 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: currentStatusDocNum, status: newStatus }) }); 
-            loadDataFromSheet(); 
-        } catch(e) { setTimeout(loadDataFromSheet, 1500); }
-    }
-
-    function editDoc(docNum) {
-        const d = allData.find(r => String(r["เลขรับ"]) === String(docNum)); 
-        if(!d) return;
-        currentEditId = docNum; 
-        document.getElementById("modalTitle").innerText = "แก้ไขหนังสือ";
-        document.getElementById("inputDocNum").value = d["เลขรับ"];
-        document.getElementById("inputDocFrom").value = d["จาก"]||"";
-        document.getElementById("inputDocTitle").value = d["ชื่อเรื่อง"]||"";
-        
-        const owners = (d["ผู้รับผิดชอบ"]||"").split(',').map(s=>s.trim());
-        document.querySelectorAll('.person-cb').forEach(cb => {
-            cb.checked = owners.includes(cb.value);
-        });
-        
-        document.getElementById("inputCategory").value = d["หมวดหมู่"]||"";
-        document.getElementById("inputDriveLink").value = d["ลิงก์ Google Drive"]||"";
-        document.getElementById("addDocModal").classList.remove("hidden");
-    }
-
-    function getStatusBadge(status) {
-        if(status === 'เสนอ') return '<span class="px-3.5 py-1.5 bg-yellow-50 text-yellow-700 rounded-lg text-xs font-bold border border-yellow-100 shadow-sm">เสนอ</span>';
-        if(status === 'แจกกอง') return '<span class="px-3.5 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-xs font-bold border border-purple-100 shadow-sm">แจกกอง</span>';
-        if(status === 'เสร็จสิ้น') return '<span class="px-3.5 py-1.5 bg-green-50 text-green-700 rounded-lg text-xs font-bold border border-green-100 shadow-sm">เสร็จสิ้น</span>';
-        return '<span class="px-3.5 py-1.5 bg-[var(--primary-color)] text-white rounded-lg text-xs font-bold shadow-sm">ลงรับ</span>';
-    }
-
-    async function saveNewDoc() {
-        const owners = Array.from(document.querySelectorAll('.person-cb:checked')).map(cb => cb.value).join(', ');
-        
-        const payload = { 
-            action: currentEditId ? "EDIT" : "ADD", 
-            oldDocNum: currentEditId, 
-            docNum: document.getElementById("inputDocNum").value, 
-            docDateOut: parseAnyDateToThai(document.getElementById("inputDocDateOut").value), 
-            docDateIn: parseAnyDateToThai(document.getElementById("inputDocDateIn").value), 
-            docFrom: document.getElementById("inputDocFrom").value, 
-            docTitle: document.getElementById("inputDocTitle").value, 
-            docOwner: owners, 
-            docLink: document.getElementById("inputDriveLink").value 
-        };
-        
-        if(!payload.docNum || !payload.docTitle) return alert("กรอกข้อมูลสำคัญด้วยครับ");
-        
-        showToast("กำลังบันทึก...");
-        try { 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify(payload) }); 
-            showToast("บันทึกสำเร็จ!"); 
-            closeAddDocModal(); 
-            loadDataFromSheet(); 
-        } catch(e) { setTimeout(loadDataFromSheet, 1500); }
-    }
-
+    async function confirmSign() { const n = document.getElementById("receiverName").value, t = new Date().toLocaleString('th-TH'); if(!n) return alert("เลือกกองงานด้วยครับ"); closeSignModal(); for (let i of currentSignDocNums) { try { await fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "SIGN", docNum: i, receiverName: n, receiveDate: t }) }); } catch(e){} } showToast(); setTimeout(loadDataFromSheet, 1000); }
+    async function confirmBatchStatus() { const c = Array.from(document.querySelectorAll('.status-checkbox-item:checked')).map(b => b.value), s = document.getElementById("batchStatusSelect").value; if(!confirm(`เปลี่ยนสถานะ ${c.length} เรื่อง?`)) return; for (let i of c) { try { await fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: i, status: s }) }); } catch(e){} } showToast(); setTimeout(loadDataFromSheet, 1000); }
     function openAddDocModal() { 
-        currentEditId = null; 
-        document.getElementById("modalTitle").innerText = "ลงรับใหม่";
-        let max = 0, suffix = "";
-        allData.forEach(r => { 
-            let m = String(r["เลขรับ"]).match(/^(\d+)(.*)/); 
-            if(m) { let n = parseInt(m[1]); if(n > max) { max = n; suffix = m[2]; } } 
-        });
-        document.getElementById("inputDocNum").value = max > 0 ? (max+1) + suffix : "1";
-        
-        document.querySelectorAll('.person-cb').forEach(cb => cb.checked = false);
-        
-        fpDateIn.setDate(new Date()); 
-        document.getElementById("addDocModal").classList.remove("hidden");
+        currentEditId = null; document.getElementById("modalTitle").innerText = "ลงรับใหม่"; 
+        document.getElementById("inputDocFrom").value = ""; document.getElementById("inputDocTitle").value = ""; document.getElementById("inputDriveLink").value = "";
+        document.querySelectorAll('.person-cb').forEach(b => b.checked = false);
+        let m = 0; allData.forEach(r => { if(parseInt(r["เลขรับ"]) > m) m = parseInt(r["เลขรับ"]); });
+        document.getElementById("inputDocNum").value = m + 1; fpDateIn.setDate(new Date());
+        document.getElementById("addDocModal").classList.remove("hidden"); 
     }
-    
+    function editDoc(n) { const d = allData.find(r => String(r["เลขรับ"]) === String(n)); currentEditId = n; document.getElementById("modalTitle").innerText = "แก้ไข"; document.getElementById("inputDocNum").value = d["เลขรับ"]; document.getElementById("inputDocTitle").value = d["ชื่อเรื่อง"]; document.getElementById("inputDocFrom").value = d["จาก"]||""; document.getElementById("inputDriveLink").value = d["ลิงก์ Google Drive"]||""; const os = (d["ผู้รับผิดชอบ"]||"").split(',').map(s=>s.trim()); document.querySelectorAll('.person-cb').forEach(b => b.checked = os.includes(b.value)); document.getElementById("addDocModal").classList.remove("hidden"); }
+    function saveNewDoc() { const o = Array.from(document.querySelectorAll('.person-cb:checked')).map(b => b.value).join(', '); const p = { action: currentEditId ? "EDIT" : "ADD", oldDocNum: currentEditId, docNum: document.getElementById("inputDocNum").value, docDateIn: document.getElementById("inputDocDateIn").value, docTitle: document.getElementById("inputDocTitle").value, docFrom: document.getElementById("inputDocFrom").value, docOwner: o, docLink: document.getElementById("inputDriveLink").value }; fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(p) }); closeAddDocModal(); setTimeout(loadDataFromSheet, 1000); }
+    function openSignModal(ns) { currentSignDocNums = ns; document.getElementById("signModal").classList.remove("hidden"); document.getElementById("signTotalCount").innerText = ns.length; document.getElementById("signSelectedDocs").innerHTML = ns.map(n => `<div>• <b>${n}</b></div>`).join(''); }
+    function openStatusModal(n, s) { currentStatusDocNum = n; document.getElementById("statusModalDocNum").innerText = n; document.getElementById("newStatusSelect").value = s; document.getElementById("statusModal").classList.remove("hidden"); }
+    async function confirmUpdateStatus() { const s = document.getElementById("newStatusSelect").value; closeStatusModal(); try { await fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: currentStatusDocNum, status: s }) }); } catch(e){} showToast(); setTimeout(loadDataFromSheet, 1000); }
+    function showPage(id) { document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active')); document.getElementById('page-'+id).classList.add('page-active'); document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('menu-active')); if(document.getElementById('menu-'+id)) document.getElementById('menu-'+id).classList.add('menu-active'); if(window.innerWidth < 1024) isSidebarOpen = false; toggleSidebar(); }
+    function handleAuthToggle() { if(!isAdmin) document.getElementById("loginModal").classList.remove("hidden"); else { isAdmin = false; updateUI(); showPage('home'); } }
+    function checkPass() { if(document.getElementById("passInput").value === "1234") { isAdmin = true; updateUI(); document.getElementById("loginModal").classList.add("hidden"); } else alert("รหัสผิด"); }
+    function updateUI() { const b = document.getElementById("authBtn"), a = document.querySelectorAll(".admin-only"), c = document.querySelectorAll(".admin-view-cell"); if(isAdmin) { b.innerText = "Logout Admin"; a.forEach(e => e.classList.remove('hidden')); c.forEach(e => e.style.display = ''); } else { b.innerText = "Admin Login"; a.forEach(e => e.classList.add('hidden')); c.forEach(e => e.style.display = 'none'); } }
+    function showToast() { const t = document.getElementById("toastSuccess"); t.classList.remove("hidden"); setTimeout(() => t.classList.add("hidden"), 3000); }
     function closeAddDocModal() { document.getElementById("addDocModal").classList.add("hidden"); }
-
-    function showPage(id) {
-        document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active')); 
-        document.getElementById('page-' + id).classList.add('page-active');
-        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('menu-active')); 
-        if(document.getElementById('menu-' + id)) document.getElementById('menu-' + id).classList.add('menu-active');
-        if(window.innerWidth < 1024) { isSidebarOpen = false; updateSidebarUI(); }
-    }
-    
-    function handleAuthToggle() { if(!isAdmin) { document.getElementById("loginModal").classList.remove("hidden"); } else { isAdmin = false; updateUI(); showPage('home'); } }
-    function checkPass() { if(document.getElementById("passInput").value === "1234") { isAdmin = true; updateUI(); closeModal(); showPage('receive'); } else alert("รหัสผิด"); }
-    function closeModal() { document.getElementById("loginModal").classList.add("hidden"); document.getElementById("passInput").value = ""; }
-    
-    function updateUI() {
-        const btn = document.getElementById("authBtn");
-        const admins = document.querySelectorAll(".admin-only");
-        const cells = document.querySelectorAll(".admin-view-cell");
-        if(isAdmin) { 
-            btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg> ออกจากระบบ`; 
-            admins.forEach(el => el.classList.remove('hidden')); cells.forEach(el => el.style.display = ''); 
-        } else { 
-            btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg> เข้าสู่ระบบ`; 
-            admins.forEach(el => el.classList.add('hidden')); cells.forEach(el => el.style.display = 'none'); 
-        }
-    }
-    function showToast(msg) { const t = document.getElementById("toastSuccess"); document.getElementById("toastMessage").innerText = msg; t.classList.remove("hidden"); setTimeout(() => t.classList.add("hidden"), 3000); }
+    function closeSignModal() { document.getElementById("signModal").classList.add("hidden"); }
+    function closeStatusModal() { document.getElementById("statusModal").classList.add("hidden"); }
+    function closeModal() { document.getElementById("loginModal").classList.add("hidden"); }
+    function toggleSelectAll(s) { document.querySelectorAll('.doc-checkbox-item').forEach(b => b.checked = s.checked); updateBatchUI(); }
+    function updateBatchUI() { const c = document.querySelectorAll('.doc-checkbox-item:checked'); document.getElementById('batchActionContainer').style.display = c.length ? "flex" : "none"; document.getElementById('selectedCountText').innerText = c.length; }
+    function toggleSelectAllStatus(s) { document.querySelectorAll('.status-checkbox-item').forEach(b => b.checked = s.checked); updateBatchStatusUI(); }
+    function updateBatchStatusUI() { const c = document.querySelectorAll('.status-checkbox-item:checked'); document.getElementById('batchStatusContainer').style.display = c.length ? "flex" : "none"; document.getElementById('selectedStatusCount').innerText = c.length; }
+    function updateDashboard() { document.getElementById('count-receive').innerText = allData.filter(r => r["สถานะ"] === 'ลงรับ').length; document.getElementById('count-propose').innerText = allData.filter(r => r["สถานะ"] === 'เสนอ').length; document.getElementById('count-distribute').innerText = allData.filter(r => r["สถานะ"] === 'แจกกอง').length; document.getElementById('count-complete').innerText = allData.filter(r => r["สถานะ"] === 'เสร็จสิ้น').length; }
+    function viewDetails(n) { const d = allData.find(r => String(r["เลขรับ"]) === String(n)); if(!d) return; alert(`เลขรับ: ${n}\nเรื่อง: ${d["ชื่อเรื่อง"]}\nผู้รับผิดชอบ: ${d["ผู้รับผิดชอบ"]}\nเซ็นแล้ว: ${d["ชื่อผู้รับ"]||"-"}`); }
 </script>
 </body>
 </html>
