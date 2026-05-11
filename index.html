@@ -793,23 +793,124 @@
         if(window.innerWidth < 1024) { isSidebarOpen = false; updateSidebarUI(); }
     }
     
-    function handleAuthToggle() { if(!isAdmin) { document.getElementById("loginModal").classList.remove("hidden"); } else { isAdmin = false; updateUI(); showPage('home'); } }
-    function checkPass() { if(document.getElementById("passInput").value === "1234") { isAdmin = true; updateUI(); closeModal(); showPage('receive'); } else alert("รหัสผิด"); }
-    function closeModal() { document.getElementById("loginModal").classList.add("hidden"); document.getElementById("passInput").value = ""; }
-    
-    function updateUI() {
-        const btn = document.getElementById("authBtn");
-        const admins = document.querySelectorAll(".admin-only");
-        const cells = document.querySelectorAll(".admin-view-cell");
-        if(isAdmin) { 
-            btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg> ออกจากระบบ`; 
-            admins.forEach(el => el.classList.remove('hidden')); cells.forEach(el => el.style.display = ''); 
-        } else { 
-            btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg> เข้าสู่ระบบ`; 
-            admins.forEach(el => el.classList.add('hidden')); cells.forEach(el => el.style.display = 'none'); 
-        }
+   let isAdmin = false;
+
+function handleAuthToggle() {
+
+    if (!isAdmin) {
+
+        document.getElementById("loginModal").classList.remove("hidden");
+
+        setTimeout(() => {
+            document.getElementById("passInput").focus();
+        }, 100);
+
+    } else {
+
+        isAdmin = false;
+
+        updateUI();
+
+        showPage("home");
+
+        showToast("ออกจากระบบ Admin แล้ว");
     }
-    function showToast(msg) { const t = document.getElementById("toastSuccess"); document.getElementById("toastMessage").innerText = msg; t.classList.remove("hidden"); setTimeout(() => t.classList.add("hidden"), 3000); }
+}
+
+function checkPass() {
+
+    const pass = document.getElementById("passInput").value.trim();
+
+    if (pass === "2001") {
+
+        isAdmin = true;
+
+        updateUI();
+
+        closeModal();
+
+        showPage("receive");
+
+        showToast("เข้าสู่ระบบ Admin สำเร็จ");
+
+    } else {
+
+        alert("รหัสผ่านไม่ถูกต้อง");
+    }
+}
+
+function closeModal() {
+
+    document.getElementById("loginModal").classList.add("hidden");
+
+    document.getElementById("passInput").value = "";
+}
+
+function updateUI() {
+
+    const btn = document.getElementById("authBtn");
+
+    const admins = document.querySelectorAll(".admin-only");
+
+    const cells = document.querySelectorAll(".admin-view-cell");
+
+    if (isAdmin) {
+
+        btn.innerHTML = `
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7"/>
+            </svg>
+            ADMIN
+        `;
+
+        admins.forEach(el => {
+            el.classList.remove("hidden");
+        });
+
+        cells.forEach(el => {
+            el.style.display = "";
+        });
+
+    } else {
+
+        btn.innerHTML = `
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+            เข้าสู่ระบบ
+        `;
+
+        admins.forEach(el => {
+            el.classList.add("hidden");
+        });
+
+        cells.forEach(el => {
+            el.style.display = "none";
+        });
+    }
+
+    renderTables();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const passInput = document.getElementById("passInput");
+
+    if (passInput) {
+
+        passInput.addEventListener("keydown", function (e) {
+
+            if (e.key === "Enter") {
+
+                checkPass();
+            }
+        });
+    }
+
+    updateUI();
+});
 </script>
 </body>
 </html>
