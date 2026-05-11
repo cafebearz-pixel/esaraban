@@ -436,73 +436,56 @@
     }
 
     function renderTables() {
-    const signTbody = document.getElementById("signReceiveTableBody");
-    const compTbody = document.getElementById("completedTableBody");
-    const search = document.getElementById("signSearchInput").value.toLowerCase();
+        const receiveTbody = document.getElementById("desktopTableBody");
+        const statusTbody = document.getElementById("statusTableBody");
+        const signTbody = document.getElementById("signReceiveTableBody");
+        const compTbody = document.getElementById("completedTableBody");
+        
+        const rSearch = (document.getElementById("receiveSearchInput")?.value || "").toLowerCase();
+        const sSearch = (document.getElementById("statusSearchInput")?.value || "").toLowerCase();
+        const sgSearch = (document.getElementById("signSearchInput")?.value || "").toLowerCase();
+        const cSearch = (document.getElementById("completedSearchInput")?.value || "").toLowerCase();
 
-    signTbody.innerHTML = "";
-    compTbody.innerHTML = "";
+        receiveTbody.innerHTML = "";
+        statusTbody.innerHTML = "";
+        signTbody.innerHTML = "";
+        compTbody.innerHTML = "";
+        
+        const t = new Date();
+        const mTh = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+        const todayStr = `${t.getDate()} ${mTh[t.getMonth()]} ${t.getFullYear() + 543}`;
 
-    allData.forEach(row => {
-        const num = String(row["เลขรับ"] || "");
-        const title = String(row["ชื่อเรื่อง"] || "");
-        const owners = String(row["ผู้รับผิดชอบ"] || ""); // คอลัมน์ H
-        const signed = String(row["ชื่อผู้รับ"] || "");    // คอลัมน์ L
+        allData.sort((a,b) => String(a["เลขรับ"]).localeCompare(String(b["เลขรับ"]), undefined, {numeric: true})).forEach(row => {
+            let fDateIn = parseAnyDateToThai(row["วันที่ลงรับ"]);
+            
+            let num = String(row["เลขรับ"] || ""); 
+            let title = String(row["ชื่อเรื่อง"] || "");
+            let status = row["สถานะ"] || "ลงรับ";
+            let signed = String(row["ชื่อผู้รับ"] || "");
+            let rawSignDate = row["วันที่รับ"] || row["วันเวลาที่บันทึก"] || "";
+            const driveLink = row["ลิงก์ Google Drive"] || "";
+            
+            let docBtn = driveLink ? `<a href="${driveLink}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-lg hover:bg-teal-50 text-xs shadow-sm">เอกสาร</a>` : '-';
 
-        // ตัดชื่อออกมานับจำนวนคนที่เซ็นแล้ว
-        const signedList = signed.split(',').filter(s => s.trim() !== "" && s !== "-" && s !== "null");
-        const currentCount = signedList.length;
-
-        // คำนวณจำนวนที่ต้องการ
-        let targetCount = 1;
-        if (owners.includes("ทุกกอง")) {
-            targetCount = 5;
-        } else {
-            // นับตามจำนวนคอมม่าในคอลัมน์ผู้รับผิดชอบ (ถ้ามีหลายกอง)
-            targetCount = owners.split(',').filter(o => o.trim() !== "").length;
-            if (targetCount === 0) targetCount = 1; 
-        }
-
-        const isDone = currentCount >= targetCount;
-
-        if (!isDone) {
-            // แสดงในหน้าลงนาม
-            if (num.toLowerCase().includes(search) || title.toLowerCase().includes(search)) {
-                signTbody.innerHTML += `
-                    <tr class="hover:bg-teal-50/50 cursor-pointer" onclick="viewDetails('${num}')">
-                        <td class="p-5 text-center"><input type="checkbox" value="${num}" class="doc-checkbox"></td>
+            // 1. หน้าลงรับหนังสือ
+            if (fDateIn === todayStr && (num.toLowerCase().includes(rSearch) || title.toLowerCase().includes(rSearch))) {
+                receiveTbody.innerHTML += `
+                    <tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer">
                         <td class="p-5 font-bold">${num}</td>
-                        <td class="p-5 truncate max-w-[250px]">${title}</td>
-                        <td class="p-5 text-center">
-                            <span class="px-2 py-1 bg-teal-50 text-teal-700 rounded text-xs font-bold border border-teal-100">${owners}</span>
+                        <td class="p-5 text-[var(--primary-color)]">${fDateIn}</td>
+                        <td class="p-5">${row["จาก"]||'-'}</td>
+                        <td class="p-5 truncate max-w-[200px]">${title||'-'}</td>
+                        <td class="p-5 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ประเภทหนังสือ"]||'-'}</td>
+                        <td class="p-5 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ชั้นความเร็ว"]||'-'}</td>
+                        <td class="p-5">${row["ผู้รับผิดชอบ"]||'-'}</td>
+                        <td class="p-5 text-center">${docBtn}</td>
+                        <td class="p-5 admin-view-cell text-center" style="display:${isAdmin?'':'none'}">
+                            <button onclick="event.stopPropagation(); editDoc('${num}')" class="text-blue-600 font-bold hover:underline">แก้ไข</button>
                         </td>
-                        <td class="p-5 text-center font-bold text-orange-600">
-                            ${currentCount} / ${targetCount} คน
-                        </td>
-                        <td class="p-5 text-center">
-                            <button onclick="event.stopPropagation(); openSignModal('${num}')" 
-                                class="bg-[#114e4b] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-[#0f3835]">
-                                ลงนามรับ
-                            </button>
-                        </td>
-                    </tr>`;
+                    </tr>
+                `;
             }
-        } else {
-            // แสดงในหน้าเสร็จสิ้น
-            const compSearch = (document.getElementById("completedSearchInput")?.value || "").toLowerCase();
-            if (num.toLowerCase().includes(compSearch) || title.toLowerCase().includes(compSearch)) {
-                compTbody.innerHTML += `
-                    <tr class="hover:bg-green-50/50 cursor-pointer" onclick="viewDetails('${num}')">
-                        <td class="p-5 font-bold">${num}</td>
-                        <td class="p-5 truncate max-w-[300px]">${title}</td>
-                        <td class="p-5 text-xs text-green-700 font-bold">${signed}</td>
-                        <td class="p-5 text-center text-gray-500">${row["วันที่รับ"] || '-'}</td>
-                        <td class="p-5 text-center"><span class="text-green-600 font-bold">✔ เสร็จสิ้น</span></td>
-                    </tr>`;
-            }
-        }
-    });
-}
+
             // 2. หน้าสถานะ (เพิ่มปุ่มแก้ไขและปุ่มเปลี่ยนสถานะ)
             if (num.toLowerCase().includes(sSearch) || title.toLowerCase().includes(sSearch)) {
                 statusTbody.innerHTML += `
@@ -751,3 +734,6 @@
 </script>
 </body>
 </html>
+ 
+ 
+
