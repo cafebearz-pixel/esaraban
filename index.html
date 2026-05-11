@@ -212,50 +212,122 @@
             <div><label class="block text-sm font-bold mb-2 text-gray-700">ประเภทหนังสือ</label><select id="inputType" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"><option value="">เลือกประเภทหนังสือ</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select></div>
             <div><label class="block text-sm font-bold mb-2 text-gray-700">ชั้นความเร็ว</label><select id="inputSpeed" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"><option value="">เลือกชั้นความเร็ว</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select></div>
             
-            <div class="md:col-span-2">
-                <label class="block text-sm font-bold mb-2 text-gray-700">ผู้รับผิดชอบ (เลือกได้หลายกอง)</label>
-                <div class="h-36 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
-                    <label class="flex items-center gap-3 cursor-pointer hover:text-[var(--primary-color)] transition"><input type="checkbox" value="ทุกกอง" class="person-cb w-4 h-4 text-[var(--primary-color)]"> <span class="text-sm font-bold">ทุกกอง</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สำนักปลัด" class="person-cb w-4 h-4"> <span class="text-sm">สำนักปลัด</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองคลัง" class="person-cb w-4 h-4"> <span class="text-sm">กองคลัง</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองช่าง" class="person-cb w-4 h-4"> <span class="text-sm">กองช่าง</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองการศึกษา" class="person-cb w-4 h-4"> <span class="text-sm">กองการศึกษา</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักทรัพย์" class="person-cb w-4 h-4"> <span class="text-sm">นักทรัพย์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นิติกร" class="person-cb w-4 h-4"> <span class="text-sm">นิติกร</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานป้องกัน" class="person-cb w-4 h-4"> <span class="text-sm">งานป้องกัน</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานสภา" class="person-cb w-4 h-4"> <span class="text-sm">งานสภา</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ประชาสัมพันธ์" class="person-cb w-4 h-4"> <span class="text-sm">ประชาสัมพันธ์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักจัดการ" class="person-cb w-4 h-4"> <span class="text-sm">นักจัดการ</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สาธารณสุข" class="person-cb w-4 h-4"> <span class="text-sm">สาธารณสุข</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สปสช" class="person-cb w-4 h-4"> <span class="text-sm">สปสช</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ตรวจสอบภายใน" class="person-cb w-4 h-4"> <span class="text-sm">ตรวจสอบภายใน</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer">
-    <input type="checkbox" value="นักวิเคราะห์" class="person-cb w-4 h-4">
-    <span class="text-sm">นักวิเคราะห์</span>
-</label>
+           <div class="md:col-span-2">
+    <label class="block text-sm font-bold mb-2 text-gray-700">ผู้รับผิดชอบ (เลือกได้หลายกอง)</label>
+    <div class="h-44 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
 
-<label class="flex items-center gap-3 cursor-pointer">
-    <input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb w-4 h-4">
-    <span class="text-sm">งานการเจ้าหน้าที่</span>
-</label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ธุรการ" class="person-cb w-4 h-4"> <span class="text-sm">ธุรการ</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="เกษตร" class="person-cb w-4 h-4"> <span class="text-sm">เกษตร</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สิ่งแวดล้อม" class="person-cb w-4 h-4"> <span class="text-sm">สิ่งแวดล้อม</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายก" class="person-cb w-4 h-4"> <span class="text-sm">นายก</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ปลัด" class="person-cb w-4 h-4"> <span class="text-sm">ปลัด</span></label>
-                </div>
-            </div>
-            
-            <div><label class="block text-sm font-bold mb-2 text-gray-700">หมวดหมู่</label><select id="inputCategory" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-gray-50"><option value="">เลือกหมวดหมู่</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select></div>
-            <div class="md:col-span-2 bg-teal-50/50 p-5 rounded-2xl border border-teal-100 mt-2"><label class="block text-sm font-bold mb-2 text-gray-800">ลิงก์ Google Drive</label><input type="url" id="inputDriveLink" class="w-full p-3.5 rounded-xl border border-gray-200 outline-none bg-white" placeholder="🔗 วางลิงก์ Google Drive ที่นี่"></div>
-        </div>
-        <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-100">
-            <button onclick="closeAddDocModal()" class="px-6 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600 hover:bg-gray-200">ยกเลิก</button>
-            <button id="btnSave" onclick="saveNewDoc()" class="px-8 py-3.5 bg-[var(--primary-color)] text-white rounded-xl font-bold shadow-lg hover:bg-[#0f3835]">บันทึกข้อมูล</button>
-        </div>
+        <label class="flex items-center gap-3 cursor-pointer hover:text-[var(--primary-color)] transition">
+            <input type="checkbox" value="ทุกกอง" class="person-cb w-4 h-4 text-[var(--primary-color)]">
+            <span class="text-sm font-bold">ทุกกอง</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="สำนักปลัด" class="person-cb w-4 h-4">
+            <span class="text-sm">สำนักปลัด</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="กองคลัง" class="person-cb w-4 h-4">
+            <span class="text-sm">กองคลัง</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="กองช่าง" class="person-cb w-4 h-4">
+            <span class="text-sm">กองช่าง</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="กองการศึกษา" class="person-cb w-4 h-4">
+            <span class="text-sm">กองการศึกษา</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="กองสวัสดิการ" class="person-cb w-4 h-4">
+            <span class="text-sm">กองสวัสดิการ</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="นักวิเคราะห์" class="person-cb w-4 h-4">
+            <span class="text-sm">นักวิเคราะห์</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb w-4 h-4">
+            <span class="text-sm">งานการเจ้าหน้าที่</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="นักทรัพย์" class="person-cb w-4 h-4">
+            <span class="text-sm">นักทรัพย์</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="ธุรการ" class="person-cb w-4 h-4">
+            <span class="text-sm">ธุรการ</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="ประชาสัมพันธ์" class="person-cb w-4 h-4">
+            <span class="text-sm">ประชาสัมพันธ์</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="นักจัดการ" class="person-cb w-4 h-4">
+            <span class="text-sm">นักจัดการ</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="สิ่งแวดล้อม" class="person-cb w-4 h-4">
+            <span class="text-sm">สิ่งแวดล้อม</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="เกษตร" class="person-cb w-4 h-4">
+            <span class="text-sm">เกษตร</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="ตรวจสอบภายใน" class="person-cb w-4 h-4">
+            <span class="text-sm">ตรวจสอบภายใน</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="ปลัด" class="person-cb w-4 h-4">
+            <span class="text-sm">ปลัด</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="สาธารณสุข" class="person-cb w-4 h-4">
+            <span class="text-sm">สาธารณสุข</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="ป้องกัน" class="person-cb w-4 h-4">
+            <span class="text-sm">ป้องกัน</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="งานป้องกัน" class="person-cb w-4 h-4">
+            <span class="text-sm">งานป้องกัน</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="งานสภา" class="person-cb w-4 h-4">
+            <span class="text-sm">งานสภา</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="สปสช" class="person-cb w-4 h-4">
+            <span class="text-sm">สปสช</span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" value="นายก" class="person-cb w-4 h-4">
+            <span class="text-sm">นายก</span>
+        </label>
+
     </div>
 </div>
-
 <div id="detailsModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 sm:p-6 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8">
         <div class="flex justify-between items-start mb-6 border-b border-gray-100 pb-5">
