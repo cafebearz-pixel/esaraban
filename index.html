@@ -6,15 +6,11 @@
     <title>eSaraban - อบต.ชำผักแพว</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/th.js"></script>
-
     <style>
         :root { --app-bg: #f0f4f8; --sidebar-bg: #114e4b; --primary-color: #114e4b; }
         body { background: var(--app-bg); font-family: 'Prompt', sans-serif; }
         #sidebar { background-color: var(--sidebar-bg); transition: transform 0.3s ease; z-index: 50; }
-        .menu-item { cursor: pointer; transition: 0.2s; color: #9cc1be; padding: 0.875rem 1.25rem; border-radius: 1.5rem 0 0 1.5rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 1rem; }
+        .menu-item { cursor: pointer; transition: 0.2s; color: #9cc1be; padding: 0.875rem 1.25rem; border-radius: 1.5rem 0 0 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.25rem; }
         .menu-active { background: var(--app-bg) !important; color: var(--primary-color) !important; font-weight: 600; }
         .page-content { display: none; }
         .page-active { display: block !important; animation: fadeIn 0.3s ease; }
@@ -24,61 +20,53 @@
 </head>
 <body>
 
-<div id="sidebar" class="fixed left-0 top-0 h-full w-64 text-white shadow-2xl overflow-y-auto lg:translate-x-0 -translate-x-full">
+<!-- Sidebar -->
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 text-white shadow-2xl lg:translate-x-0 -translate-x-full">
     <div class="p-8">
-        <h1 class="font-bold text-2xl">eSaraban</h1>
-        <p class="text-xs text-teal-200">อบต.ชำผักแพว</p>
+        <h1 class="font-bold text-2xl tracking-tight">eSaraban</h1>
+        <p class="text-xs text-teal-200 mt-1">อบต.ชำผักแพว</p>
     </div>
-    <nav>
-        <ul id="menuList" class="pl-4">
+    <nav class="pl-4">
+        <ul>
             <li onclick="showPage('home')" id="menu-home" class="menu-item menu-active">หน้าหลัก</li>
-            <li onclick="showPage('receive')" id="menu-receive" class="menu-item">ลงรับ (วันนี้)</li>
             <li onclick="showPage('sign-receive')" id="menu-sign-receive" class="menu-item">ลงนามรับหนังสือ</li>
             <li onclick="showPage('completed')" id="menu-completed" class="menu-item">เสร็จสิ้นแล้ว</li>
         </ul>
     </nav>
 </div>
 
-<div id="content" class="lg:ml-64 min-h-screen flex flex-col transition-all">
+<!-- Main Content -->
+<div id="content" class="lg:ml-64 min-h-screen flex flex-col">
     <header class="bg-white p-4 flex justify-between items-center sticky top-0 shadow-sm z-40">
-        <button onclick="toggleSidebar()" class="lg:hidden p-2 text-gray-600">เมนู</button>
-        <div class="font-bold text-gray-800">ระบบสารบัญอิเล็กทรอนิกส์</div>
-        <button id="authBtn" onclick="handleAuthToggle()" class="bg-gray-100 px-4 py-2 rounded-full text-sm font-bold">GUEST</button>
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <h2 class="font-bold text-gray-800">ระบบสารบัญอิเล็กทรอนิกส์</h2>
+        <div id="authStatus" class="text-xs font-bold bg-gray-100 px-4 py-2 rounded-full uppercase">Guest Mode</div>
     </header>
 
     <main class="p-4 md:p-8 flex-1">
-        <!-- หน้าหลัก -->
-        <div id="page-home" class="page-content page-active space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="dashboardStats">
-                <!-- Stats will load here -->
+        <!-- หน้าลงนาม (หัวใจหลัก) -->
+        <div id="page-sign-receive" class="page-content page-active space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <h2 class="text-2xl font-bold text-gray-800">รายการรอกองลงนามรับ</h2>
+                <input type="text" id="searchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับหรือชื่อเรื่อง..." class="w-full md:w-64 p-3 rounded-xl border border-gray-200 outline-none focus:border-teal-600">
             </div>
-            <div class="bg-white p-6 rounded-3xl border border-gray-200" id="announceBox">
-                ยินดีต้อนรับสู่ระบบงานสารบัญ
-            </div>
-        </div>
 
-        <!-- หน้าลงนามรับหนังสือ -->
-        <div id="page-sign-receive" class="page-content space-y-6">
-            <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-800">ลงนามรับหนังสือ</h2>
-                <div class="relative w-64">
-                    <input type="text" id="signSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ..." class="w-full p-2 rounded-xl border border-gray-200">
-                </div>
-            </div>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
-                        <thead class="bg-gray-50 text-xs font-bold text-gray-500 uppercase">
+                        <thead class="bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider">
                             <tr>
                                 <th class="p-5">เลขรับ</th>
-                                <th class="p-5">ชื่อเรื่อง</th>
-                                <th class="p-5">กองที่รับผิดชอบ</th>
-                                <th class="p-5">ผู้เซ็นแล้ว</th>
+                                <th class="p-5 w-1/3">ชื่อเรื่อง</th>
+                                <th class="p-5 text-center">กองที่ต้องรับ</th>
+                                <th class="p-5 text-center">สถานะการรับ</th>
                                 <th class="p-5 text-center">จัดการ</th>
                             </tr>
                         </thead>
-                        <tbody id="signReceiveTableBody" class="text-sm divide-y divide-gray-100">
-                            <!-- Data -->
+                        <tbody id="signTbody" class="text-sm divide-y divide-gray-100">
+                            <!-- ข้อมูลจะโหลดตรงนี้ -->
                         </tbody>
                     </table>
                 </div>
@@ -87,13 +75,13 @@
 
         <!-- หน้าเสร็จสิ้น -->
         <div id="page-completed" class="page-content space-y-6">
-            <h2 class="text-2xl font-bold text-gray-800">หนังสือที่ดำเนินการเสร็จสิ้น</h2>
+            <h2 class="text-2xl font-bold text-gray-800">ดำเนินการเสร็จสิ้น (ครบทุกกอง)</h2>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
                 <table class="w-full text-left">
-                    <thead class="bg-gray-50 text-xs font-bold">
-                        <tr><th class="p-5">เลขรับ</th><th class="p-5">ชื่อเรื่อง</th><th class="p-5">ผู้เซ็นรับทั้งหมด</th><th class="p-5 text-center">สถานะ</th></tr>
+                    <thead class="bg-gray-50 text-xs font-bold text-gray-500">
+                        <tr><th class="p-5">เลขรับ</th><th class="p-5">ชื่อเรื่อง</th><th class="p-5">รายชื่อผู้รับทั้งหมด</th><th class="p-5 text-center">สถานะ</th></tr>
                     </thead>
-                    <tbody id="completedTableBody" class="text-sm divide-y"></tbody>
+                    <tbody id="completedTbody" class="text-sm divide-y divide-gray-100"></tbody>
                 </table>
             </div>
         </div>
@@ -102,116 +90,139 @@
 
 <!-- Modal ลงนาม -->
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-8 w-full max-w-md">
-        <h2 class="text-xl font-bold mb-4">ลงนามรับหนังสือ</h2>
-        <p id="signDocLabel" class="text-sm text-gray-500 mb-6"></p>
-        <select id="receiverName" class="w-full p-3 rounded-xl border mb-6">
-            <option value="">-- เลือกชื่อของคุณ --</option>
-            <option value="น.ส.คุณัญญา ก้านพลู">น.ส.คุณัญญา ก้านพลู</option>
-            <option value="น.ส.พิมพ์วดี ลองศรี">น.ส.พิมพ์วดี ลองศรี</option>
-            <option value="น.ส.อรทัย นาสารี">น.ส.อรทัย นาสารี</option>
+    <div class="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">ลงนามรับหนังสือ</h2>
+        <p id="modalDocInfo" class="text-sm text-gray-500 mb-6 font-bold"></p>
+        
+        <label class="block text-sm font-bold text-gray-700 mb-2">เลือกชื่อผู้ลงนาม <span class="text-red-500">*</span></label>
+        <select id="receiverSelect" class="w-full p-3.5 rounded-xl border border-gray-200 bg-gray-50 mb-8 outline-none">
+            <option value="">-- กรุณาเลือกชื่อ --</option>
+            <option value="น.ส.คุณัญญา ก้านพลู">น.ส.คุณัญญา ก้านพลู (สำนักปลัด)</option>
+            <option value="น.ส.พิมพ์วดี ลองศรี">น.ส.พิมพ์วดี ลองศรี (สาธารณสุข)</option>
+            <option value="น.ส.อรทัย นาสารี">น.ส.อรทัย นาสารี (นักจัดการ)</option>
+            <option value="น.ส.ณัฐธิดา นิยมพลอย">น.ส.ณัฐธิดา นิยมพลอย (นิติกร)</option>
         </select>
+
         <div class="flex gap-3">
-            <button onclick="closeModal('signModal')" class="flex-1 py-3 bg-gray-100 rounded-xl font-bold">ยกเลิก</button>
-            <button onclick="confirmSign()" class="flex-1 py-3 bg-[#114e4b] text-white rounded-xl font-bold">ยืนยัน</button>
+            <button onclick="closeModal()" class="flex-1 py-3.5 bg-gray-100 rounded-xl font-bold text-gray-600">ยกเลิก</button>
+            <button onclick="confirmSign()" id="confirmBtn" class="flex-1 py-3.5 bg-[#114e4b] text-white rounded-xl font-bold">ยืนยันการรับ</button>
         </div>
     </div>
 </div>
 
 <script>
-    // ** ใส่ URL ของ Google Apps Script ของคุณที่นี่ **
+    // ** เปลี่ยน URL ตรงนี้เป็นของ Web App Script ของคุณ **
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
 
     let allData = [];
-    let currentSignDoc = null;
-
-    window.onload = () => { loadData(); };
+    let activeDocNum = null;
 
     async function loadData() {
         try {
-            const res = await fetch(WEB_APP_URL);
-            allData = await res.json();
+            const response = await fetch(WEB_APP_URL);
+            allData = await response.json();
             renderTables();
         } catch (e) {
-            console.error("Error:", e);
-            alert("โหลดข้อมูลไม่สำเร็จ");
+            console.error("Fetch error:", e);
         }
     }
 
     function renderTables() {
-        const signTbody = document.getElementById("signReceiveTableBody");
-        const compTbody = document.getElementById("completedTableBody");
-        const searchText = document.getElementById("signSearchInput").value.toLowerCase();
+        const signTbody = document.getElementById("signTbody");
+        const completedTbody = document.getElementById("completedTbody");
+        const search = document.getElementById("searchInput").value.toLowerCase();
 
         signTbody.innerHTML = "";
-        compTbody.innerHTML = "";
+        completedTbody.innerHTML = "";
 
         allData.forEach(row => {
-            let num = String(row["เลขรับ"] || "");
-            let title = String(row["ชื่อเรื่อง"] || "");
-            let owners = String(row["ผู้รับผิดชอบ"] || "");
-            let signed = String(row["ชื่อผู้รับ"] || "");
+            const num = String(row["เลขรับ"] || "");
+            const title = String(row["ชื่อเรื่อง"] || "");
+            const owners = String(row["ผู้รับผิดชอบ"] || "");
+            const signed = String(row["ชื่อผู้รับ"] || "");
 
-            // นับจำนวนคนเซ็น
-            let signedList = signed.split(',').filter(x => x.trim() !== "");
-            let currentCount = signedList.length;
+            // Logic นับจำนวนคนเซ็น
+            const signedList = signed.split(',').filter(s => s.trim() !== "");
+            const currentCount = signedList.length;
 
-            // กำหนดเป้าหมาย (ทุกกอง = 5, อื่นๆ = ตามจำนวนชื่อกอง)
-            let targetCount = owners.includes("ทุกกอง") ? 5 : owners.split(',').length;
+            // Logic คำนวณเป้าหมาย (ทุกกอง = 5 คน / เฉพาะกอง = ตามจำนวนคอมม่า)
+            let targetCount = 1;
+            if (owners.includes("ทุกกอง")) {
+                targetCount = 5;
+            } else {
+                targetCount = owners.split(',').filter(o => o.trim() !== "").length;
+            }
 
-            let isDone = currentCount >= targetCount;
+            const isDone = currentCount >= targetCount;
 
             if (!isDone) {
-                if (num.toLowerCase().includes(searchText) || title.toLowerCase().includes(searchText)) {
+                if (num.toLowerCase().includes(search) || title.toLowerCase().includes(search)) {
                     signTbody.innerHTML += `
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-5 font-bold">${num}</td>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="p-5 font-bold text-[#114e4b]">${num}</td>
                             <td class="p-5">${title}</td>
-                            <td class="p-5"><span class="text-xs bg-teal-50 text-teal-700 px-2 py-1 rounded">${owners}</span></td>
-                            <td class="p-5 text-xs text-orange-600 font-bold">${currentCount} / ${targetCount} คน</td>
+                            <td class="p-5 text-center"><span class="bg-orange-50 text-orange-700 px-2 py-1 rounded text-xs font-bold border border-orange-100">${owners}</span></td>
                             <td class="p-5 text-center">
-                                <button onclick="openSignModal('${num}')" class="bg-[#114e4b] text-white px-4 py-2 rounded-lg text-xs">ลงนาม</button>
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mb-1">
+                                    <div class="bg-teal-600 h-1.5 rounded-full" style="width: ${(currentCount/targetCount)*100}%"></div>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-500">รับแล้ว ${currentCount} จาก ${targetCount}</span>
                             </td>
-                        </tr>`;
+                            <td class="p-5 text-center">
+                                <button onclick="openSignModal('${num}')" class="bg-[#114e4b] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#0d3b39] transition shadow-md">ลงนาม</button>
+                            </td>
+                        </tr>
+                    `;
                 }
             } else {
-                compTbody.innerHTML += `
+                completedTbody.innerHTML += `
                     <tr class="bg-green-50/30">
                         <td class="p-5 font-bold">${num}</td>
                         <td class="p-5">${title}</td>
-                        <td class="p-5 text-xs">${signed}</td>
-                        <td class="p-5 text-center text-green-600 font-bold">ครบแล้ว</td>
-                    </tr>`;
+                        <td class="p-5 text-xs text-gray-600">${signed}</td>
+                        <td class="p-5 text-center"><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase">เรียบร้อย</span></td>
+                    </tr>
+                `;
             }
         });
     }
 
     function openSignModal(num) {
-        currentSignDoc = num;
-        document.getElementById("signDocLabel").innerText = "ลงนามรับหนังสือเลขที่: " + num;
+        activeDocNum = num;
+        document.getElementById("modalDocInfo").innerText = "เลขรับ: " + num;
         document.getElementById("signModal").classList.remove("hidden");
     }
 
-    function closeModal(id) { document.getElementById(id).classList.add("hidden"); }
+    function closeModal() {
+        document.getElementById("signModal").classList.add("hidden");
+        document.getElementById("receiverSelect").value = "";
+    }
 
     async function confirmSign() {
-        const name = document.getElementById("receiverName").value;
-        if (!name) return alert("เลือกชื่อด้วยครับ");
+        const name = document.getElementById("receiverSelect").value;
+        if (!name) return alert("กรุณาเลือกรายชื่อผู้รับด้วยครับ");
 
-        closeModal('signModal');
-        // แสดง Loading (แบบง่าย)
-        document.body.style.cursor = 'wait';
+        const btn = document.getElementById("confirmBtn");
+        btn.disabled = true;
+        btn.innerText = "กำลังบันทึก...";
 
         try {
             await fetch(WEB_APP_URL, {
                 method: "POST",
-                body: JSON.stringify({ action: "SIGN", docNum: currentSignDoc, receiverName: name, receiveDate: new Date().toLocaleString('th-TH') })
+                body: JSON.stringify({
+                    action: "SIGN",
+                    docNum: activeDocNum,
+                    receiverName: name,
+                    receiveDate: new Date().toLocaleString('th-TH')
+                })
             });
-            await loadData(); // โหลดใหม่
+            closeModal();
+            await loadData();
         } catch (e) {
-            alert("บันทึกผิดพลาด");
+            alert("เกิดข้อผิดพลาดในการบันทึก");
         } finally {
-            document.body.style.cursor = 'default';
+            btn.disabled = false;
+            btn.innerText = "ยืนยันการรับ";
         }
     }
 
@@ -226,6 +237,9 @@
         const s = document.getElementById("sidebar");
         s.classList.toggle("-translate-x-full");
     }
+
+    window.onload = loadData;
 </script>
+
 </body>
 </html>
