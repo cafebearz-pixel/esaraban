@@ -137,7 +137,7 @@
 
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-                    <div class="relative"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="statusSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง,จาก..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div>
+                    <div class="relative"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="statusSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง, จาก..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div>
                     <select id="statusFilterType" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">ประเภททั้งหมด</option><option>เมลสารบัญ</option><option>จดหมาย</option><option>ด้วยตัวเอง</option></select>
                     <select id="statusFilterSpeed" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">ความเร็วทั้งหมด</option><option>ปกติ</option><option>ด่วน</option><option>ด่วนมาก</option><option>ด่วนที่สุด</option></select>
                     <select id="statusFilterCat" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">หมวดหมู่ทั้งหมด</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select>
@@ -166,14 +166,14 @@
                 <button onclick="openBatchSignModal()" class="bg-[var(--primary-color)] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#0f3835] shadow-md transition flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> ลงนามรับหนังสือที่เลือกทั้งหมด</button>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><div class="relative w-full md:w-1/2"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="signSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ,ชื่อเรื่อง..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div></div>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><div class="relative w-full md:w-1/2"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="signSearchInput" oninput="renderTables()" placeholder="ค้นหาเลขรับ, ชื่อเรื่อง..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div></div>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left whitespace-nowrap">
                         <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                            <tr><th class="p-5 w-12 text-center"><input type="checkbox" id="selectAllDocs" onclick="toggleSelectAll(this)" class="doc-checkbox rounded text-[var(--primary-color)] cursor-pointer"></th><th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5">กองที่รับผิดชอบ</th><th class="p-5 text-center">ผู้เซ็นรับ</th><th class="p-5 text-center">รับหนังสือ</th></tr>
+                            <tr><th class="p-5 w-12 text-center"><input type="checkbox" id="selectAllDocs" onclick="toggleSelectAll(this)" class="doc-checkbox rounded text-[var(--primary-color)] cursor-pointer"></th><th class="p-5">เลขรับ</th><th class="p-5">วันที่ลงรับ</th><th class="p-5 w-1/3">ชื่อเรื่อง</th><th class="p-5 text-center">ผู้เซ็นรับ</th><th class="p-5 text-center">รับหนังสือ</th></tr>
                         </thead>
-                        <tbody id="signReceiveTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="7" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
+                        <tbody id="signReceiveTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="6" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -217,25 +217,25 @@
                 <div class="h-36 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
                     <label class="flex items-center gap-3 cursor-pointer hover:text-[var(--primary-color)] transition"><input type="checkbox" value="ทุกกอง" class="person-cb w-4 h-4 text-[var(--primary-color)]"> <span class="text-sm font-bold">ทุกกอง</span></label>
                     <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สำนักปลัด" class="person-cb w-4 h-4"> <span class="text-sm">สำนักปลัด</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb w-4 h-4"> <span class="text-sm">งานการเจ้าหน้าที่</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักวิเคราะห์" class="person-cb w-4 h-4"> <span class="text-sm">นักวิเคราะห์</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักทรัพย์" class="person-cb w-4 h-4"> <span class="text-sm">นักทรัพย์</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ธุรการ" class="person-cb w-4 h-4"> <span class="text-sm">ธุรการ</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ประชาสัมพันธ์" class="person-cb w-4 h-4"> <span class="text-sm">ประชาสัมพันธ์</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักจัดการ" class="person-cb w-4 h-4"> <span class="text-sm">นักจัดการ</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สิ่งแวดล้อม" class="person-cb w-4 h-4"> <span class="text-sm">สิ่งแวดล้อม</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="เกษตร" class="person-cb w-4 h-4"> <span class="text-sm">เกษตร</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ตรวจสอบภายใน" class="person-cb w-4 h-4"> <span class="text-sm">ตรวจสอบภายใน</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ปลัด" class="person-cb w-4 h-4"> <span class="text-sm">ปลัด</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สาธารณสุข" class="person-cb w-4 h-4"> <span class="text-sm">สาธารณสุข</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ป้องกัน" class="person-cb w-4 h-4"> <span class="text-sm">ป้องกัน</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นิติกร" class="person-cb w-4 h-4"> <span class="text-sm">นิติกร</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานสภา" class="person-cb w-4 h-4"> <span class="text-sm">งานสภา</span></label>
                     <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองคลัง" class="person-cb w-4 h-4"> <span class="text-sm">กองคลัง</span></label>
                     <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองช่าง" class="person-cb w-4 h-4"> <span class="text-sm">กองช่าง</span></label>
                     <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองการศึกษา" class="person-cb w-4 h-4"> <span class="text-sm">กองการศึกษา</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักทรัพย์" class="person-cb w-4 h-4"> <span class="text-sm">นักทรัพย์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นิติกร" class="person-cb w-4 h-4"> <span class="text-sm">นิติกร</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานป้องกัน" class="person-cb w-4 h-4"> <span class="text-sm">งานป้องกัน</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานสภา" class="person-cb w-4 h-4"> <span class="text-sm">งานสภา</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ประชาสัมพันธ์" class="person-cb w-4 h-4"> <span class="text-sm">ประชาสัมพันธ์</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักจัดการ" class="person-cb w-4 h-4"> <span class="text-sm">นักจัดการ</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สาธารณสุข" class="person-cb w-4 h-4"> <span class="text-sm">สาธารณสุข</span></label>
-                        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb w-4 h-4"> <span class="text-sm">งานการเจ้าหน้าที่</span></label>
-                   <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นักวิเคราะห์" class="person-cb w-4 h-4"> <span class="text-sm">นักวิเคราะห์</span></label>
+                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="กองสวัสดิการ" class="person-cb w-4 h-4"> <span class="text-sm">กองสวัสดิการ</span></label>
                     <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สปสช" class="person-cb w-4 h-4"> <span class="text-sm">สปสช</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ตรวจสอบภายใน" class="person-cb w-4 h-4"> <span class="text-sm">ตรวจสอบภายใน</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ธุรการ" class="person-cb w-4 h-4"> <span class="text-sm">ธุรการ</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="เกษตร" class="person-cb w-4 h-4"> <span class="text-sm">เกษตร</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="สิ่งแวดล้อม" class="person-cb w-4 h-4"> <span class="text-sm">สิ่งแวดล้อม</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายก" class="person-cb w-4 h-4"> <span class="text-sm">นายก</span></label>
-                    <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="ปลัด" class="person-cb w-4 h-4"> <span class="text-sm">ปลัด</span></label>
                 </div>
             </div>
             
@@ -277,12 +277,12 @@
 </div>
 
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 text-center max-h-[90vh] overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-8 text-center max-h-[90vh] overflow-y-auto">
         <h2 class="text-2xl font-bold mb-2 text-gray-800">ลงนามรับหนังสือ</h2>
         <p class="text-sm text-gray-500 mb-6">คุณกำลังจะลงนามรับหนังสือจำนวน <span id="signTotalCount" class="font-bold text-[var(--primary-color)]">0</span> เรื่อง</p>
         
         <div class="text-left mb-6">
-            <div id="signSelectedDocs" class="bg-teal-50 border border-teal-100 rounded-xl p-3 space-y-2 max-h-40 overflow-y-auto"></div>
+            <div id="signSelectedDocs" class="bg-teal-50 border border-teal-100 rounded-xl p-3 space-y-2 max-h-32 overflow-y-auto"></div>
         </div>
 
         <div class="bg-gray-50 p-4 rounded-xl text-center mb-6">
@@ -290,24 +290,24 @@
             <p id="displaySignTime" class="text-lg font-bold text-[var(--primary-color)]">-</p>
         </div>
         <div class="text-left mb-8">
-            <label class="block text-sm font-bold text-gray-700 mb-2">เลือกชื่อผู้รับ (เลือกได้มากกว่า 1 คน) <span class="text-red-500">*</span></label>
+            <label class="block text-sm font-bold text-gray-700 mb-2">เลือกผู้รับ (เลือกได้มากกว่า 1 คน) <span class="text-red-500">*</span></label>
             <div class="h-44 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.คุณัญญา ก้านพลู" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.คุณัญญา ก้านพลู (สำนักปลัด)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.พิมพ์วดี ลองศรี" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.พิมพ์วดี ลองศรี (สาธารณสุข)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.นภาภรณ์ สุมาวรรณ" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.นภาภรณ์ สุมาวรรณ (งานการเจ้าหน้าที่)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.เสาวรส ครูศรี" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.เสาวรส ครูศรี (นักวิเคราะห์)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.อรทัย นาสารี" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.อรทัย นาสารี (นักจัดการ)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.เพ็ญสุภา ทองปราง" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.เพ็ญสุภา ทองปราง (ตรวจสอบภายใน)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.อินทิรา สมพฤกษ์" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.อินทิรา สมพฤกษ์ (ป้องกัน)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.ณัฐธิดา นิยมพลอย" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.ณัฐธิดา นิยมพลอย (นิติกร)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.เพ็ญประภา วัฒนศัพท์" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.เพ็ญประภา วัฒนศัพท์ (กองคลัง)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.ฐิติมา ปานจันทร์" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.ฐิติมา ปานจันทร์ (กองคลัง)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายนิระมิตร ศรีหะจันทร์" class="receiver-cb w-4 h-4"> <span class="text-sm">นายนิระมิตร ศรีหะจันทร์ (กองช่าง)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.สุภานิช จรรยา" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.สุภานิช จรรยา (กองการศึกษา)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.ขนิษฐา เหมือนประเสริฐ" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.ขนิษฐา เหมือนประเสริฐ (กองคลัง)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.สุพรรษา สุดสาลี" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.สุพรรษา สุดสาลี (กองสวัสดิการ)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายประเวทย์ ถิตย์เจิม" class="receiver-cb w-4 h-4"> <span class="text-sm">นายประเวทย์ ถิตย์เจิม (กองสวัสดิการ)</span></label>
-                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นางสาวธัญชนก มาลากอง" class="receiver-cb w-4 h-4"> <span class="text-sm">นางสาวธัญชนก มาลากอง (กองคลัง)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.คุณัญญา ก้านพลู (สำนักปลัด)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.คุณัญญา ก้านพลู (สำนักปลัด)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.พิมพ์วดี ลองศรี (สาธารณสุข)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.พิมพ์วดี ลองศรี (สาธารณสุข)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.นภาภรณ์ สุมาวรรณ (งานการเจ้าหน้าที่)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.นภาภรณ์ สุมาวรรณ (งานการเจ้าหน้าที่)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.เสาวรส ครูศรี (นักวิเคราะห์)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.เสาวรส ครูศรี (นักวิเคราะห์)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.อรทัย นาสารี (นักจัดการ)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.อรทัย นาสารี (นักจัดการ)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.เพ็ญสุภา ทองปราง (ตรวจสอบภายใน)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.เพ็ญสุภา ทองปราง (ตรวจสอบภายใน)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.อินทิรา สมพฤกษ์ (งานป้องกัน)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.อินทิรา สมพฤกษ์ (งานป้องกัน)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.ณัฐธิดา นิยมพลอย (นิติกร)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.ณัฐธิดา นิยมพลอย (นิติกร)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.เพ็ญประภา วัฒนศัพท์ (กองคลัง)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.เพ็ญประภา วัฒนศัพท์ (กองคลัง)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.ฐิติมา ปานจันทร์ (กองคลัง)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.ฐิติมา ปานจันทร์ (กองคลัง)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายนิระมิตร ศรีหะจันทร์ (กองช่าง)" class="receiver-cb w-4 h-4"> <span class="text-sm">นายนิระมิตร ศรีหะจันทร์ (กองช่าง)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.สุภานิช จรรยา (กองการศึกษา)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.สุภานิช จรรยา (กองการศึกษา)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.ขนิษฐา เหมือนประเสริฐ (กองคลัง)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.ขนิษฐา เหมือนประเสริฐ (กองคลัง)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="น.ส.สุพรรษา สุดสาลี (กองสวัสดิการ)" class="receiver-cb w-4 h-4"> <span class="text-sm">น.ส.สุพรรษา สุดสาลี (กองสวัสดิการ)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นายประเวทย์ ถิตย์เจิม (กองสวัสดิการ)" class="receiver-cb w-4 h-4"> <span class="text-sm">นายประเวทย์ ถิตย์เจิม (กองสวัสดิการ)</span></label>
+                <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" value="นางสาวธัญชนก มาลากอง (กองคลัง)" class="receiver-cb w-4 h-4"> <span class="text-sm">นางสาวธัญชนก มาลากอง (กองคลัง)</span></label>
             </div>
         </div>
         <div class="flex gap-3">
@@ -331,9 +331,7 @@
 </div>
 
 <script>
-    // --------------------------------------------------------
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwIPAVhvJNuNWl1-tn1XO9AZjQI3ZHcJZKbT9mke20BeBU4u_r7ZYFm01Pd8nDQ5Ijy/exec";
-    // --------------------------------------------------------
 
     let isAdmin = false;
     let isSidebarOpen = window.innerWidth >= 1024;
@@ -464,6 +462,7 @@
             let status = row["สถานะ"] || "ลงรับ";
             let signed = String(row["ชื่อผู้รับ"] || "");
             let rawSignDate = row["วันที่รับ"] || row["วันเวลาที่บันทึก"] || "";
+            let owners = String(row["ผู้รับผิดชอบ"] || "");
             const driveLink = row["ลิงก์ Google Drive"] || "";
             
             let docBtn = driveLink ? `<a href="${driveLink}" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-[var(--primary-color)] font-bold rounded-lg hover:bg-teal-50 text-xs shadow-sm">เอกสาร</a>` : '-';
@@ -478,7 +477,7 @@
                         <td class="p-5 truncate max-w-[200px]">${title||'-'}</td>
                         <td class="p-5 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ประเภทหนังสือ"]||'-'}</td>
                         <td class="p-5 admin-view-cell" style="display:${isAdmin?'':'none'}">${row["ชั้นความเร็ว"]||'-'}</td>
-                        <td class="p-5">${row["ผู้รับผิดชอบ"]||'-'}</td>
+                        <td class="p-5">${owners||'-'}</td>
                         <td class="p-5 text-center">${docBtn}</td>
                         <td class="p-5 admin-view-cell text-center" style="display:${isAdmin?'':'none'}">
                             <button onclick="event.stopPropagation(); editDoc('${num}')" class="text-blue-600 font-bold hover:underline">แก้ไข</button>
@@ -497,7 +496,7 @@
                         <td class="p-5 font-bold">${num}</td>
                         <td class="p-5">${fDateIn}</td>
                         <td class="p-5 truncate max-w-[250px]">${title||'-'}</td>
-                        <td class="p-5">${row["ผู้รับผิดชอบ"]||'-'}</td>
+                        <td class="p-5">${owners||'-'}</td>
                         <td class="p-5 text-center">${getStatusBadge(status)}</td>
                         <td class="p-5 admin-view-cell text-center" style="display:${isAdmin?'':'none'}">
                             <div class="flex gap-2 justify-center items-center">
@@ -511,49 +510,57 @@
 
             // 3. หน้าลงนาม
             if (num.toLowerCase().includes(sgSearch) || title.toLowerCase().includes(sgSearch)) {
+                let ownerList = owners.split(',').map(o => o.trim()).filter(o => o !== "");
+                let signedList = signed.split(',').map(s => s.trim()).filter(s => s !== "");
                 
-                // ตรรกะเช็คการรับหลายกอง
-                let ownerList = String(row["ผู้รับผิดชอบ"]||'').split(',').map(o => o.trim());
-                let signedList = signed.split(',').filter(s => s.trim() !== "");
-                let isComplete = false;
-                
-                if (row["ผู้รับผิดชอบ"] === "ทุกกอง") {
-                    isComplete = signedList.length >= 5;
-                } else {
-                    isComplete = ownerList.every(o => signed.includes(o));
+                let isPending = false;
+                let pendingText = "";
+
+                if (owners.includes("ทุกกอง")) {
+                    if (signedList.length < 5) {
+                        isPending = true;
+                        pendingText = `(ขาดอีก ${5 - signedList.length} กอง)`;
+                    }
+                } else if (ownerList.length > 0) {
+                    let pendingArr = ownerList.filter(o => !signed.includes(o));
+                    if (pendingArr.length > 0) {
+                        isPending = true;
+                        pendingText = pendingArr.join(', ');
+                    }
                 }
 
-                let signUI = isComplete
-                    ? `<div class="text-xs text-green-700 font-bold">${signed}<br><span class="text-gray-400 font-normal">${rawSignDate}</span></div>` 
-                    : `<button onclick="event.stopPropagation(); openSignModal(['${num}'])" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-[#0f3835]">ลงรับหนังสือ</button>`;
-                
-                let checkUI = isComplete ? `✅` : `<input type="checkbox" value="${num}" onchange="updateBatchUI()" onclick="event.stopPropagation()" class="doc-checkbox-item doc-checkbox">`;
-                
-                signTbody.innerHTML += `
-                    <tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer">
-                        <td class="p-5 text-center">${checkUI}</td>
-                        <td class="p-5 font-bold">${num}</td>
-                        <td class="p-5">${fDateIn}</td>
-                        <td class="p-5 truncate max-w-[300px]">${title||'-'}</td>
-                        <td class="p-5 text-xs text-gray-600">${row["ผู้รับผิดชอบ"]||'-'}</td>
-                        <td class="p-5 text-center font-bold text-gray-800">${signed||'-'}</td>
-                        <td class="p-5 text-center">${signUI}</td>
-                    </tr>
-                `;
+                if (isPending) {
+                    let signerDisplay = signed !== "" ? `<div class="text-xs text-green-700 font-bold mb-1">${signed}</div>` : "";
+                    signerDisplay += `<div class="text-xs text-red-500 font-bold">รอเซ็น: ${pendingText}</div>`;
+                    
+                    let signUI = `<button onclick="event.stopPropagation(); openSignModal(['${num}'])" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-[#0f3835]">ลงนามรับหนังสือ</button>`;
+                    let checkUI = `<input type="checkbox" value="${num}" onchange="updateBatchUI()" onclick="event.stopPropagation()" class="doc-checkbox-item doc-checkbox">`;
+                    
+                    signTbody.innerHTML += `
+                        <tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer">
+                            <td class="p-5 text-center">${checkUI}</td>
+                            <td class="p-5 font-bold">${num}</td>
+                            <td class="p-5">${fDateIn}</td>
+                            <td class="p-5 truncate max-w-[300px]">${title||'-'}</td>
+                            <td class="p-5 text-center">${signerDisplay}</td>
+                            <td class="p-5 text-center">${signUI}</td>
+                        </tr>
+                    `;
+                }
             }
 
             // 4. หน้าเสร็จสิ้น
-            let ownerListComp = String(row["ผู้รับผิดชอบ"]||'').split(',').map(o => o.trim());
-            let signedListComp = signed.split(',').filter(s => s.trim() !== "");
-            let isFinish = false;
-            
-            if (row["ผู้รับผิดชอบ"] === "ทุกกอง") {
-                isFinish = signedListComp.length >= 5;
-            } else {
-                isFinish = ownerListComp.length > 0 && ownerListComp.every(o => signed.includes(o));
+            let isFinished = false;
+            let ownerListComp = owners.split(',').map(o => o.trim()).filter(o => o !== "");
+            let signedListComp = signed.split(',').map(s => s.trim()).filter(s => s !== "");
+
+            if (owners.includes("ทุกกอง")) {
+                if (signedListComp.length >= 5) isFinished = true;
+            } else if (ownerListComp.length > 0) {
+                if (ownerListComp.every(o => signed.includes(o))) isFinished = true;
             }
 
-            if (isFinish) {
+            if (isFinished) {
                 if (num.toLowerCase().includes(cSearch) || title.toLowerCase().includes(cSearch) || signed.toLowerCase().includes(cSearch)) {
                     compTbody.innerHTML += `
                         <tr onclick="viewDetails('${num}')" class="hover:bg-green-50/50 cursor-pointer">
@@ -577,7 +584,7 @@
     }
 
     function openSignModal(nums) {
-        document.querySelectorAll('.receiver-cb').forEach(cb => cb.checked = false); 
+        document.querySelectorAll('.receiver-cb').forEach(cb => cb.checked = false);
         currentSignDocNums = nums; 
         document.getElementById("signModal").classList.remove("hidden");
         
@@ -606,6 +613,7 @@
     async function confirmSign() {
         const checkedReceivers = Array.from(document.querySelectorAll('.receiver-cb:checked')).map(cb => cb.value);
         if(checkedReceivers.length === 0) return alert("โปรดเลือกรายชื่อผู้รับก่อนกดยืนยันครับ");
+        
         const name = checkedReceivers.join(', ');
         const time = document.getElementById("displaySignTime").innerText; 
         closeSignModal();
@@ -619,10 +627,9 @@
             let newSignedCount = currentSigned.split(',').filter(s => s.trim() !== "").length + checkedReceivers.length;
             
             let isFinish = false;
-            if (owners === "ทุกกอง") { 
+            if (owners.includes("ทุกกอง")) { 
                 if (newSignedCount >= 5) isFinish = true; 
-            }
-            else if (owners.split(',').length <= newSignedCount) { 
+            } else if (owners.split(',').length <= newSignedCount) { 
                 isFinish = true; 
             }
 
@@ -630,6 +637,7 @@
             
             await fetch(WEB_APP_URL, { 
                 method: "POST", 
+                mode: "no-cors", 
                 body: JSON.stringify({ 
                     action: "SIGN", 
                     docNum: docNum, 
@@ -640,7 +648,7 @@
             }); 
         }
         showToast("เซ็นรับเรียบร้อยแล้ว!"); 
-        loadDataFromSheet();
+        setTimeout(loadDataFromSheet, 1000);
     }
 
     async function confirmBatchStatus() {
@@ -651,10 +659,10 @@
         
         for (let i = 0; i < checked.length; i++) { 
             showToast(`กำลังเปลี่ยนสถานะ (${i+1}/${checked.length})...`); 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: checked[i], status: nextStatus }) }); 
+            await fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: checked[i], status: nextStatus }) }); 
         }
         showToast("เปลี่ยนสถานะเรียบร้อยแล้ว!"); 
-        loadDataFromSheet();
+        setTimeout(loadDataFromSheet, 1000);
     }
 
     function viewDetails(docNum) {
@@ -682,8 +690,8 @@
         closeStatusModal();
         showToast("กำลังบันทึก...");
         try { 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: currentStatusDocNum, status: newStatus }) }); 
-            loadDataFromSheet(); 
+            await fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "UPDATE_STATUS", docNum: currentStatusDocNum, status: newStatus }) }); 
+            setTimeout(loadDataFromSheet, 1000);
         } catch(e) { setTimeout(loadDataFromSheet, 1500); }
     }
 
@@ -713,7 +721,33 @@
         return '<span class="px-3.5 py-1.5 bg-[var(--primary-color)] text-white rounded-lg text-xs font-bold shadow-sm">ลงรับ</span>';
     }
 
-    async function saveNewDoc() {
+    function openAddDocModal() { 
+        currentEditId = null; 
+        document.getElementById("modalTitle").innerText = "ลงรับใหม่";
+        
+        document.getElementById("inputDocFrom").value = "";
+        document.getElementById("inputDocTitle").value = "";
+        document.getElementById("inputDriveLink").value = "";
+        document.getElementById("inputType").value = "";
+        document.getElementById("inputSpeed").value = "";
+        document.getElementById("inputCategory").value = "";
+        
+        let max = 0, suffix = "";
+        allData.forEach(r => { 
+            let m = String(r["เลขรับ"]).match(/^(\d+)(.*)/); 
+            if(m) { let n = parseInt(m[1]); if(n > max) { max = n; suffix = m[2]; } } 
+        });
+        document.getElementById("inputDocNum").value = max > 0 ? (max+1) + suffix : "1";
+        
+        document.querySelectorAll('.person-cb').forEach(cb => cb.checked = false);
+        
+        fpDateIn.setDate(new Date()); 
+        document.getElementById("addDocModal").classList.remove("hidden");
+    }
+    
+    function closeAddDocModal() { document.getElementById("addDocModal").classList.add("hidden"); }
+
+    function saveNewDoc() {
         const owners = Array.from(document.querySelectorAll('.person-cb:checked')).map(cb => cb.value).join(', ');
         
         const payload = { 
@@ -731,37 +765,11 @@
         if(!payload.docNum || !payload.docTitle) return alert("กรอกข้อมูลสำคัญด้วยครับ");
         
         showToast("กำลังบันทึก...");
-        try { 
-            await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify(payload) }); 
-            showToast("บันทึกสำเร็จ!"); 
-            closeAddDocModal(); 
-            loadDataFromSheet(); 
-        } catch(e) { setTimeout(loadDataFromSheet, 1500); }
+        fetch(WEB_APP_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }); 
+        showToast("บันทึกสำเร็จ!"); 
+        closeAddDocModal(); 
+        setTimeout(loadDataFromSheet, 1000);
     }
-
-    function openAddDocModal() { 
-        currentEditId = null; 
-        document.getElementById("modalTitle").innerText = "ลงรับใหม่";
-        
-        // ล้างค่าเก่า
-        document.getElementById("inputDocFrom").value = "";
-        document.getElementById("inputDocTitle").value = "";
-        document.getElementById("inputDriveLink").value = "";
-        
-        let max = 0, suffix = "";
-        allData.forEach(r => { 
-            let m = String(r["เลขรับ"]).match(/^(\d+)(.*)/); 
-            if(m) { let n = parseInt(m[1]); if(n > max) { max = n; suffix = m[2]; } } 
-        });
-        document.getElementById("inputDocNum").value = max > 0 ? (max+1) + suffix : "1";
-        
-        document.querySelectorAll('.person-cb').forEach(cb => cb.checked = false);
-        
-        fpDateIn.setDate(new Date()); 
-        document.getElementById("addDocModal").classList.remove("hidden");
-    }
-    
-    function closeAddDocModal() { document.getElementById("addDocModal").classList.add("hidden"); }
 
     function showPage(id) {
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active')); 
@@ -787,7 +795,7 @@
             admins.forEach(el => el.classList.add('hidden')); cells.forEach(el => el.style.display = 'none'); 
         }
     }
-    function showToast(msg) { const t = document.getElementById("toastSuccess"); document.getElementById("toastMessage").innerText = msg; t.classList.remove("hidden"); setTimeout(() => t.classList.add("hidden"), 3000); }
+    function showToast(msg) { const t = document.getElementById("toastSuccess"); if(msg) document.getElementById("toastMessage").innerText = msg; t.classList.remove("hidden"); setTimeout(() => t.classList.add("hidden"), 3000); }
 </script>
 </body>
 </html>
