@@ -66,10 +66,6 @@
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><div><p class="text-sm text-gray-500 font-medium">รอดำเนินการ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-distribute">0</span> <span class="text-base font-normal">แจกกอง</span></h3></div></div>
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><p class="text-sm text-gray-500 font-medium">ดำเนินการ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-complete">0</span> <span class="text-base font-normal">เสร็จสิ้น</span></h3></div></div>
             </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex justify-between items-center relative overflow-hidden mt-6">
-                <div class="absolute top-0 left-0 w-2 h-full bg-[var(--primary-color)]"></div>
-                <div class="flex items-center gap-4 pl-4"><div class="p-3 bg-teal-50 text-[var(--primary-color)] rounded-xl"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg></div><p id="announceText" class="text-gray-700 font-medium text-lg">ประกาศ: ยินดีต้อนรับสู่ระบบงานสารบัญอิเล็กทรอนิกส์</p></div>
-            </div>
         </div>
 
         <div id="page-forms" class="page-content space-y-6">
@@ -174,7 +170,7 @@
             
             <div class="md:col-span-2">
                 <label class="block font-bold mb-2 text-[#114e4b]">ผู้รับผิดชอบ (เลือกได้หลายกอง)</label>
-                <div class="h-44 overflow-y-auto border rounded-xl bg-teal-50/30 p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="h-36 overflow-y-auto border rounded-xl bg-teal-50/30 p-4 grid grid-cols-2 md:grid-cols-3 gap-3">
                     <label class="flex items-center gap-2 cursor-pointer font-bold text-[#114e4b]"><input type="checkbox" value="ทุกกอง" class="person-cb w-4 h-4"> ทุกกอง</label>
                     <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="สำนักปลัด" class="person-cb w-4 h-4"> สำนักปลัด</label>
                     <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="งานการเจ้าหน้าที่" class="person-cb w-4 h-4"> งานการเจ้าหน้าที่</label>
@@ -209,7 +205,11 @@
 <div id="signModal" class="hidden modal fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-8 text-center max-h-[90vh] overflow-y-auto">
         <h2 class="text-2xl font-bold mb-4">ลงนามรับหนังสือ <span id="signDocNumDisplay" class="text-[#114e4b]"></span></h2>
-        <div class="bg-gray-50 p-4 rounded-xl text-center mb-6"><p class="text-xs text-gray-500 font-bold mb-1">วันและเวลาที่บันทึก:</p><p id="displaySignTime" class="text-lg font-bold text-[var(--primary-color)]">-</p></div>
+        
+        <div class="bg-gray-50 p-4 rounded-xl text-center mb-6">
+            <p class="text-xs text-gray-500 font-bold mb-1">วันและเวลาที่บันทึก:</p>
+            <p id="displaySignTime" class="text-lg font-bold text-[var(--primary-color)]">-</p>
+        </div>
         <div class="text-left mb-8">
             <p class="text-sm font-bold text-gray-700 mb-2">เลือกชื่อผู้รับ (เลือกได้มากกว่า 1 คน) <span class="text-red-500">*</span></p>
             <div class="h-48 overflow-y-auto border border-gray-200 rounded-xl bg-gray-50 p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
@@ -228,9 +228,11 @@
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="ป้องกัน" class="receiver-cb w-4 h-4"> ป้องกัน</label>
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="งานสภา" class="receiver-cb w-4 h-4"> งานสภา</label>
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="สำนักปลัด" class="receiver-cb w-4 h-4"> สำนักปลัด (อื่นๆ)</label>
+                
                 <div class="font-bold text-[#114e4b] col-span-full border-b pb-1 mt-3 mb-1">▶ กองสวัสดิการ</div>
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองสวัสดิการ" class="receiver-cb w-4 h-4"> กองสวัสดิการ</label>
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="สปสช" class="receiver-cb w-4 h-4"> สปสช</label>
+                
                 <div class="font-bold text-[#114e4b] col-span-full border-b pb-1 mt-3 mb-1">▶ กองอื่นๆ</div>
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองคลัง" class="receiver-cb w-4 h-4"> กองคลัง</label>
                 <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="กองช่าง" class="receiver-cb w-4 h-4"> กองช่าง</label>
@@ -400,8 +402,7 @@
                         actionBtns += `<button onclick="event.stopPropagation(); editDoc('${num}')" class="bg-gray-50 text-blue-600 px-3 py-1.5 rounded-lg border border-blue-200 text-xs font-bold shadow-sm hover:bg-blue-50 mr-2">แก้ไข</button>`;
                         if (status !== 'เสร็จสิ้น') actionBtns += `<button onclick="event.stopPropagation(); markAsCompleted('${num}')" class="bg-green-50 text-green-600 px-3 py-1.5 rounded-lg border border-green-200 text-xs font-bold shadow-sm hover:bg-green-100 mr-2">ยืนยันเสร็จสิ้น</button>`;
                         actionBtns += `<button onclick="event.stopPropagation(); openEditSignModal('${num}')" class="bg-purple-50 text-purple-600 px-3 py-1.5 rounded-lg border border-purple-200 text-xs font-bold shadow-sm hover:bg-purple-100 mr-2">แก้คนเซ็น</button>`;
-                        actionBtns += `<button onclick="event.stopPropagation(); cancelSign('${num}')" class="bg-orange-50 text-orange-600 px-3 py-1.5 rounded-lg border border-orange-200 text-xs font-bold shadow-sm hover:bg-orange-100 mr-2">ล้างการเซ็น</button>`;
-                        actionBtns += `<button onclick="event.stopPropagation(); deleteDoc('${num}')" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg border border-red-200 text-xs font-bold shadow-sm hover:bg-red-100">ลบ</button>`;
+                        actionBtns += `<button onclick="event.stopPropagation(); cancelSign('${num}')" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg border border-red-200 text-xs font-bold shadow-sm hover:bg-red-100">ล้างการเซ็น</button>`;
                     }
                     compTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer"><td class="p-5 font-bold w-24">${num}</td><td class="p-5 w-32 whitespace-nowrap">${fDateOut}</td><td class="p-5 w-32 whitespace-nowrap">${fDateIn}</td><td class="p-5 w-48 truncate max-w-[150px]">${docFrom}</td><td class="p-5"><div class="truncate max-w-[300px] md:max-w-[400px] whitespace-normal line-clamp-2">${title||'-'}</div></td><td class="p-5 text-center w-32">${getStatusBadge(status)}</td><td class="p-5 w-1/4"><div class="text-xs text-green-700 font-bold leading-relaxed">${signedStr ? signedStr.replace(/,/g, '<br>') : '-'}</div></td><td class="p-5 text-center w-24">${docBtn}</td><td class="p-5 text-center admin-view-cell w-48" style="display:${isAdmin?'':'none'}"><div class="flex flex-wrap gap-2 justify-center items-center">${actionBtns}</div></td></tr>`;
                 }
@@ -483,8 +484,13 @@
         const d = allData.find(r => String(getVal(r, ["เลขรับ"])) === String(docNum)); if(!d) return;
         currentEditId = docNum; document.getElementById("modalTitle").innerText = "แก้ไขหนังสือ";
         document.getElementById("inputDocNum").value = docNum;
-        if(document.getElementById("inputDocDateOut")) document.getElementById("inputDocDateOut").value = getVal(d, ["วันที่ออกหนังสือ"]);
-        if(document.getElementById("inputDocDateIn")) document.getElementById("inputDocDateIn").value = getVal(d, ["วันที่ลงรับหนังสือ", "วันที่ลงรับ"]);
+        
+        let dOut = getVal(d, ["วันที่ออกหนังสือ"]);
+        if(fpDateOut) { fpDateOut.input.value = dOut; fpDateOut.altInput.value = dOut; }
+        
+        let dIn = getVal(d, ["วันที่ลงรับหนังสือ", "วันที่ลงรับ"]);
+        if(fpDateIn) { fpDateIn.input.value = dIn; fpDateIn.altInput.value = dIn; }
+        
         document.getElementById("inputDocFrom").value = getVal(d, ["จาก"]);
         document.getElementById("inputDocTitle").value = getVal(d, ["ชื่อเรื่อง"]);
         const owners = getVal(d, ["ผู้รับผิดชอบ"]).split(',').map(s=>s.trim());
@@ -506,13 +512,17 @@
 
     function openAddDocModal() { 
         currentEditId = null; document.getElementById("modalTitle").innerText = "ลงรับใหม่";
-        const clearFields = ["inputDocDateOut", "inputDocFrom", "inputDocTitle", "inputType", "inputSpeed", "inputCategory", "inputDriveLink"];
+        const clearFields = ["inputDocFrom", "inputDocTitle", "inputType", "inputSpeed", "inputCategory", "inputDriveLink"];
         clearFields.forEach(id => { if (document.getElementById(id)) document.getElementById(id).value = ""; });
         let max = 0, suffix = "";
         allData.forEach(r => { let m = String(getVal(r, ["เลขรับ"])).match(/^(\d+)(.*)/); if(m) { let n = parseInt(m[1]); if(n > max) { max = n; suffix = m[2]; } } });
         document.getElementById("inputDocNum").value = max > 0 ? (max+1) + suffix : "1";
         document.querySelectorAll('.person-cb').forEach(cb => cb.checked = false);
-        if (fpDateIn) fpDateIn.setDate(new Date()); document.getElementById("addDocModal").classList.remove("hidden");
+        
+        if (fpDateOut) fpDateOut.clear();
+        if (fpDateIn) fpDateIn.setDate(new Date()); 
+        
+        document.getElementById("addDocModal").classList.remove("hidden");
     }
     function closeAddDocModal() { document.getElementById("addDocModal").classList.add("hidden"); }
 
