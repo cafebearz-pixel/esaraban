@@ -26,11 +26,25 @@
         select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
         .doc-checkbox { accent-color: var(--primary-color); transform: scale(1.3); cursor: pointer; }
         
-        /* สไตล์ Custom Scrollbar แนวนอน ให้เห็นชัดเจน */
-        .custom-scrollbar::-webkit-scrollbar { height: 10px; }
+        .custom-scrollbar::-webkit-scrollbar { height: 10px; width: 10px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f0f4f8; border-radius: 8px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #9cc1be; border-radius: 8px; border: 2px solid #f0f4f8; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #114e4b; }
+        
+        /* สไตล์ตารางแบบใหม่ ป้องกันการล้นจอ */
+        table { width: 100%; table-layout: fixed; }
+        th, td { padding: 1rem; vertical-align: top; }
+        
+        .col-num { width: 80px; }
+        .col-date { width: 110px; }
+        .col-from { width: 150px; }
+        .col-title { width: auto; min-width: 250px; } /* ให้ขยายได้ตามพื้นที่เหลือ */
+        .col-owner { width: 150px; }
+        .col-status { width: 100px; }
+        .col-doc { width: 100px; text-align: center; }
+        .col-action { width: 150px; text-align: center; }
+        
+        .text-wrap-custom { white-space: normal; word-wrap: break-word; }
     </style>
 </head>
 <body>
@@ -63,7 +77,7 @@
         </div>
     </header>
 
-    <main class="p-4 md:p-8 flex-1 w-full mx-auto max-w-[1600px] z-10 relative overflow-hidden">
+    <main class="p-4 md:p-8 flex-1 w-full mx-auto max-w-[1600px] z-10 relative">
         <div id="page-home" class="page-content space-y-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200 flex items-center gap-5 hover:shadow-md transition"><div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg></div><div><p class="text-sm text-gray-500 font-medium">สถานะ</p><h3 class="text-2xl font-bold text-gray-800 flex items-baseline gap-2"><span id="count-receive">0</span> <span class="text-base font-normal">ลงรับ</span></h3></div></div>
@@ -98,12 +112,13 @@
                 <button onclick="openAddDocModal()" class="admin-only hidden bg-[var(--primary-color)] text-white px-6 py-3.5 rounded-2xl hover:bg-[#0f3835] transition shadow-md font-bold flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg> ลงรับหนังสือใหม่</button>
             </div>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><div class="relative w-full md:w-1/2"><div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><input type="text" id="receiveSearchInput" oninput="renderTables()" placeholder="ค้นหาเอกสาร..." class="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"></div></div>
+            
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden pb-4 custom-scrollbar" style="overflow-x: auto;">
                 <table class="w-full text-left min-w-max">
                     <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                        <tr><th class="p-5 whitespace-nowrap">เลขรับ</th><th class="p-5 whitespace-nowrap">วันที่ออกหนังสือ</th><th class="p-5 whitespace-nowrap">วันที่ลงรับ</th><th class="p-5 whitespace-nowrap">จาก</th><th class="p-5">ชื่อเรื่อง</th><th class="p-5 admin-view-cell whitespace-nowrap" style="display:none;">ประเภท</th><th class="p-5 admin-view-cell whitespace-nowrap" style="display:none;">ความเร็ว</th><th class="p-5 whitespace-nowrap">ผู้รับผิดชอบ</th><th class="p-5 text-center whitespace-nowrap">เอกสาร</th><th class="p-5 text-center admin-view-cell whitespace-nowrap" style="display:none;">จัดการ</th></tr>
+                        <tr><th class="p-4 col-num">เลขรับ</th><th class="p-4 col-date">วันที่ออกหนังสือ</th><th class="p-4 col-date">วันที่ลงรับ</th><th class="p-4 col-from">จาก</th><th class="p-4 col-title">ชื่อเรื่อง</th><th class="p-4 col-owner">ผู้รับผิดชอบ</th><th class="p-4 col-doc">เอกสาร</th><th class="p-4 col-action admin-view-cell" style="display:none;">จัดการ</th></tr>
                     </thead>
-                    <tbody id="desktopTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="10" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
+                    <tbody id="desktopTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="8" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
                 </table>
             </div>
         </div>
@@ -118,10 +133,11 @@
                     <select id="statusFilterCat" onchange="renderTables()" class="h-12 px-4 rounded-xl border border-gray-200 focus:border-[var(--primary-color)] outline-none text-sm text-gray-700 bg-gray-50 focus:bg-white transition"><option value="">หมวดหมู่ทั้งหมด</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option><option>ประกาศ</option><option>เอกสารสำคัญ</option></select>
                 </div>
             </div>
+            
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden pb-4 custom-scrollbar" style="overflow-x: auto;">
                 <table class="w-full text-left min-w-max">
                     <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                        <tr><th class="p-5 whitespace-nowrap">เลขรับ</th><th class="p-5 whitespace-nowrap">วันที่ออกหนังสือ</th><th class="p-5 whitespace-nowrap">วันที่ลงรับ</th><th class="p-5 whitespace-nowrap">จาก</th><th class="p-5">ชื่อเรื่อง</th><th class="p-5 whitespace-nowrap">ผู้รับผิดชอบ</th><th class="p-5 text-center admin-view-cell whitespace-nowrap" style="display:none;">จัดการ</th></tr>
+                        <tr><th class="p-4 col-num">เลขรับ</th><th class="p-4 col-date">วันที่ออกหนังสือ</th><th class="p-4 col-date">วันที่ลงรับ</th><th class="p-4 col-from">จาก</th><th class="p-4 col-title">ชื่อเรื่อง</th><th class="p-4 col-owner">ผู้รับผิดชอบ</th><th class="p-4 col-action admin-view-cell" style="display:none;">จัดการ</th></tr>
                     </thead>
                     <tbody id="statusTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="7" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
                 </table>
@@ -131,10 +147,11 @@
         <div id="page-completed" class="page-content space-y-6">
             <div class="flex items-center gap-4 mb-6"><div class="bg-white p-3.5 rounded-2xl shadow-sm text-green-600 border border-gray-200"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><div><h2 class="text-2xl font-bold text-gray-800">หนังสือทั้งหมด (ประวัติ/เสร็จสิ้น)</h2><p class="text-sm text-gray-500">รวบรวมรายการหนังสือทุกอย่างทั้งเก่าและใหม่</p></div></div>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-6 mb-4"><input type="text" id="completedSearchInput" oninput="renderTables()" placeholder="ค้นหาประวัติ..." class="w-full h-12 px-6 rounded-xl border border-gray-200 focus:border-green-500 outline-none text-sm text-gray-700 bg-gray-50 transition"></div>
+            
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden pb-4 custom-scrollbar" style="overflow-x: auto;">
                 <table class="w-full text-left min-w-max">
                     <thead class="bg-gray-50/80 text-gray-500 text-xs font-bold border-b border-gray-100">
-                        <tr><th class="p-5 whitespace-nowrap">เลขรับ</th><th class="p-5 whitespace-nowrap">วันที่ออกหนังสือ</th><th class="p-5 whitespace-nowrap">วันที่ลงรับ</th><th class="p-5 whitespace-nowrap">จาก</th><th class="p-5">ชื่อเรื่อง</th><th class="p-5 text-center whitespace-nowrap">สถานะ</th><th class="p-5 text-center whitespace-nowrap">เอกสาร</th><th class="p-5 text-center admin-view-cell whitespace-nowrap" style="display:none;">จัดการ(Admin)</th></tr>
+                        <tr><th class="p-4 col-num">เลขรับ</th><th class="p-4 col-date">วันที่ออกหนังสือ</th><th class="p-4 col-date">วันที่ลงรับ</th><th class="p-4 col-from">จาก</th><th class="p-4 col-title">ชื่อเรื่อง</th><th class="p-4 col-status">สถานะ</th><th class="p-4 col-doc">เอกสาร</th><th class="p-4 col-action admin-view-cell" style="display:none;">จัดการ(Admin)</th></tr>
                     </thead>
                     <tbody id="completedTableBody" class="text-sm divide-y divide-gray-50 text-gray-700"><tr><td colspan="8" class="p-10 text-center text-gray-400">กำลังโหลดข้อมูล...</td></tr></tbody>
                 </table>
@@ -182,9 +199,8 @@
                     <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" value="สปสช" class="person-cb w-4 h-4"> สปสช</label>
                 </div>
             </div>
-            
             <div><label class="block font-bold mb-2">หมวดหมู่</label><select id="inputCategory" class="w-full p-3 rounded-xl border outline-none bg-gray-50"><option value="">เลือก</option><option>ทั่วไป</option><option>การเงิน</option><option>อบรม</option><option>ประชาสัมพันธ์</option></select></div>
-            <div class="md:col-span-2 bg-teal-50/50 p-5 rounded-2xl border border-teal-100 mt-2"><label class="block font-bold mb-2 text-gray-800">ลิงก์ Google Drive</label><input type="url" id="inputDriveLink" class="w-full p-3 rounded-xl border outline-none" placeholder="🔗 วางลิงก์ Google Drive ที่นี่"></div>
+            <div class="md:col-span-2"><label class="block font-bold mb-2">ลิงก์ Google Drive</label><input type="url" id="inputDriveLink" class="w-full p-3 rounded-xl border outline-none" placeholder="🔗"></div>
         </div>
         <div class="flex justify-end gap-4 mt-8 pt-6 border-t"><button onclick="closeAddDocModal()" class="px-6 py-3 bg-gray-100 rounded-xl font-bold">ยกเลิก</button><button onclick="saveNewDoc()" class="bg-[#114e4b] text-white px-8 py-3 rounded-xl font-bold shadow-lg">บันทึกข้อมูล</button></div>
     </div>
@@ -229,7 +245,6 @@
         
         let datePart = str.split(/[\sT]/)[0]; 
         let match = datePart.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
-        
         if (match) {
             let d = parseInt(match[1], 10), m = parseInt(match[2], 10) - 1, y = parseInt(match[3], 10);
             if (y < 100) y += 2500; if (y < 2500) y += 543; 
@@ -307,17 +322,14 @@
                     if (fDateIn === todayStr || status === 'ลงรับ') isWithin24Hours = true;
                 }
 
-                // 1. หน้าลงรับ
                 if (isWithin24Hours && (num.toLowerCase().includes(rSearch) || title.toLowerCase().includes(rSearch))) {
-                    receiveTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer border-b border-gray-50"><td class="p-4 font-bold align-top w-24">${num}</td><td class="p-4 align-top w-32 whitespace-nowrap">${fDateOut}</td><td class="p-4 align-top w-32 whitespace-nowrap">${fDateIn}</td><td class="p-4 align-top w-48">${docFrom}</td><td class="p-4 align-top min-w-[300px] whitespace-normal break-words leading-relaxed">${title}</td><td class="p-4 align-top admin-view-cell whitespace-nowrap" style="display:${isAdmin?'':'none'}">${getVal(row, ["ประเภทหนังสือ"])||'-'}</td><td class="p-4 align-top admin-view-cell whitespace-nowrap" style="display:${isAdmin?'':'none'}">${getVal(row, ["ชั้นความเร็ว"])||'-'}</td><td class="p-4 align-top w-48 text-xs leading-relaxed whitespace-normal">${ownersStr ? ownersStr.replace(/,/g, '<br>') : '-'}</td><td class="p-4 align-top text-center w-24">${docBtn}</td><td class="p-4 align-top admin-view-cell w-32 text-center" style="display:${isAdmin?'':'none'}"><div class="flex gap-2 justify-center items-center"><button onclick="event.stopPropagation(); editDoc('${num}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 hover:bg-blue-100">แก้ไข</button><button onclick="event.stopPropagation(); deleteDoc('${num}')" class="text-red-600 font-bold text-xs bg-red-50 px-3 py-1.5 rounded-lg border border-red-200 hover:bg-red-100">ลบ</button></div></td></tr>`;
+                    receiveTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-teal-50/50 cursor-pointer border-b border-gray-50"><td class="p-4 font-bold align-top col-num">${num}</td><td class="p-4 align-top col-date whitespace-nowrap">${fDateOut}</td><td class="p-4 align-top col-date whitespace-nowrap">${fDateIn}</td><td class="p-4 align-top col-from">${docFrom}</td><td class="p-4 align-top text-wrap-custom col-title leading-relaxed">${title}</td><td class="p-4 align-top text-xs leading-relaxed col-owner">${ownersStr ? ownersStr.replace(/,/g, '<br>') : '-'}</td><td class="p-4 align-top col-doc">${docBtn}</td><td class="p-4 align-top admin-view-cell col-action" style="display:${isAdmin?'':'none'}"><div class="flex gap-2 justify-center items-center"><button onclick="event.stopPropagation(); editDoc('${num}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 hover:bg-blue-100">แก้ไข</button><button onclick="event.stopPropagation(); deleteDoc('${num}')" class="text-red-600 font-bold text-xs bg-red-50 px-3 py-1.5 rounded-lg border border-red-200 hover:bg-red-100">ลบ</button></div></td></tr>`;
                 }
                 
-                // 2. หน้าสถานะ
                 if (num.toLowerCase().includes(sSearch) || title.toLowerCase().includes(sSearch)) {
-                    statusTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer border-b border-gray-50"><td class="p-4 font-bold align-top w-20">${num}</td><td class="p-4 align-top w-32 whitespace-nowrap">${fDateOut}</td><td class="p-4 align-top w-32 whitespace-nowrap">${fDateIn}</td><td class="p-4 align-top w-48">${docFrom}</td><td class="p-4 align-top min-w-[300px] whitespace-normal break-words leading-relaxed">${title||'-'}</td><td class="p-4 align-top w-1/4 text-xs text-gray-600 leading-relaxed whitespace-normal">${ownersStr ? ownersStr.replace(/,/g, '<br>') : '-'}</td><td class="p-4 align-top admin-view-cell text-center w-24" style="display:${isAdmin?'':'none'}"><div class="flex gap-2 justify-center items-center"><button onclick="event.stopPropagation(); editDoc('${num}')" class="bg-gray-50 text-blue-600 px-3 py-1.5 rounded-lg border border-blue-200 text-xs font-bold shadow-sm hover:bg-blue-50">แก้ไข</button><button onclick="event.stopPropagation(); deleteDoc('${num}')" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg border border-red-200 text-xs font-bold shadow-sm hover:bg-red-100">ลบ</button></div></td></tr>`;
+                    statusTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer border-b border-gray-50"><td class="p-4 font-bold align-top col-num">${num}</td><td class="p-4 align-top col-date whitespace-nowrap">${fDateOut}</td><td class="p-4 align-top col-date whitespace-nowrap">${fDateIn}</td><td class="p-4 align-top col-from">${docFrom}</td><td class="p-4 align-top text-wrap-custom col-title leading-relaxed">${title||'-'}</td><td class="p-4 align-top col-owner text-xs text-gray-600 leading-relaxed">${ownersStr ? ownersStr.replace(/,/g, '<br>') : '-'}</td><td class="p-4 align-top admin-view-cell col-action" style="display:${isAdmin?'':'none'}"><div class="flex gap-2 justify-center items-center"><button onclick="event.stopPropagation(); editDoc('${num}')" class="bg-gray-50 text-blue-600 px-3 py-1.5 rounded-lg border border-blue-200 text-xs font-bold shadow-sm hover:bg-blue-50">แก้ไข</button><button onclick="event.stopPropagation(); deleteDoc('${num}')" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg border border-red-200 text-xs font-bold shadow-sm hover:bg-red-100">ลบ</button></div></td></tr>`;
                 }
 
-                // 3. หน้าเสร็จสิ้น (คลังข้อมูลรวม)
                 if (num.toLowerCase().includes(cSearch) || title.toLowerCase().includes(cSearch)) {
                     let actionBtns = '';
                     if (isAdmin) {
@@ -325,7 +337,7 @@
                         if (status !== 'เสร็จสิ้น') actionBtns += `<button onclick="event.stopPropagation(); markAsCompleted('${num}')" class="bg-green-50 text-green-600 px-3 py-1.5 rounded-lg border border-green-200 text-xs font-bold shadow-sm hover:bg-green-100 mr-2">ยืนยันเสร็จสิ้น</button>`;
                         actionBtns += `<button onclick="event.stopPropagation(); deleteDoc('${num}')" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg border border-red-200 text-xs font-bold shadow-sm hover:bg-red-100">ลบ</button>`;
                     }
-                    compTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer border-b border-gray-50"><td class="p-4 font-bold align-top w-24">${num}</td><td class="p-4 align-top w-32 whitespace-nowrap">${fDateOut}</td><td class="p-4 align-top w-32 whitespace-nowrap">${fDateIn}</td><td class="p-4 align-top w-48">${docFrom}</td><td class="p-4 align-top min-w-[300px] whitespace-normal break-words leading-relaxed">${title||'-'}</td><td class="p-4 align-top text-center w-32">${getStatusBadge(status)}</td><td class="p-4 align-top text-center w-24">${docBtn}</td><td class="p-4 align-top text-center admin-view-cell min-w-[200px]" style="display:${isAdmin?'':'none'}"><div class="flex flex-wrap gap-2 justify-center items-center">${actionBtns}</div></td></tr>`;
+                    compTbody.innerHTML += `<tr onclick="viewDetails('${num}')" class="hover:bg-gray-50 cursor-pointer border-b border-gray-50"><td class="p-4 font-bold align-top col-num">${num}</td><td class="p-4 align-top col-date whitespace-nowrap">${fDateOut}</td><td class="p-4 align-top col-date whitespace-nowrap">${fDateIn}</td><td class="p-4 align-top col-from">${docFrom}</td><td class="p-4 align-top text-wrap-custom col-title leading-relaxed">${title||'-'}</td><td class="p-4 align-top col-status">${getStatusBadge(status)}</td><td class="p-4 align-top col-doc">${docBtn}</td><td class="p-4 align-top admin-view-cell col-action" style="display:${isAdmin?'':'none'}"><div class="flex flex-wrap gap-2 justify-center items-center">${actionBtns}</div></td></tr>`;
                 }
             } catch (err) { console.error(err, row); }
         });
